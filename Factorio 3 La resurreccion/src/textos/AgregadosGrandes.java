@@ -39,9 +39,10 @@ public class AgregadosGrandes {
     return a;
   }
 
-  public static String b(String Agg, String tabla) {
+  public static String oneToMany( String var) {
     String a;
-    a = "";
+    a = "  @OneToMany(mappedBy = MAPPED_BY, cascade = CascadeType.ALL)\n" + 
+        "  private Set<"+metodos.Capital(var)+"> "+var+";";
 
     return a;
   }
