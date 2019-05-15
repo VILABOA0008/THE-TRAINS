@@ -6,15 +6,14 @@ public class Agregadospeques {
 
   // public static final String de arriba
 
-  public static String ffield(String var) {
+  public static String finalFields(String FIELD, String var) {
     String a;
-    a = "\nprivate static final String FIELD_" + var.toUpperCase() + " = \"" + metodos.Capital(var)
-        + "\";";
+    a = "\nprivate static final String " + FIELD + " = \"" + metodos.Capital(var) + "\";";
 
     return a;
   }
 
-  public static String ffk(String var) {
+  public static String finalFk(String var) {
     String a;
     a = "   \nprivate static final String FK_" + var.toUpperCase() + " = \"" + metodos.Capital(var)
         + "\";";
@@ -22,24 +21,24 @@ public class Agregadospeques {
     return a;
   }
 
-  public static String ftable(String var) {
+  public static String finalTable(String var) {
     String a;
     a = "   \nprivate static final String TABLE_NAME = \"" + var + "\";";
 
     return a;
   }
-  
-  public static String fgenertator(String agg) {
+
+  public static String finalGenerator(String agg) {
     String a;
-    a = "   \nprivate static final String GENERATOR = \"" + agg+"Gen\";";
+    a = "   \nprivate static final String GENERATOR = \"" + agg + "Gen\";\n\n";
 
     return a;
   }
 
-  public static String tint(String Agg, String tabla) {
+  public static String basicVar(String FIELD, String tipo, String var) {
     String a;
-    a = "  @Column(name = FIELD_SHORT_NAME,  nullable = false)\n" +
-        "  private String shortName;";
+    a = "\n  @Column(name = " + FIELD + ",unique = false,  nullable = false)\n" +
+        "  private " + tipo + " " + var + ";\n";
 
     return a;
   }
@@ -59,9 +58,11 @@ public class Agregadospeques {
     return a;
   }
 
-  public static String ef(String Agg, String tabla) {
+  public static String constructorEmpty(String agg) {
     String a;
-    a = "";
+    a = "\n  " + agg + "() {\n" +
+        "    // Required by Hibernate\n" +
+        "  }\n";
 
     return a;
   }
