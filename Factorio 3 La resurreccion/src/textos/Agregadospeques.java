@@ -16,8 +16,15 @@ public class Agregadospeques {
   public static String finalFk(String var) {
     String a;
     a = "   \nprivate static final String FK_" + var.toUpperCase() + " = \"" + metodos.Capital(var)
-        + "\";";
-
+    + "\";";
+    
+    return a;
+  }
+  
+  public static String MappedBy(String var) {
+    String a;
+    a = "   \nprivate static final String MAPPED_BY = \"" + (var) + "\";";
+    
     return a;
   }
 

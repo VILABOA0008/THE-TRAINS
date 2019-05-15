@@ -32,17 +32,24 @@ public class AgregadosGrandes {
 
   public static String manyToOne(String FIELD_FK, String var) {
     String a;
-    a = "\n  @ManyToOne(fetch = FetchType.LAZY)\n" + 
-        "  @JoinColumn(name = "+FIELD_FK+", nullable = false, insertable = false, updatable = false)\n" + 
-        "  private "+metodos.Capital(var)+" "+var+";\n";
+    a = "\n  @ManyToOne(fetch = FetchType.LAZY)\n" +
+        "  @JoinColumn(name = " + FIELD_FK
+        + ", nullable = false, insertable = false, updatable = false)\n" +
+        "  private " + metodos.Capital(var) + " " + var + ";\n\n"
+            + "  @EmbeddedId\n" + 
+            "  @AttributeOverride(name = ID_"+var.toUpperCase()+", column = @Column(name = "+FIELD_FK+", nullable = true))\n" + 
+            "  private "+ metodos.Capital(var) +"Id  "+var+"Id;\n\n"
+            + "";
+    
+    //TODO indicar el id en la bd para el static final del attribute override
 
     return a;
   }
 
-  public static String oneToMany( String var) {
+  public static String oneToMany(String var) {
     String a;
-    a = "  @OneToMany(mappedBy = MAPPED_BY, cascade = CascadeType.ALL)\n" + 
-        "  private Set<"+metodos.Capital(var)+"> "+var+";";
+    a = "\n  @OneToMany(mappedBy = MAPPED_BY, cascade = CascadeType.ALL)\n" +
+        "  private Set<" + metodos.Capital(var) + "> " + var + ";";
 
     return a;
   }
