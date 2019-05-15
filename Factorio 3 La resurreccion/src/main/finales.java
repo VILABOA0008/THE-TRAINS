@@ -19,7 +19,7 @@ public class finales {
     Scanner s = new Scanner(System.in);
     String tabla, agg, id;
 
-    String tipo, var, fk, Field;
+    String tipo, var, fk,fkv, Field;
 
     int nf, c;
 
@@ -70,10 +70,20 @@ public class finales {
 
       System.out.println("Nombre");
       // fk = s.nextLine();
-      String ccv[] = { "products", "shops" };
+      String ccv[] = { "cost", "direction" };
       fk = ccv[c];
-
+      fkFinal.add("FK_" + fk.toUpperCase());
       ag += Agregadospeques.finalFk(fk);
+
+      
+      System.out.println("Valor");
+   // fkv = s.nextLine();
+      String ccvv[] = { "products", "shops" };
+      fk = ccvv[c];
+      fkFinal.add("FK_" + fk.toUpperCase());
+      ag += Agregadospeques.finalFk(fk);
+      
+      
       c++;
     }
     ag += Agregadospeques.finalGenerator(agg);
@@ -88,52 +98,23 @@ public class finales {
 
     ag += Agregadospeques.constructorEmpty(agg);
 
+    for (int i = 0; i < fkFinal.size(); i++) {
+      ag += fkFinal.get(i)+"   "+2+"\n";
+    }
     System.out.println(ag);
 
   }
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-
+//////////////////////////////////////////////////////
+//////////////////////////////////////////////////////
+//////////////////////////////////////////////////////
+//////////////////////////////////////////////////////
+//////////////////////////////////////////////////////
+//////////////////////////////////////////////////////
+//////////////////////////////////////////////////////
+//////////////////////////////////////////////////////
+//////////////////////////////////////////////////////
+//////////////////////////////////////////////////////
+  //////////////////////////////////////////////////////
   public static void f() {
 
     String ag = "", ag2 = "";
