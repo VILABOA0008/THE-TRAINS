@@ -61,8 +61,9 @@ public class Agregado {
     System.out.println(ag);
     System.out.println("\n\n\n ID \n\n\n");
     System.out.println("\n\n\n" + AgregadoId.id(agg));
-
-//    System.out.println("\n\n\n" + Factory.factory(agg, fieldsType, fieldsVar,fkmoVarFinal));
+    System.out.println("\n\n\n FACTORY \n\n\n");
+   System.out.println("\n\n\n" + Factory.factory(agg, fieldsType, fieldsVar,fkmoVarFinal));
+   System.out.println("\n\n\n FACTORY_IMPL \n\n\n");
     System.out.println("\n\n\n" + Factory.factoryImpl(agg, fieldsType, fieldsVar,fkmoVarFinal));
 
   }

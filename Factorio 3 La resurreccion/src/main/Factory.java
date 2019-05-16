@@ -18,9 +18,7 @@ public class Factory {
     }
     
     for (int i = 0; i < fkmoVarFinal.size(); i++) {
-      if (i != 0) {
         b += ",";
-      }
       b +="Integer"+ " " + fieldsVar.get(i);
     }
     
@@ -29,7 +27,7 @@ public class Factory {
         "\n" +
         "public interface " + agg + "Factory extends Factory<" + agg + "> {\n" +
         "  \n" +
-        "Button create" + agg + "(" + b + ");\n" +
+        " "+agg+" create" + agg + "(" + b + ");\n" +
         "\n" +
         "\n" +
         "}\n" +
@@ -82,7 +80,7 @@ public class Factory {
         "public class "+agg+"FactoryImpl extends BaseFactory<"+agg+"> implements "+agg+"Factory {\n" + 
         "\n" + 
         "  @Override\n" + 
-        "  public Button create"+agg+"("+b+") {\n" + 
+        "  public "+agg+" create"+agg+"("+b+") {\n" + 
         "\n" + 
         "    "+agg+" tmp"+agg+" = create();\n" + 
         "\n"+c + 
