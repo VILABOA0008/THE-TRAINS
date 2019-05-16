@@ -16,15 +16,15 @@ public class Agregadospeques {
   public static String finalFk(String var) {
     String a;
     a = "   \nprivate static final String FK_" + var.toUpperCase() + " = \"" + metodos.Capital(var)
-    + "\";";
-    
+        + "\";";
+
     return a;
   }
-  
-  public static String MappedBy(String var) {
+
+  public static String MappedBy(String fina, String var) {
     String a;
-    a = "   \nprivate static final String MAPPED_BY = \"" + (var) + "\";";
-    
+    a = "   \nprivate static final String " + fina + " = \"" + (var) + "\";";
+
     return a;
   }
 
@@ -50,10 +50,9 @@ public class Agregadospeques {
     return a;
   }
 
-  public static String tstring(String Agg, String tabla) {
+  public static String finalId(String agg) {
     String a;
-    a = "  @Column(name = FIELD_SHORT_NAME, nullable = false, length = 10)\n" +
-        "  private String shortName;";
+    a = "\npublic static final String FIELD_ID = \" Id" + metodos.Capital(agg) + " \";";
 
     return a;
   }

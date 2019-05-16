@@ -1,5 +1,7 @@
 package textos;
 
+import java.util.ArrayList;
+
 import main.metodos;
 
 public class AgregadosGrandes {
@@ -9,7 +11,7 @@ public class AgregadosGrandes {
     String AggId = metodos.aggId(agg);
 
     a = "@Entity\n" +
-        "@Table(name = " + agg + ".TABLENAME)\n" +
+        "@Table(name = " + agg + ".TABLE_NAME)\n" +
         "@IdClass(" + AggId + ".class)\n" +
         "public class " + agg + " extends BaseAggregateRoot<" + AggId + "> {\n";
 
@@ -24,7 +26,7 @@ public class AgregadosGrandes {
         " \n" +
         "  @Id\n" +
         "  @GeneratedValue(strategy = GenerationType.TABLE, generator = GENERATOR)\n" +
-        "  @Column(name = ID_" + agg + ", nullable = false, unique = true)\n" +
+        "  @Column(name = FIELD_ID, nullable = false, unique = true)\n" +
         "  private Integer id;\n";
 
     return a;
@@ -36,20 +38,25 @@ public class AgregadosGrandes {
         "  @JoinColumn(name = " + FIELD_FK
         + ", nullable = false, insertable = false, updatable = false)\n" +
         "  private " + metodos.Capital(var) + " " + var + ";\n\n"
-            + "  @EmbeddedId\n" + 
-            "  @AttributeOverride(name = ID_"+var.toUpperCase()+", column = @Column(name = "+FIELD_FK+", nullable = true))\n" + 
-            "  private "+ metodos.Capital(var) +"Id  "+var+"Id;\n\n"
-            + "";
-    
-    //TODO indicar el id en la bd para el static final del attribute override
+        + "  @EmbeddedId\n" +
+        "  @AttributeOverride(name = ID_" + var.toUpperCase() + ", column = @Column(name = "
+        + FIELD_FK + ", nullable = true))\n" +
+        "  private " + metodos.Capital(var) + "Id  " + metodos.aggId(var) + ";\n\n"
+        + "";
+
+    // TODO indicar el id en la bd para el static final del attribute override
 
     return a;
   }
 
-  public static String oneToMany(String var) {
-    String a;
-    a = "\n  @OneToMany(mappedBy = MAPPED_BY, cascade = CascadeType.ALL)\n" +
-        "  private Set<" + metodos.Capital(var) + "> " + var + ";";
+  public static String oneToMany(ArrayList<String>mapedByFinal,ArrayList<String>mapedByV) {
+    String a="";
+    for (int i=0;i<mapedByV.size();i++) {
+    
+    a += "\n  @OneToMany(mappedBy = "+mapedByFinal.get(i)+", cascade = CascadeType.ALL)\n" +
+        "  private Set<" + metodos.Capital(mapedByV.get(i)) + "> " + mapedByV.get(i) + ";";
+    
+    }
 
     return a;
   }
