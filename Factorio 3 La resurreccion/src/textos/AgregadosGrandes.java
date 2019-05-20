@@ -39,12 +39,11 @@ public class AgregadosGrandes {
         + ", nullable = false, insertable = false, updatable = false)\n" +
         "  private " + metodos.Capital(var) + " " + var + ";\n\n"
         + "  @EmbeddedId\n" +
-        "  @AttributeOverride(name = ID_" + var.toUpperCase() + ", column = @Column(name = "
+        "  @AttributeOverride(name = ID  , column = @Column(name = "
         + FIELD_FK + ", nullable = true))\n" +
         "  private " + metodos.Capital(var) + "Id  " + metodos.aggId(var) + ";\n\n"
         + "";
 
-    // TODO indicar el id en la bd para el static final del attribute override
 
     return a;
   }
@@ -76,6 +75,20 @@ public class AgregadosGrandes {
   }
 
   public static String e(String Agg, String tabla) {
+    String a;
+    a = "";
+
+    return a;
+  }
+
+  public static String e21(String Agg, String tabla) {
+    String a;
+    a = "";
+
+    return a;
+  }
+
+  public static String e2(String Agg, String tabla) {
     String a;
     a = "";
 

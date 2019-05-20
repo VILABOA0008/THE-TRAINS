@@ -37,13 +37,15 @@ public class Agregado {
 
     ag += Agregadospeques.finalTable(tabla);
 
+    ag += Agregadospeques.ID();
+
     ag += Agregadospeques.finalId(agg);
 
     ag += Fields(fieldsType, fieldsFinal, fieldsVar);
 
     ag += ManysToOnes(fkmoFinal, fkmoVarFinal);
 
-    ag += OnesToManys(mapedBy, mapedByV,mapedByFinal);
+    ag += OnesToManys(mapedBy, mapedByV, mapedByFinal);
 
     ag += Agregadospeques.finalGenerator(agg);
     ag += AgregadosGrandes.tableGenerator(agg);
@@ -62,9 +64,13 @@ public class Agregado {
     System.out.println("\n\n\n ID \n\n\n");
     System.out.println("\n\n\n" + AgregadoId.id(agg));
     System.out.println("\n\n\n FACTORY \n\n\n");
-   System.out.println("\n\n\n" + Factory.factory(agg, fieldsType, fieldsVar,fkmoVarFinal));
-   System.out.println("\n\n\n FACTORY_IMPL \n\n\n");
-    System.out.println("\n\n\n" + Factory.factoryImpl(agg, fieldsType, fieldsVar,fkmoVarFinal));
+    System.out.println("\n\n\n" + Factory.factory(agg, fieldsType, fieldsVar, fkmoVarFinal));
+    System.out.println("\n\n\n FACTORY_IMPL \n\n\n");
+    System.out.println("\n\n\n" + Factory.factoryImpl(agg, fieldsType, fieldsVar, fkmoVarFinal));
+    System.out.println("\n\n\n CREATE  DTO \n\n\n");
+    System.out.println("\n\n\n" + Dto.createDto(agg, fieldsType, fieldsVar, fkmoVarFinal));
+    System.out.println("\n\n\n DTO \n\n\n");
+    System.out.println("\n\n\n" + Dto.Dto(agg));
 
   }
 
@@ -135,7 +141,7 @@ public class Agregado {
 
       System.out.println("tipo");
       // tipo = s.nextLine();
-      String cct[] = { "String", "String", "int", "float" };
+      String cct[] = { "String", "String", "Integer", "float" };
       String tipo = cct[c];
       fieldsType.add(tipo);
 
@@ -154,7 +160,8 @@ public class Agregado {
     return a;
   }
 
-  public static String OnesToManys(ArrayList<String> mapedBy, ArrayList<String> mapedByV,ArrayList<String> mapedByFinal) {
+  public static String OnesToManys(ArrayList<String> mapedBy, ArrayList<String> mapedByV,
+      ArrayList<String> mapedByFinal) {
     String a = "";
     System.out.println("Numero de ones to manies");
     // nf = s.nextInt();
@@ -169,10 +176,10 @@ public class Agregado {
       mapedBy.add(MappedBy);
 
       if (!MappedBy.isEmpty()) {
-        String MappedByFinal="MAPPED_BY_"+MappedBy.toUpperCase();
+        String MappedByFinal = "MAPPED_BY_" + MappedBy.toUpperCase();
         mapedByFinal.add(MappedByFinal);
-        
-        a += Agregadospeques.MappedBy(MappedByFinal,MappedBy);
+
+        a += Agregadospeques.MappedBy(MappedByFinal, MappedBy);
         System.out.println("Escribe la variable");
         // mappedByV = s.nextLine();
         String mappedByV = "positions";
@@ -196,7 +203,7 @@ public class Agregado {
 
       System.out.println("Nombre");
       // fk = s.nextLine();
-      String ccv[] = { "cost", "direction" };
+      String ccv[] = { "style", "page" };
       String fk = ccv[c];
       fkmoFinal.add("FK_" + fk.toUpperCase());
       a += Agregadospeques.finalFk(fk);
