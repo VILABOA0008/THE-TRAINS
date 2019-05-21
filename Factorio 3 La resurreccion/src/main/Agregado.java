@@ -71,6 +71,10 @@ public class Agregado {
     System.out.println("\n\n\n" + Dto.createDto(agg, fieldsType, fieldsVar, fkmoVarFinal));
     System.out.println("\n\n\n DTO \n\n\n");
     System.out.println("\n\n\n" + Dto.Dto(agg));
+    System.out.println("\n\n\n CREATE ASSEMBLER \n\n\n");
+    System.out.println("\n\n\n" + Assembler.createAssembler(agg, fieldsType, fieldsVar, fkmoVarFinal));
+    System.out.println("\n\n\n  ASSEMBLER \n\n\n");
+    System.out.println("\n\n\n" + Assembler.Assembler(agg, fieldsType, fieldsVar, fkmoVarFinal));
 
   }
 
