@@ -52,7 +52,8 @@ public class Agregadospeques {
 
   public static String finalId(String agg) {
     String a;
-    a = "\nprivate static final String FIELD_ID = \" Id" + metodos.Capital(agg) + " \";";
+    a = "\nprivate static final String ID_" + agg.toUpperCase() + " = \" id" + metodos.Capital(agg)
+        + " \";";
 
     return a;
   }
@@ -100,24 +101,25 @@ public class Agregadospeques {
 
     return a;
   }
+
   public static String h2e(String Agg, String tabla) {
     String a;
     a = "";
-    
+
     return a;
   }
-  
+
   public static String jdd(String Agg, String tabla) {
     String a;
     a = "";
-    
+
     return a;
   }
-  
+
   public static String e3(String Agg, String tabla) {
     String a;
     a = "";
-    
+
     return a;
   }
 

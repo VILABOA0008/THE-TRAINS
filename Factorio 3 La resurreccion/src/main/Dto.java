@@ -24,7 +24,9 @@ public class Dto {
     a += "\n\n";
 
     for (int i = 0; i < fieldsType.size(); i++) {
-      a += "  @FactoryArgument(index = " + i + ")\n" +
+      a += "  @JsonProperty(value = " + fieldsVar.get(i) + ")\n" +
+          "  @ApiModelProperty(value = " + fieldsVar.get(i) + ")\n "
+          + " @FactoryArgument(index = " + i + ")\n" +
           "  public " + fieldsType.get(i) + " get" + metodos.Capital(fieldsVar.get(i)) + "() {\n" +
           "    return " + fieldsVar.get(i) + ";" +
           "  }\n\n";
@@ -32,7 +34,9 @@ public class Dto {
     for (int i = 0; i < fkmoVarFinal.size(); i++) {
 
       String cap = metodos.Capital(fkmoVarFinal.get(i));
-      a += "  @FactoryArgument(index = " + (fieldsType.size() + i) + ")\n" +
+      a += "  @JsonProperty(value = " + cap + ")\n" +
+          "  @ApiModelProperty(value = " + cap + ") \n"
+          + "  @FactoryArgument(index = " + (fieldsType.size() + i) + ")\n" +
           "  public Integer getId" + cap + "() {\n" +
           "    return id" + cap + ";" +
           "  }\n\n";
@@ -79,7 +83,6 @@ public class Dto {
 
     a += "\n}";
 
-    
     return a;
   }
 
