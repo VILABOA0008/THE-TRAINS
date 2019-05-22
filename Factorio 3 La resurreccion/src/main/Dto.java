@@ -17,7 +17,6 @@ public class Dto {
       a += "private " + fieldsType.get(i) + " " + fieldsVar.get(i) + ";\n";
     }
     for (int i = 0; i < fkmoVarFinal.size(); i++) {
-      a += ",";
       a += "private Integer" + " id" + metodos.Capital(fkmoVarFinal.get(i) + ";\n");
     }
 

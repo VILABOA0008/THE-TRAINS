@@ -3,6 +3,7 @@ package main;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import cosas.Escribir;
 import textos.AgregadosGrandes;
 import textos.Agregadospeques;
 
@@ -75,6 +76,13 @@ public class Agregado {
     System.out.println("\n\n\n" + Assembler.createAssembler(agg, fieldsType, fieldsVar, fkmoVarFinal));
     System.out.println("\n\n\n  ASSEMBLER \n\n\n");
     System.out.println("\n\n\n" + Assembler.Assembler(agg, fieldsType, fieldsVar, fkmoVarFinal));
+    
+    
+    Escribir.escribir("C:\\Users\\pabcos\\Documents\\trains\\prubas\\proyecto seedstack base\\src\\main\\java\\ctag\\domain\\model\\aggregate\\ModelosPruebas\\cosas.java",ag);
+    //Escribir.escribir("C:\\Users\\pabcos\\Desktop\\cosas.txt",ag);
+
+
+    
 
   }
 
