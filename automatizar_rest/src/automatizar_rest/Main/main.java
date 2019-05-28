@@ -9,43 +9,63 @@ import java.net.URLConnection;
 
 public class main {
 
-  public static void main(String[] args) {
-
-    try {
-
-    
-    getData("http://localhost:8080/totem-deploy/api/swagger.json");
-    
-//
-//      URL miUrl = new URL("http://localhost:8080/totem-deploy/api/swagger.json");
-//      URLConnection miUrlCon = miUrl.openConnection();
-//      BufferedReader br = new BufferedReader(new InputStreamReader(miUrlCon.getInputStream()));
-//      String str = "";
-//      str = miUrlCon.getContentType();
-//      System.out.println(str);
-//      while (str != null) {
-//        str = br.readLine();
-//        System.out.println(str);
-//      }
-//
-    } catch (Exception e) {
-      System.out.println("error   " + e);
-    }
+  public static void main(String[] args) {  
+    String output  = getUrlContents("http://localhost:8080/totem-deploy/api/button");
+    System.out.println(output);
   }
 
+  private static String getUrlContents(String theUrl)
+  {
+    StringBuilder content = new StringBuilder();
 
-public static void getData(String address) throws Exception {
-  URL page = new URL(address);
-  StringBuffer text = new StringBuffer();
-  HttpURLConnection conn = (HttpURLConnection) page.openConnection();
-  conn.connect();
-  InputStreamReader in = new InputStreamReader((InputStream) conn.getContent());
-  BufferedReader buff = new BufferedReader(in);
-  String line;
-  do {
-    line = buff.readLine();
-    text.append(line + "\n");
-  } while (line != null);
-  System.out.println(text.toString());
+    // many of these calls can throw exceptions, so i've just
+    // wrapped them all in one try/catch statement.
+    try
+    {
+      // create a url object
+      URL url = new URL(theUrl);
+
+      // create a urlconnection object
+      URLConnection urlConnection = url.openConnection();
+
+      // wrap the urlconnection in a bufferedreader
+      BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
+
+      String line;
+
+      // read from the urlconnection via the bufferedreader
+      while ((line = bufferedReader.readLine()) != null)
+      {
+        content.append(line + "\n");
+      }
+      bufferedReader.close();
+    }
+    catch(Exception e)
+    {
+      e.printStackTrace();
+    }
+    return content.toString();
+  }
 }
-}
+
+
+//
+//try {
+//
+//  
+//  
+//
+//  URL miUrl = new URL("http://localhost:8080/totem-deploy/api/swagger.json");
+//  URLConnection miUrlCon = miUrl.openConnection();
+//  BufferedReader br = new BufferedReader(new InputStreamReader(miUrlCon.getInputStream()));
+//  String str = "";
+//  str = miUrlCon.getContentType();
+//  System.out.println(str);
+//  while (str != null) {
+//    str = br.readLine();
+//    System.out.println(str);
+//  }
+//
+//} catch (Exception e) {
+//  System.out.println("error   " + e);
+//}
