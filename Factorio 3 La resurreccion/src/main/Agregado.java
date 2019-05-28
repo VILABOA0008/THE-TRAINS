@@ -28,9 +28,13 @@ public class Agregado {
     String tabla, agg;
 
     // DISTINTAS VARIABLES
-    String MappedBy, mappedByV = "cas";
+    String MappedBy, mappedByV;
 
     agg = NombreAggregado();
+
+    ag += Agregadospeques.paqueteB();
+
+    ag += Agregadospeques.imports();
 
     ag += AgregadosGrandes.clas(agg);
 
@@ -60,6 +64,15 @@ public class Agregado {
     if (!mapedByV.isEmpty()) {
       ag += AgregadosGrandes.oneToMany(mapedByFinal, mapedByV);
     }
+    ag += "\n\n\n";
+
+    ag += Agregadospeques.getId(agg);
+    ag += Agregadospeques.getBasics(fieldsType, fieldsVar);
+    ag += Agregadospeques.setBasics(fieldsType, fieldsVar);
+    ag += AgregadosGrandes.setAddSets(mapedByV);
+    ag += AgregadosGrandes.getSetEntities(fkmoVarFinal);
+
+    ag += Agregadospeques.acabalo();
 
     System.out.println(ag);
     System.out.println("\n\n\n ID \n\n\n");
@@ -73,16 +86,18 @@ public class Agregado {
     System.out.println("\n\n\n DTO \n\n\n");
     System.out.println("\n\n\n" + Dto.Dto(agg));
     System.out.println("\n\n\n CREATE ASSEMBLER \n\n\n");
-    System.out.println("\n\n\n" + Assembler.createAssembler(agg, fieldsType, fieldsVar, fkmoVarFinal));
+    System.out.println(
+        "\n\n\n" + Assembler.createAssembler(agg, fieldsType, fieldsVar, fkmoVarFinal));
     System.out.println("\n\n\n  ASSEMBLER \n\n\n");
     System.out.println("\n\n\n" + Assembler.Assembler(agg, fieldsType, fieldsVar, fkmoVarFinal));
-    
-    
-    Escribir.escribir("C:\\Users\\pabcos\\Documents\\trains\\prubas\\proyecto seedstack base\\src\\main\\java\\ctag\\domain\\model\\aggregate\\ModelosPruebas\\cosas.java",ag);
-    //Escribir.escribir("C:\\Users\\pabcos\\Desktop\\cosas.txt",ag);
 
-
-    
+    Escribir.escribir(
+        "C:\\Users\\pabcos\\Documents\\trains\\prubas\\proyecto seedstack base\\src\\main\\java\\ctag\\domain\\model\\aggregate\\ModelosPruebas\\Customers.java",
+        ag);
+    Escribir.escribir(
+        "C:\\Users\\pabcos\\Documents\\trains\\prubas\\proyecto seedstack base\\src\\main\\java\\ctag\\domain\\model\\aggregate\\ModelosPruebas\\CustomersId.java",
+        AgregadoId.id(agg));
+    // Escribir.escribir("C:\\Users\\pabcos\\Desktop\\cosas.txt",ag);
 
   }
 
@@ -90,8 +105,8 @@ public class Agregado {
   //////////////////////////////////////////////////////
   //////////////////////////////////////////////////////
 
-  public static String VariablesBasicas(ArrayList<String> fieldsFinal, ArrayList<String> fieldsType,
-      ArrayList<String> fieldsVar) {
+  public static String VariablesBasicas(
+      ArrayList<String> fieldsFinal, ArrayList<String> fieldsType, ArrayList<String> fieldsVar) {
 
     String a = "";
 
@@ -140,8 +155,8 @@ public class Agregado {
     return agg;
   }
 
-  public static String Fields(ArrayList<String> fieldsType, ArrayList<String> fieldsFinal,
-      ArrayList<String> fieldsVar) {
+  public static String Fields(
+      ArrayList<String> fieldsType, ArrayList<String> fieldsFinal, ArrayList<String> fieldsVar) {
     String a = "";
 
     System.out.println("Cuantos fields sin relaciones");
@@ -153,13 +168,13 @@ public class Agregado {
 
       System.out.println("tipo");
       // tipo = s.nextLine();
-      String cct[] = { "String", "String", "Integer", "float" };
+      String cct[] = {"String", "String", "Integer", "float"};
       String tipo = cct[c];
       fieldsType.add(tipo);
 
       System.out.println("variable");
       // var = s.nextLine();
-      String ccv[] = { "name", "username", "age", "money" };
+      String ccv[] = {"name", "username", "age", "money"};
       String var = ccv[c];
 
       String Field = "FIELD_" + var.toUpperCase();
@@ -172,8 +187,8 @@ public class Agregado {
     return a;
   }
 
-  public static String OnesToManys(ArrayList<String> mapedBy, ArrayList<String> mapedByV,
-      ArrayList<String> mapedByFinal) {
+  public static String OnesToManys(
+      ArrayList<String> mapedBy, ArrayList<String> mapedByV, ArrayList<String> mapedByFinal) {
     String a = "";
     System.out.println("Numero de ones to manies");
     // nf = s.nextInt();
@@ -194,7 +209,7 @@ public class Agregado {
         a += Agregadospeques.MappedBy(MappedByFinal, MappedBy);
         System.out.println("Escribe la variable");
         // mappedByV = s.nextLine();
-        String mappedByV = "positions";
+        String mappedByV = "position";
         mapedByV.add(mappedByV);
       }
 
@@ -215,21 +230,20 @@ public class Agregado {
 
       System.out.println("Nombre");
       // fk = s.nextLine();
-      String ccv[] = { "style", "page" };
+      String ccv[] = {"style", "page"};
       String fk = ccv[c];
       fkmoFinal.add("FK_" + fk.toUpperCase());
       a += Agregadospeques.finalFk(fk);
 
       System.out.println("Valor");
       // fkv = s.nextLine();
-      String ccvv[] = { "products", "shops" };
+      String ccvv[] = {"products", "shops"};
       String fkv = ccvv[c];
       fkmoVarFinal.add(fk);
 
       c++;
     }
     return a;
-
   }
 
   //
