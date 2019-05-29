@@ -11,8 +11,11 @@ public class Agregado {
 
   public static void test() {
 
-    Scanner s = new Scanner(System.in);
     String ag = "", ag2 = "";
+    // MANY TO MANY
+    ArrayList<String> mtmVar = new ArrayList<>();
+    // MANY TO MANY
+    ArrayList<String> mtmappedVar = new ArrayList<>();
     // MANY TO ONE
     ArrayList<String> fkmoVarFinal = new ArrayList<>();
     ArrayList<String> fkmoFinal = new ArrayList<>();
@@ -49,8 +52,9 @@ public class Agregado {
     ag += Fields(fieldsType, fieldsFinal, fieldsVar);
 
     ag += ManysToOnes(fkmoFinal, fkmoVarFinal);
-
     ag += OnesToManys(mapedBy, mapedByV, mapedByFinal);
+    ag += ManyToMany(agg, mtmVar);
+    ag += ManyToManyMapped(agg, mtmappedVar);
 
     ag += Agregadospeques.finalGenerator(agg);
     ag += AgregadosGrandes.tableGenerator(agg);
@@ -64,6 +68,9 @@ public class Agregado {
     if (!mapedByV.isEmpty()) {
       ag += AgregadosGrandes.oneToMany(mapedByFinal, mapedByV);
     }
+    ag += AgregadosGrandes.ManysToManys(agg, mtmVar);
+    ag += Agregadospeques.manyToManyMappedBy(agg, mtmappedVar);
+
     ag += "\n\n\n";
 
     ag += Agregadospeques.getId(agg);
@@ -189,16 +196,19 @@ public class Agregado {
 
   public static String OnesToManys(
       ArrayList<String> mapedBy, ArrayList<String> mapedByV, ArrayList<String> mapedByFinal) {
+    Scanner s = new Scanner(System.in);
     String a = "";
     System.out.println("Numero de ones to manies");
-    // nf = s.nextInt();
-    // s.nextLine();
-    int nf = 1;
     int c = 0;
+    //    int nf = s.nextInt();
+    //     s.nextLine();
+
+    int nf = 1;
+
     while (nf > c) {
 
       System.out.println("mapped by");
-      // MappedBy = s.nextLine();
+      //      String MappedBy = s.nextLine();
       String MappedBy = "storage";
       mapedBy.add(MappedBy);
 
@@ -208,10 +218,67 @@ public class Agregado {
 
         a += Agregadospeques.MappedBy(MappedByFinal, MappedBy);
         System.out.println("Escribe la variable");
-        // mappedByV = s.nextLine();
+        //        String mappedByV = s.nextLine();
         String mappedByV = "position";
         mapedByV.add(mappedByV);
       }
+
+      c++;
+    }
+    return a;
+  }
+
+  public static String ManyToMany(String agg, ArrayList<String> mtmVar) {
+    Scanner s = new Scanner(System.in);
+    String a = "";
+    System.out.println("Numero de manys to manys sin mapped by");
+    int c = 0;
+    //    int nf = s.nextInt();
+    //     s.nextLine();
+    int nf = 1;
+
+    while (nf > c) {
+      String clase, id, tabla;
+      System.out.println("tipo (en minuscula) ");
+      //      String MappedBy = s.nextLine();
+      clase = "page";
+      mtmVar.add(clase);
+
+      System.out.println("id ");
+      //    String MappedBy = s.nextLine();
+      id = "idPage";
+
+      System.out.println("tabla ");
+      //  String MappedBy = s.nextLine();
+      tabla = "TOT_CUSTOMER_PAGE";
+      a += Agregadospeques.finalManytoMany(agg, clase, id, tabla);
+
+      c++;
+    }
+    return a;
+  }
+
+  public static String ManyToManyMapped(String agg, ArrayList<String> mtmVar) {
+    Scanner s = new Scanner(System.in);
+    String a = "";
+    System.out.println("Numero de manys to manys con mapped by");
+    int c = 0;
+    //    int nf = s.nextInt();
+    //     s.nextLine();
+    int nf = 1;
+
+    while (nf > c) {
+      String clase, map;
+      System.out.println("tipo (en minuscula) ");
+      //      String MappedBy = s.nextLine();
+      clase = "style";
+      mtmVar.add(clase);
+
+      System.out.println("mappedby ");
+      //    String MappedBy = s.nextLine();
+      map = "customers";
+
+      a += Agregadospeques.finalManytoManyMapped(clase, map);
 
       c++;
     }
@@ -234,12 +301,10 @@ public class Agregado {
       String fk = ccv[c];
       fkmoFinal.add("FK_" + fk.toUpperCase());
       a += Agregadospeques.finalFk(fk);
-
-      System.out.println("Valor");
-      // fkv = s.nextLine();
-      String ccvv[] = {"products", "shops"};
-      String fkv = ccvv[c];
       fkmoVarFinal.add(fk);
+
+      // System.out.println("Valor");
+      // fkv = s.nextLine();
 
       c++;
     }

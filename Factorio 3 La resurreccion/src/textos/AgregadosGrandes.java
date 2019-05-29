@@ -2,7 +2,6 @@ package textos;
 
 import java.util.ArrayList;
 
-
 import main.metodos;
 
 public class AgregadosGrandes {
@@ -50,13 +49,16 @@ public class AgregadosGrandes {
   }
 
   public static String oneToMany(ArrayList<String>mapedByFinal,ArrayList<String>mapedByV) {
+    
+
     String a="";
-    for (int i=0;i<mapedByV.size();i++) {
-    
-    a += "\n  @OneToMany(mappedBy = "+mapedByFinal.get(i)+", cascade = CascadeType.ALL, fetch = FetchType.EAGER)\n" +
-        "  private Set<" + metodos.Capital(mapedByV.get(i)) + "> " + mapedByV.get(i) + "s;";
-    
+    int c=0;
+      for(String i:mapedByV) {
+    a += "\n  @OneToMany(mappedBy = "+mapedByFinal.get(c)+", cascade = CascadeType.ALL, fetch = FetchType.EAGER)\n" +
+        "  private Set<" + metodos.Capital(i) + "> " + i + "s;\n";
+    c++;
     }
+    
 
     return a;
   }
@@ -99,6 +101,27 @@ public class AgregadosGrandes {
     return a;
   }
 
+  public static String ManysToManys(String agg,ArrayList<String>mtmVar) {
+    String a="";
+    for(String i:mtmVar) {
+    
+    a += " \n @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)\n" + 
+        "  @JoinTable(\n" + 
+        "      name = TABLE_"+agg.toUpperCase()+"_"+i.toUpperCase()+",\n" + 
+        "      joinColumns = {@JoinColumn(name = ID_"+agg.toUpperCase()+", nullable = false, updatable = false)},\n" + 
+        "      inverseJoinColumns = {@JoinColumn(name = ID_"+i.toUpperCase()+", nullable = false, updatable = false)})\n" + 
+        "  private Set<"+metodos.Capital(i)+"> "+i+"s;\n";
+
+    }
+    return a;
+  }
+
+  public static String we2(String Agg, String tabla) {
+    String a;
+    a = "";
+
+    return a;
+  }
   public static String e(String Agg, String tabla) {
     String a;
     a = "";
@@ -119,5 +142,4 @@ public class AgregadosGrandes {
 
     return a;
   }
-
 }

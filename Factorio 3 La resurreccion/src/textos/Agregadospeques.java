@@ -41,6 +41,22 @@ public class Agregadospeques {
     return a;
   }
 
+  public static String finalManytoMany(String agg, String clase, String id, String tabla) {
+    String a = "";
+
+    a +=
+        "   \nprivate static final String TABLE_"
+            + agg.toUpperCase()
+            + "_"
+            + clase.toUpperCase()
+            + " = \""
+            + tabla
+            + "\";";
+    a += "   \nprivate static final String ID_" + clase.toUpperCase() + " = \"" + id + "\";";
+
+    return a;
+  }
+
   public static String finalGenerator(String agg) {
     String a;
     a = "   \nprivate static final String GENERATOR = \"" + agg + "Gen\";\n\n";
@@ -79,9 +95,9 @@ public class Agregadospeques {
     String a;
     a =
         "\nprivate static final String ID = \"id\";"
-            + " \n   private static final String KEY_VAL = \"KeyVal\";\n"
-            + "  private static final String SEQUENCE = \"SEQUENCE\";\n"
-            + "  private static final String VALUE = \"Value\";";
+            + " \nprivate static final String KEY_VAL = \"KeyVal\";\n"
+            + "private static final String SEQUENCE = \"SEQUENCE\";\n"
+            + "private static final String VALUE = \"Value\";";
 
     return a;
   }
@@ -97,7 +113,7 @@ public class Agregadospeques {
     String a;
     a =
         "import java.util.Collections;\n"
-            + "import java.util.HashSet;"
+            + "import java.util.HashSet;\n"
             + "import java.util.Set;\n"
             + "import javax.persistence.AttributeOverride;\n"
             + "import javax.persistence.CascadeType;\n"
@@ -112,6 +128,8 @@ public class Agregadospeques {
             + "import javax.persistence.JoinColumn;\n"
             + "import javax.persistence.ManyToOne;\n"
             + "import javax.persistence.OneToMany;\n"
+            + "import javax.persistence.JoinTable;\n"
+            + "import javax.persistence.ManyToMany;\n"
             + "import javax.persistence.Table;\n"
             + "import javax.persistence.TableGenerator;\n"
             + "import org.seedstack.business.domain.BaseAggregateRoot;\n\n";
@@ -128,7 +146,7 @@ public class Agregadospeques {
 
   public static String paqueteB() {
     String a;
-    a = "package ctag.domain.model.aggregate.ModelosPruebas;\n\n";
+    a = "package ctag.domain.model.aggregate.modelospruebas;\n\n";
 
     return a;
   }
@@ -203,10 +221,32 @@ public class Agregadospeques {
     return a;
   }
 
-  public static String fd(String Agg, String tabla) {
-    String a;
-    a = "";
+  public static String finalManytoManyMapped(String clase, String mapped) {
+    String a = "";
 
+    a +=
+        "   \nprivate static final String MAPPED_BY_"
+            + clase.toUpperCase()
+            + " = \""
+            + mapped
+            + "\";";
+
+    return a;
+  }
+
+  public static String manyToManyMappedBy(String Agg, ArrayList<String> mapped) {
+    String a = "";
+    for (String i : mapped) {
+      a +=
+          "  @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY, mappedBy =  MAPPED_BY_"
+              + i.toUpperCase()
+              + ")\n"
+              + "  private Set<"
+              + metodos.Capital(i)
+              + "> "
+              + i
+              + "s;";
+    }
     return a;
   }
 
