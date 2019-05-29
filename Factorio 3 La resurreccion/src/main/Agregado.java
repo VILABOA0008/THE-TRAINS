@@ -35,7 +35,7 @@ public class Agregado {
 
     agg = NombreAggregado();
 
-    ag += Agregadospeques.paqueteB();
+    ag += Agregadospeques.paqueteAgg();
 
     ag += Agregadospeques.imports();
 
@@ -98,12 +98,51 @@ public class Agregado {
     System.out.println("\n\n\n  ASSEMBLER \n\n\n");
     System.out.println("\n\n\n" + Assembler.Assembler(agg, fieldsType, fieldsVar, fkmoVarFinal));
 
+    // ENTITY , ID
     Escribir.escribir(
         "C:\\Users\\pabcos\\Documents\\trains\\prubas\\proyecto seedstack base\\src\\main\\java\\ctag\\domain\\model\\aggregate\\ModelosPruebas\\Customers.java",
         ag);
     Escribir.escribir(
         "C:\\Users\\pabcos\\Documents\\trains\\prubas\\proyecto seedstack base\\src\\main\\java\\ctag\\domain\\model\\aggregate\\ModelosPruebas\\CustomersId.java",
         AgregadoId.id(agg));
+    // DTOS
+    Escribir.escribir(
+        "C:\\Users\\pabcos\\Documents\\trains\\prubas\\proyecto seedstack base\\src\\main\\java\\ctag\\dtos\\dto\\customer\\"
+            + metodos.Capital(agg)
+            + "CreateDto.java",
+        Dto.createDto(agg, fieldsType, fieldsVar, fkmoVarFinal));
+    Escribir.escribir(
+        "C:\\Users\\pabcos\\Documents\\trains\\prubas\\proyecto seedstack base\\src\\main\\java\\ctag\\dtos\\dto\\customer\\"
+            + metodos.Capital(agg)
+            + "Dto.java",
+        Dto.Dto(agg));
+    // ASSEMBLERS
+    Escribir.escribir(
+        "C:\\Users\\pabcos\\Documents\\trains\\prubas\\proyecto seedstack base\\src\\main\\java\\ctag\\dtos\\assembler\\customer\\"
+            + metodos.Capital(agg)
+            + "CreateAssembler.java",
+        Assembler.createAssembler(agg, fieldsType, fieldsVar, fkmoVarFinal));
+    Escribir.escribir(
+        "C:\\Users\\pabcos\\Documents\\trains\\prubas\\proyecto seedstack base\\src\\main\\java\\ctag\\dtos\\assembler\\customer\\"
+            + metodos.Capital(agg)
+            + "Assembler.java",
+        Assembler.Assembler(agg, fieldsType, fieldsVar, fkmoVarFinal));
+    // FACTORUE
+    Escribir.escribir(
+        "C:\\Users\\pabcos\\Documents\\trains\\prubas\\proyecto seedstack base\\src\\main\\java\\ctag\\domain\\model\\aggregate\\ModelosPruebas\\"
+            + metodos.Capital(agg)
+            + "Factory.java",
+            Factory.factory(agg, fieldsType, fieldsVar, fkmoVarFinal));
+    Escribir.escribir(
+        "C:\\Users\\pabcos\\Documents\\trains\\prubas\\proyecto seedstack base\\src\\main\\java\\ctag\\domain\\model\\aggregate\\ModelosPruebas\\"
+            + metodos.Capital(agg)
+            + "Factory.java",
+            Factory.factory(agg, fieldsType, fieldsVar, fkmoVarFinal));
+   /* Escribir.escribir(
+        "C:\\Users\\pabcos\\Documents\\trains\\prubas\\proyecto seedstack base\\src\\main\\java\\ctag\\dtos\\assembler\\customer\\"
+            + metodos.Capital(agg)
+            + "Assembler.java",
+            Assembler.Assembler(agg, fieldsType, fieldsVar, fkmoVarFinal));*/
     // Escribir.escribir("C:\\Users\\pabcos\\Desktop\\cosas.txt",ag);
 
   }
@@ -310,37 +349,4 @@ public class Agregado {
     }
     return a;
   }
-
-  //
-  // public static String oneToManyField() {
-  // Scanner s=new Scanner(System.in);
-  // System.out.println("mapped by de one to many (vacio si no hay)");
-  // String map=s.nextLine();
-  //
-  // if(map.isEmpty()) {
-  // return null;
-  //
-  // }else {
-  //
-  // System.out.println("Escribe la variable");
-  // String mappedBy=s.nextLine();
-  //
-  // }
-  // return null;
-  // }
-  //////////////////////////////////////////////////////
-  //////////////////////////////////////////////////////
-  //////////////////////////////////////////////////////
-  //////////////////////////////////////////////////////
-  //////////////////////////////////////////////////////
-  //////////////////////////////////////////////////////
-  //////////////////////////////////////////////////////
-  //////////////////////////////////////////////////////
-  //////////////////////////////////////////////////////
-  //////////////////////////////////////////////////////
-  //////////////////////////////////////////////////////
-  //////////////////////////////////////////////////////
-  //////////////////////////////////////////////////////
-  //////////////////////////////////////////////////////
-
 }

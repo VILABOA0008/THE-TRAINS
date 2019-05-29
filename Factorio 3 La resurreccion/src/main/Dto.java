@@ -2,12 +2,18 @@ package main;
 
 import java.util.ArrayList;
 
+import textos.Agregadospeques;
+
 public class Dto {
 
   public static String createDto(String agg, ArrayList<String> fieldsType,
       ArrayList<String> fieldsVar, ArrayList<String> fkmoVarFinal) {
     String a = "";
     agg = metodos.Capital(agg);
+    
+    a+=Agregadospeques.DtoPackage();    
+    a+=Agregadospeques.CreateDtoImport();
+    
 
     a += "\n@DtoOf(" + agg + ".class)\n" +
         "@ApiModel(value = \" " + agg + " \")\n" +
@@ -23,8 +29,8 @@ public class Dto {
     a += "\n\n";
 
     for (int i = 0; i < fieldsType.size(); i++) {
-      a += "  @JsonProperty(value = " + fieldsVar.get(i) + ")\n" +
-          "  @ApiModelProperty(value = " + fieldsVar.get(i) + ")\n "
+      a += "  @JsonProperty(value = \"" + fieldsVar.get(i) + "\")\n" +
+          "  @ApiModelProperty(value = \"" + fieldsVar.get(i) + "\")\n "
           + " @FactoryArgument(index = " + i + ")\n" +
           "  public " + fieldsType.get(i) + " get" + metodos.Capital(fieldsVar.get(i)) + "() {\n" +
           "    return " + fieldsVar.get(i) + ";" +
@@ -33,8 +39,8 @@ public class Dto {
     for (int i = 0; i < fkmoVarFinal.size(); i++) {
 
       String cap = metodos.Capital(fkmoVarFinal.get(i));
-      a += "  @JsonProperty(value = " + cap + ")\n" +
-          "  @ApiModelProperty(value = " + cap + ") \n"
+      a += "  @JsonProperty(value = \"id" + cap + "\")\n" +
+          "  @ApiModelProperty(value = \"id" + cap + "\") \n"
           + "  @FactoryArgument(index = " + (fieldsType.size() + i) + ")\n" +
           "  public Integer getId" + cap + "() {\n" +
           "    return id" + cap + ";" +
@@ -59,14 +65,20 @@ public class Dto {
   }
 
   public static String Dto(String agg) {
-    String a;
+    String a="";
     agg = metodos.Capital(agg);
 
-    a = "public class " + agg + "Dto extends " + agg + "CreateDto {\n" +
+    a+=Agregadospeques.DtoPackage();
+    a+=Agregadospeques.DtoImport();
+
+    
+    a += "\n\n@ApiModel(value = \" "+agg+"  \")"+
+        "public class " + agg + "Dto extends " + agg + "CreateDto {\n" +
         "\n" +
         "  private Integer id" + agg + ";\n" +
         "\n" +
-        "  @AggregateId\n" +
+        "  @JsonIgnore\n"
+        + "@AggregateId\n" +
         "  private " + agg + "Id getId() {\n" +
         "    return new " + agg + "Id(id" + agg + ");\n" +
         "  }\n" +

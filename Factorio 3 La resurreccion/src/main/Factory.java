@@ -2,12 +2,16 @@ package main;
 
 import java.util.ArrayList;
 
+import textos.Agregadospeques;
+
 public class Factory {
 
   public static String factory(String agg, ArrayList<String> fieldsType,
       ArrayList<String> fieldsVar, ArrayList<String> fkmoVarFinal) {
-    String a;
+    String a="";
     agg = metodos.Capital(agg);
+    
+    a+=Agregadospeques.paqueteAgg();
 
     String b = "";
     for (int i = 0; i < fieldsType.size(); i++) {
@@ -22,7 +26,7 @@ public class Factory {
       b += "Integer" + " id" + metodos.Capital(fkmoVarFinal.get(i));
     }
 
-    a = "import org.seedstack.business.domain.Factory;\n" +
+    a += "import org.seedstack.business.domain.Factory;\n" +
         "\n" +
         "public interface " + agg + "Factory extends Factory<" + agg + "> {\n" +
         "  \n" +

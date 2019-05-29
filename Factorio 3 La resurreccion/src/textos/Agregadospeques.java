@@ -144,7 +144,7 @@ public class Agregadospeques {
     return a;
   }
 
-  public static String paqueteB() {
+  public static String paqueteAgg() {
     String a;
     a = "package ctag.domain.model.aggregate.modelospruebas;\n\n";
 
@@ -250,17 +250,77 @@ public class Agregadospeques {
     return a;
   }
 
-  public static String sa(String Agg, String tabla) {
+  public static String DtoPackage() {
+    String a;
+    a = "package ctag.dtos.dto.customer;\n\n";
+
+    return a;
+  }
+
+  public static String CreateDtoImport() {
+    String a;
+    a ="\nimport ctag.domain.model.aggregate.modelospruebas.Customers;\n" + 
+        "import org.seedstack.business.assembler.DtoOf; \n" + 
+        "import org.seedstack.business.assembler.FactoryArgument;\n" + 
+        "import com.fasterxml.jackson.annotation.JsonProperty;\n" + 
+        "import io.swagger.annotations.ApiModel;\n" + 
+        "import io.swagger.annotations.ApiModelProperty;\n";
+
+    return a;
+  }
+  
+  public static String DtoImport() {
+    String a;
+    a = "\nimport org.seedstack.business.assembler.AggregateId;\n" + 
+        "import com.fasterxml.jackson.annotation.JsonIgnore;\n" + 
+        "import com.fasterxml.jackson.annotation.JsonProperty;\n" + 
+        "import io.swagger.annotations.ApiModel;";
+
+    return a;
+  }
+  public static String AssemblerPackage() {
+    String a;
+    a = "  package ctag.dtos.assembler.customer;\n" + 
+        "\n";
+    
+    return a;
+  }
+  
+  public static String CreateAssemblerImport() {
+    String a;
+    a ="import org.seedstack.business.assembler.BaseAssembler;\n";
+    
+    return a;
+  }
+  
+  public static String AssemblerImport() {
+    String a;
+    a = "import javax.inject.Inject; \n" + 
+        "import org.seedstack.business.assembler.Assembler;\n" + 
+        "import org.seedstack.business.assembler.BaseAssembler;\n";
+    
+    return a;
+  }
+  
+  public static String dgr(String Agg, String tabla) {
+    String a;
+    a = "";
+
+    return a;
+  }
+  
+  public static String dg(String Agg, String tabla) {
+    String a;
+    a = "";
+
+    return a;
+  }
+  
+  public static String gd(String Agg, String tabla) {
     String a;
     a = "";
 
     return a;
   }
 
-  public static String d(String Agg, String tabla) {
-    String a;
-    a = "";
-
-    return a;
-  }
 }
