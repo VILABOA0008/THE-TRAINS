@@ -12,9 +12,10 @@ public class main {
     ArrayList<String>arrayfields=new ArrayList<>();
     Map<Integer, ArrayList<String>> foreign = new HashMap<Integer, ArrayList<String>>();
     ArrayList<String>arrayforeign=new ArrayList<>();
-    Map<Integer, String> primary = new HashMap<Integer,String>();
+    ArrayList<String>arrayprimary=new ArrayList<>();
     ArrayList<String>tablas=new ArrayList<>();
    ArrayList<String>feas=new ArrayList<>();
+
 
    boolean in=false;
    feas.addAll(
@@ -41,13 +42,13 @@ String aux;
               
               }else {
                 aux=table(a, fr); if(aux!=null) {   tablas.add(aux);in=true;ctabla++;arrayfields=new ArrayList<>();arrayforeign=new ArrayList<>();}
-                if(engine(a, fr)) {in=false;fields.put(ctabla,arrayfields);foreign.put(ctabla,arrayforeign);;}
+                if(engine(a, fr)) {in=false;d+="\n\n";fields.put(ctabla,arrayfields);foreign.put(ctabla,arrayforeign);}
                
                 if(in) {
                   foreign(a, fr, arrayforeign);         
                 fields(a, fr,arrayfields);          
-                aux=primaries(a, fr);
-                primary.put(ctabla, aux);
+                aux=null;
+                d+=primaries(a, fr, arrayprimary);
                 }
               if(i=='\n' ) {
                 b+=a+"\n";
@@ -71,19 +72,15 @@ String aux;
 
 
 for(String q:tablas) {
-  System.out.println("\n\n"+q);
+  System.out.println("\n"+q);
   fields.get(cc).forEach(n->System.out.println(n));
   System.out.println("            FOREIGN");
   foreign.get(cc).forEach(n->System.out.println(n));
-  System.out.println(primary.get(cc));
+  System.out.println("             PRIMARY");
+ System.out.println(arrayprimary.get(cc-1));
   cc++;
 }
-for(int is=0;is<10;is++) {
-  System.out.println(primary.get(is));
-  
-}
-//System.out.println("\n\n\n"+d);
-  
+
   
   
   }
@@ -141,7 +138,7 @@ String a=s+" ";
 
   }
 
-  public static String primaries(String s,     FileReader  fr) throws IOException {
+  public static String primaries(String s,     FileReader  fr,ArrayList<String>arrayPrimary) throws IOException {
     int i;
     String a=s+" ";
     if(s.equalsIgnoreCase("PRIMARY")) {
@@ -149,6 +146,7 @@ String a=s+" ";
         a+=((char) i);
       }
       
+      arrayPrimary.add(a);
     }
     return a;
     
