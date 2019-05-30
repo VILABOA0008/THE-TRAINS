@@ -1,0 +1,166 @@
+-- MySQL Workbench Forward Engineering
+
+SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
+SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
+SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
+
+-- -----------------------------------------------------
+-- Schema totem
+-- -----------------------------------------------------
+
+-- -----------------------------------------------------
+-- Schema totem
+-- -----------------------------------------------------
+CREATE SCHEMA IF NOT EXISTS `totem` DEFAULT CHARACTER SET utf8 ;
+USE `totem` ;
+
+-- -----------------------------------------------------
+-- Table `totem`.`TOT_Page`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `totem`.`TOT_Page` (
+  `IdPage` INT NOT NULL,
+  `Name` VARCHAR(50) NOT NULL,
+  `Order` INT NOT NULL,
+  `Active` BIT NOT NULL,
+  PRIMARY KEY (`IdPage`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `totem`.`TOT_Button`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `totem`.`TOT_Button` (
+  `IdButton` INT NOT NULL,
+  `FK_Page` INT NOT NULL,
+  `Name` VARCHAR(255) NOT NULL,
+  `X` INT NOT NULL,
+  `Y` INT NOT NULL,
+  `W` INT NOT NULL,
+  `H` INT NOT NULL,
+  `Active` BIT NOT NULL,
+  PRIMARY KEY (`IdButton`),
+  INDEX `fk_TOT_Button_TOT_Page1_idx` (`FK_Page` ASC),
+  CONSTRAINT `fk_TOT_Button_TOT_Page1`
+    FOREIGN KEY (`FK_Page`)
+    REFERENCES `totem`.`TOT_Page` (`IdPage`)
+    ON DELETE RESTRICT
+    ON UPDATE RESTRICT)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `totem`.`TOT_DocType`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `totem`.`TOT_DocType` (
+  `IdDocType` INT NOT NULL,
+  `Name` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`IdDocType`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `totem`.`TOT_Document`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `totem`.`TOT_Document` (
+  `IdDoc` INT NOT NULL,
+  `FK_DocType` INT NOT NULL,
+  `Name` VARCHAR(80) NOT NULL,
+  `Link` VARCHAR(255) NOT NULL,
+  `FK_Position` INT NOT NULL,
+  PRIMARY KEY (`IdDoc`),
+  INDEX `fk_TOT_Document_TOT_DocType_idx` (`FK_DocType` ASC),
+  CONSTRAINT `fk_TOT_Document_TOT_DocType`
+    FOREIGN KEY (`FK_DocType`)
+    REFERENCES `totem`.`TOT_DocType` (`IdDocType`)
+    ON DELETE RESTRICT
+    ON UPDATE RESTRICT)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `totem`.`TOT_ButtonDoc`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `totem`.`TOT_ButtonDoc` (
+  `FK_Button` INT NOT NULL,
+  `FK_Document` INT NOT NULL,
+  PRIMARY KEY (`FK_Button`, `FK_Document`),
+  INDEX `fk_TOT_ButtonDocs_TOT_Document1_idx` (`FK_Document` ASC),
+  CONSTRAINT `fk_TOT_ButtonDocs_TOT_Document1`
+    FOREIGN KEY (`FK_Document`)
+    REFERENCES `totem`.`TOT_Document` (`IdDoc`)
+    ON DELETE RESTRICT
+    ON UPDATE RESTRICT,
+  CONSTRAINT `fk_TOT_ButtonDocs_TOT_Button1`
+    FOREIGN KEY (`FK_Button`)
+    REFERENCES `totem`.`TOT_Button` (`IdButton`)
+    ON DELETE RESTRICT
+    ON UPDATE RESTRICT)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `totem`.`TOT_Style`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `totem`.`TOT_Style` (
+  `IdStyle` INT NOT NULL,
+  `Name` VARCHAR(90) NOT NULL,
+  `StyleClass` VARCHAR(100) NOT NULL,
+  PRIMARY KEY (`IdStyle`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `totem`.`TOT_ButtonStyle`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `totem`.`TOT_ButtonStyle` (
+  `IdButton` INT NOT NULL,
+  `IdStyle` INT NOT NULL,
+  PRIMARY KEY (`IdButton`, `IdStyle`),
+  INDEX `fk_TOT_ButtonStyle_TOT_Style1_idx` (`IdStyle` ASC),
+  CONSTRAINT `fk_TOT_ButtonStyle_TOT_Style1`
+    FOREIGN KEY (`IdStyle`)
+    REFERENCES `totem`.`TOT_Style` (`IdStyle`)
+    ON DELETE RESTRICT
+    ON UPDATE RESTRICT,
+  CONSTRAINT `fk_TOT_ButtonStyle_TOT_Button1`
+    FOREIGN KEY (`IdButton`)
+    REFERENCES `totem`.`TOT_Button` (`IdButton`)
+    ON DELETE RESTRICT
+    ON UPDATE RESTRICT)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `totem`.`TOT_Configuration`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `totem`.`TOT_Configuration` (
+  `IdConfig` INT NOT NULL,
+  `Value` VARCHAR(90) NOT NULL,
+  PRIMARY KEY (`IdConfig`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `totem`.`TOT_SecondaryDocument`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `totem`.`TOT_SecondaryDocument` (
+  `IdParentDoc` INT NOT NULL,
+  `IdDoc` INT NOT NULL,
+  PRIMARY KEY (`IdParentDoc`, `IdDoc`),
+  INDEX `fk_TOT_SecondaryDocument_TOT_Document2_idx` (`IdDoc` ASC),
+  CONSTRAINT `fk_TOT_SecondaryDocument_TOT_Document1`
+    FOREIGN KEY (`IdParentDoc`)
+    REFERENCES `totem`.`TOT_Document` (`IdDoc`)
+    ON DELETE RESTRICT
+    ON UPDATE RESTRICT,
+  CONSTRAINT `fk_TOT_SecondaryDocument_TOT_Document2`
+    FOREIGN KEY (`IdDoc`)
+    REFERENCES `totem`.`TOT_Document` (`IdDoc`)
+    ON DELETE RESTRICT
+    ON UPDATE RESTRICT)
+ENGINE = InnoDB;
+
+
+SET SQL_MODE=@OLD_SQL_MODE;
+SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
+SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;

@@ -43,7 +43,9 @@ public class Factory {
       ArrayList<String> fieldsVar, ArrayList<String> fkmoVarFinal) {
 
     agg = metodos.Capital(agg);
-
+    String a="";
+    a+=Agregadospeques.FactoryImplPackage();
+    
     String b = "", c = "";
     for (int i = 0; i < fieldsType.size(); i++) {
       if (i != 0) {
@@ -65,12 +67,12 @@ public class Factory {
 
     for (int i = 0; i < fkmoVarFinal.size(); i++) {
 
-      c += "\n  tmp" + agg + ".set" + metodos.Capital(fkmoVarFinal.get(i)) + "Id(new "
+      c += "\n  tmp" + agg + ".setId"+ metodos.Capital(fkmoVarFinal.get(i)) +"(new "
           + metodos.Capital(fkmoVarFinal.get(i)) + "Id(id"
           + metodos.Capital(fkmoVarFinal.get(i)) + "));";
     }
 
-    String a = "\n" +
+     a += "\n" +
         "import org.seedstack.business.domain.BaseFactory; \n" +
         "\n" +
         "public class " + agg + "FactoryImpl extends BaseFactory<" + agg + "> implements " + agg

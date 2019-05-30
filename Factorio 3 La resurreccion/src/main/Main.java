@@ -7,8 +7,8 @@ import cosas.Escribir;
 public class Main {
 
   public static void main(String[] args) {
-
-    Agregado.test();
+    Agregado a=new Agregado();
+    a.test();
 
   }
 }

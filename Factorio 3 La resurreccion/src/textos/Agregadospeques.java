@@ -6,7 +6,6 @@ import main.metodos;
 
 public class Agregadospeques {
 
-  // public static final String de arriba
 
   public static String finalFields(String FIELD, String var) {
     String a;
@@ -146,7 +145,7 @@ public class Agregadospeques {
 
   public static String paqueteAgg() {
     String a;
-    a = "package ctag.domain.model.aggregate.modelospruebas;\n\n";
+    a = "package ctag.domain.model.customer;\n\n";
 
     return a;
   }
@@ -298,6 +297,13 @@ public class Agregadospeques {
     a = "import javax.inject.Inject; \n" + 
         "import org.seedstack.business.assembler.Assembler;\n" + 
         "import org.seedstack.business.assembler.BaseAssembler;\n";
+    
+    return a;
+  }
+  
+  public static String FactoryImplPackage() {
+    String a;
+    a ="package ctag.application.factoryimpl.customer;\n\n";
     
     return a;
   }

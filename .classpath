@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="src" path="automatizar_rest/src"/>
+	<classpathentry kind="src" path="Factorio 3 La resurreccion/src"/>
+	<classpathentry kind="src" path="pasado"/>
+	<classpathentry kind="src" path="prubas/proyecto seedstack base/src/main/java"/>
+	<classpathentry kind="src" path="prubas/proyecto seedstack base/src/test/java"/>
+	<classpathentry kind="lib" path="prubas/proyecto seedstack base/target/seed-capsule.jar"/>
+	<classpathentry kind="lib" path="prubas/proyecto seedstack base/target/seed.jar"/>
+	<classpathentry kind="output" path="Factorio 3 La resurreccion/bin"/>
+</classpath>
