@@ -10,20 +10,21 @@ import textos.Agregadospeques;
 
 public class AgregadoPLUSPLUS {
 
-
-  public static void test(   Map<Integer, ArrayList<String>> vars,
+  public static void test(
+      Map<Integer, ArrayList<String>> vars,
       Map<Integer, ArrayList<String>> tipos,
       Map<Integer, ArrayList<String>> fields,
       Map<Integer, ArrayList<String>> foreign,
       ArrayList<String> arrayprimary,
       ArrayList<String> tablas,
-      Map<Integer, ArrayList<String>> fks,Map<Integer, Boolean> mtm 
-      ,Map<Integer, ArrayList<Integer>> otm ,Map<Integer, ArrayList<Integer>> mto)
+      Map<Integer, ArrayList<String>> fks,
+      Map<Integer, Boolean> mtm,
+      Map<Integer, ArrayList<Integer>> otm,
+      Map<Integer, ArrayList<Integer>> mto)
       throws IOException {
-    
-    
+
     ArrayList<String> aggs = new ArrayList<>();
-    int c=1;
+    int c = 1;
     String ag = "", ag2 = "";
     // MANY TO MANY
     ArrayList<String> mtmVar = new ArrayList<>();
@@ -37,43 +38,44 @@ public class AgregadoPLUSPLUS {
     ArrayList<String> mapedByFinal = new ArrayList<>();
     // FIELDS
     ArrayList<String> fieldsFinal = new ArrayList<>();
-   //ArrayList<String> fieldsVar = new ArrayList<>();
-   // ArrayList<String> fieldsType = new ArrayList<>();
+    // ArrayList<String> fieldsVar = new ArrayList<>();
+    // ArrayList<String> fieldsType = new ArrayList<>();
     // NOMBRE DE LA TABLA DE L AGREGADO Y DEL ID
     String agg;
-    String tabla =tablas.get(c-1);
-    
+    String tabla = tablas.get(c - 1);
+
     // DISTINTAS VARIABLES
     String MappedBy, mappedByV;
 
-    AgregadoMetodosPLUS_PLUS_PLUS.NombreAggregado(aggs,tablas, mtm);
-    
-    for(String i:aggs) {
-      System.out.println(i ); 
+    AgregadoMetodosPLUS_PLUS_PLUS.NombreAggregado(aggs, tablas, mtm);
+
+    for (String i : aggs) {
+      System.out.println(i);
     }
-    agg=aggs.get(c-1);
+    agg = aggs.get(c - 1);
     ag += Agregadospeques.paqueteAgg();
 
     ag += Agregadospeques.imports();
 
     ag += AgregadosGrandes.clas(agg);
 
-  //  tabla = AgregadoMetodosPLUS_PLUS_PLUS.NombreTabla();
-    
+    //  tabla = AgregadoMetodosPLUS_PLUS_PLUS.NombreTabla();
+
     ag += Agregadospeques.finalTable(tabla);
 
     ag += Agregadospeques.ID();
 
     ag += Agregadospeques.finalId(agg);
-    
-    
-    
+
     ag += AgregadoMetodosPLUS_PLUS_PLUS.Fields(tipos.get(c), fieldsFinal, vars.get(c));
-    if(fks.get(c)!=null){
-    ag += AgregadoMetodosPLUS_PLUS_PLUS.ManysToOnes(aggs,fks.get(c), fkmoVarFinal,mto.get(c));}
-    ag += AgregadoMetodosPLUS_PLUS_PLUS.OnesToManys(agg,otm.get(c),aggs,mapedBy, mapedByV, mapedByFinal);
-//    ag += AgregadoMetodosPLUS_PLUS_PLUS.ManyToMany(agg, mtmVar);
-//    ag += AgregadoMetodosPLUS_PLUS_PLUS.ManyToManyMapped(agg, mtmappedVar);
+    if (fks.get(c) != null) {
+      ag += AgregadoMetodosPLUS_PLUS_PLUS.ManysToOnes(aggs, fks.get(c), fkmoVarFinal, mto.get(c));
+    }
+    ag +=
+        AgregadoMetodosPLUS_PLUS_PLUS.OnesToManys(
+            agg, otm.get(c), aggs, mapedBy, mapedByV, mapedByFinal);
+    //    ag += AgregadoMetodosPLUS_PLUS_PLUS.ManyToMany(agg, mtmVar);
+    //    ag += AgregadoMetodosPLUS_PLUS_PLUS.ManyToManyMapped(agg, mtmappedVar);
 
     ag += Agregadospeques.finalGenerator(agg);
     ag += AgregadosGrandes.tableGenerator(agg);
@@ -82,48 +84,54 @@ public class AgregadoPLUSPLUS {
 
     ag += AgregadoMetodosPLUS_PLUS_PLUS.VariablesBasicas(fieldsFinal, tipos.get(c), vars.get(c));
     ag += Agregadospeques.constructorEmpty(agg);
-    if(fks.get(c)!=null){
-    ag += AgregadoMetodosPLUS_PLUS_PLUS.ManyToOne(fks.get(c), fkmoVarFinal);}
-/*
+    if (fks.get(c) != null) {
+      ag += AgregadoMetodosPLUS_PLUS_PLUS.ManyToOne(fks.get(c), fkmoVarFinal);
+    }
+
     if (!mapedByV.isEmpty()) {
       ag += AgregadosGrandes.oneToMany(mapedByFinal, mapedByV);
     }
-    ag += AgregadosGrandes.ManysToManys(agg, mtmVar);
-    ag += Agregadospeques.manyToManyMappedBy(agg, mtmappedVar);
-*/
+
+    //    ag += AgregadosGrandes.ManysToManys(agg, mtmVar);
+    //    ag += Agregadospeques.manyToManyMappedBy(agg, mtmappedVar);
+
     ag += "\n\n\n";
 
     ag += Agregadospeques.getId(agg);
     ag += Agregadospeques.getBasics(tipos.get(c), vars.get(c));
     ag += Agregadospeques.setBasics(tipos.get(c), vars.get(c));
-    //ag += AgregadosGrandes.setAddSets(mapedByV);
+    ag += AgregadosGrandes.setAddSets(mapedByV);
     ag += AgregadosGrandes.getSetEntities(fkmoVarFinal);
 
     ag += Agregadospeques.acabalo();
-/*
-    System.out.println(ag);
-    System.out.println("\n\n\n ID \n\n\n");
-    System.out.println("\n\n\n" + AgregadoId.id(agg));
-    System.out.println("\n\n\n FACTORY \n\n\n");
-    System.out.println("\n\n\n" + Factory.factory(agg, tipos.get(c), vars.get(c), fkmoVarFinal));
-    System.out.println("\n\n\n FACTORY_IMPL \n\n\n");
-    System.out.println("\n\n\n" + Factory.factoryImpl(agg, tipos.get(c), vars.get(c), fkmoVarFinal));
-    System.out.println("\n\n\n CREATE  DTO \n\n\n");
-    System.out.println("\n\n\n" + Dto.createDto(agg, tipos.get(c), vars.get(c), fkmoVarFinal));
-    System.out.println("\n\n\n DTO \n\n\n");
-    System.out.println("\n\n\n" + Dto.Dto(agg));
-    System.out.println("\n\n\n CREATE ASSEMBLER \n\n\n");
-    System.out.println(
-        "\n\n\n" + Assembler.createAssembler(agg, tipos.get(c), vars.get(c), fkmoVarFinal));
-    System.out.println("\n\n\n  ASSEMBLER \n\n\n");
-    System.out.println("\n\n\n" + Assembler.Assembler(agg, tipos.get(c), vars.get(c), fkmoVarFinal));
-*/
+    /*
+        System.out.println(ag);
+        System.out.println("\n\n\n ID \n\n\n");
+        System.out.println("\n\n\n" + AgregadoId.id(agg));
+        System.out.println("\n\n\n FACTORY \n\n\n");
+        System.out.println("\n\n\n" + Factory.factory(agg, tipos.get(c), vars.get(c), fkmoVarFinal));
+        System.out.println("\n\n\n FACTORY_IMPL \n\n\n");
+        System.out.println("\n\n\n" + Factory.factoryImpl(agg, tipos.get(c), vars.get(c), fkmoVarFinal));
+        System.out.println("\n\n\n CREATE  DTO \n\n\n");
+        System.out.println("\n\n\n" + Dto.createDto(agg, tipos.get(c), vars.get(c), fkmoVarFinal));
+        System.out.println("\n\n\n DTO \n\n\n");
+        System.out.println("\n\n\n" + Dto.Dto(agg));
+        System.out.println("\n\n\n CREATE ASSEMBLER \n\n\n");
+        System.out.println(
+            "\n\n\n" + Assembler.createAssembler(agg, tipos.get(c), vars.get(c), fkmoVarFinal));
+        System.out.println("\n\n\n  ASSEMBLER \n\n\n");
+        System.out.println("\n\n\n" + Assembler.Assembler(agg, tipos.get(c), vars.get(c), fkmoVarFinal));
+    */
     // ENTITY , ID
     Escribir.escribir(
-        "C:\\Users\\pabcos\\Documents\\trains\\prubas\\proyecto seedstack base\\src\\main\\java\\ctag\\domain\\model\\customer\\"+ metodos.Capital(agg)+".java",
+        "C:\\Users\\pabcos\\Documents\\trains\\prubas\\proyecto seedstack base\\src\\main\\java\\ctag\\domain\\model\\customer\\"
+            + metodos.Capital(agg)
+            + ".java",
         ag);
     Escribir.escribir(
-        "C:\\Users\\pabcos\\Documents\\trains\\prubas\\proyecto seedstack base\\src\\main\\java\\ctag\\domain\\model\\customer\\"+ metodos.Capital(agg)+"Id.java",
+        "C:\\Users\\pabcos\\Documents\\trains\\prubas\\proyecto seedstack base\\src\\main\\java\\ctag\\domain\\model\\customer\\"
+            + metodos.Capital(agg)
+            + "Id.java",
         AgregadoId.id(agg));
     // DTOS
     Escribir.escribir(

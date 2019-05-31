@@ -122,11 +122,8 @@ public class AgregadoMetodosPLUS_PLUS_PLUS {
 
       System.out.println("mapped by");
 
-      if (automatico) {
-        MappedBy = "storage";
-      } else {
-        MappedBy = s.nextLine();
-      }
+
+        MappedBy = agg.toLowerCase();
 
       mapedBy.add(MappedBy);
 
@@ -136,12 +133,10 @@ public class AgregadoMetodosPLUS_PLUS_PLUS {
 
         a += Agregadospeques.MappedBy(MappedByFinal, MappedBy);
         System.out.println("Escribe la variable");
-        if (automatico) {
-          mappedByV = "position";
-
-        } else {
-          mappedByV = s.nextLine();
-        }
+   
+        
+          mappedByV = aggs.get(otm.get(c)-1);
+        
 
         mapedByV.add(mappedByV);
       }
