@@ -1,5 +1,7 @@
 package main;
 
+import java.util.ArrayList;
+
 public class metodos {
 
   public static String word(String a,int c) {
@@ -93,6 +95,34 @@ public class metodos {
   public static String field(String a) {
 
     a = "FIELD_" + a.toUpperCase();
+
+    return a;
+  }
+  
+  public static int idByTable( String a, ArrayList<String> tablas) {
+int c=1;
+    for(String i:tablas) {
+      if(i.equalsIgnoreCase(a)) {break;}
+      c++;
+    }
+
+    return c;
+  }
+  public static String h5(String a) {
+
+    a = "";
+
+    return a;
+  }
+  public static String fi4eld(String a) {
+
+    a = "";
+
+    return a;
+  }
+  public static String f34ield(String a) {
+
+    a = "";
 
     return a;
   }

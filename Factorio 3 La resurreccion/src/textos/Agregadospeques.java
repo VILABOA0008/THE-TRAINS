@@ -17,7 +17,7 @@ public class Agregadospeques {
   public static String finalFk(String var) {
     String a;
     a =
-        "   \nprivate static final String FK_"
+        "   \npublic static final String FK_"
             + var.toUpperCase()
             + " = \""
             + metodos.Capital(var)
@@ -35,7 +35,7 @@ public class Agregadospeques {
 
   public static String finalTable(String var) {
     String a;
-    a = "   \nprivate static final String TABLE_NAME = \"" + var + "\";";
+    a = "   \npublic static final String TABLE_NAME = \"" + var + "\";";
 
     return a;
   }
@@ -162,6 +162,7 @@ public class Agregadospeques {
   public static String getBasics(ArrayList<String> types, ArrayList<String> vars) {
     String a = "";
     int c = 0;
+    System.out.println(types.size()+"  "+vars.size() ); 
     String type;
     for (String var : vars) {
       type = types.get(c);

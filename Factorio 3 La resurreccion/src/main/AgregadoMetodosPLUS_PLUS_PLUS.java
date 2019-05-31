@@ -57,15 +57,13 @@ public class AgregadoMetodosPLUS_PLUS_PLUS {
     return tabla;
   }
 
-  public static String NombreAggregado() {
+  public static String NombreAggregado(String a) {
     String agg = "";
     Scanner s = new Scanner(System.in);
-    System.out.println("nombre del agregado");
-    if (automatico) {
-      agg = "Customers";
-    } else {
+    System.out.println("nombre del agregado de la tabla "+a);
+
       agg = metodos.Capital(s.nextLine());
-    }
+    
 
     return agg;
   }
@@ -77,35 +75,23 @@ public class AgregadoMetodosPLUS_PLUS_PLUS {
     String tipo, var;
     Scanner s = new Scanner(System.in);
     System.out.println("Cuantos fields sin relaciones");
-    if (automatico) {
-      nf = 3;
-    } else {
-      nf = s.nextInt();
-      s.nextLine();
-    }
-    while (nf > c) {
 
-      System.out.println("tipo");
+    
+    while (fieldsType.size() > c) {
+      System.out.println(fieldsType.size()+" tipo"+c);
 
-      if (automatico) {
-        String cct[] = {"String", "String", "Integer", "float"};
-        tipo = cct[c];
-      } else {
-        tipo = s.nextLine();
-      }
-      fieldsType.add(tipo);
+
+       // tipo = s.nextLine();
+      
 
       System.out.println("variable");
 
-      if (automatico) {
-        String ccv[] = {"name", "username", "age", "money"};
-        var = ccv[c];
-      } else {
-        var = s.nextLine();
-      }
+
+      //  var = s.nextLine();
+      var = fieldsVar.get(c);
+      
       String Field = "FIELD_" + var.toUpperCase();
       fieldsFinal.add(Field);
-      fieldsVar.add(var);
       a += Agregadospeques.finalFields(Field, var);
       c++;
     }
