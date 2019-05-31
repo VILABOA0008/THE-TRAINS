@@ -15,14 +15,15 @@ public static void pojo(
   Map<Integer, ArrayList<String>> foreign,
   ArrayList<String> arrayprimary,
   ArrayList<String> tablas,
-  Map<Integer, ArrayList<String>> fks,Map<Integer, Boolean> mtm ,Map<Integer, ArrayList<Integer>> otm)
+  Map<Integer, ArrayList<String>> fks,Map<Integer, Boolean> mtm 
+  ,Map<Integer, ArrayList<Integer>> otm,Map<Integer, ArrayList<Integer>> mto)
    {
   
   
 
   
   FieldsyVars(vars, tipos, fields, tablas);
-  ManiesToOnes(vars, tipos, fields, tablas,foreign,fks,arrayprimary,mtm,otm);
+  ManiesToOnes(vars, tipos, fields, tablas,foreign,fks,arrayprimary,mtm,otm,mto);
 
 }
 
@@ -30,14 +31,15 @@ public static void pojo(
 public static void ManiesToOnes(    Map<Integer, ArrayList<String>> vars,
     Map<Integer, ArrayList<String>> tipos,  Map<Integer, ArrayList<String>> fields, 
     ArrayList<String> tablas,  Map<Integer, ArrayList<String>> foreign,  
-    Map<Integer, ArrayList<String>> fks,ArrayList<String> arrayprimary,Map<Integer, Boolean> mtm ,Map<Integer, ArrayList<Integer>> otm){
+    Map<Integer, ArrayList<String>> fks,ArrayList<String> arrayprimary,Map<Integer, Boolean> mtm ,
+    Map<Integer, ArrayList<Integer>> otm,Map<Integer, ArrayList<Integer>> mto){
   ArrayList<String>fk;
   String aux="";
   for (int i = 1; i < tablas.size()+1; i++) {
     fk=new ArrayList<>();
     for(String q:foreign.get(i)) {
       q+=" ";
-      if(metodos.word(q, 1).equalsIgnoreCase("FOREIGN")){
+      if(metodos.word(q, 1).equalsIgnoreCase("FOREIGN")&&mtm.get(i).equals(false)){
         aux=metodos.word(q, 3);
         aux=metodos.comillas(aux);aux=metodos.comillas(aux);
         fk.add(aux);
@@ -50,12 +52,20 @@ public static void ManiesToOnes(    Map<Integer, ArrayList<String>> vars,
       aux=metodos.word(q, 2);
       aux=metodos.specialword(q, '.');aux=metodos.comillas(aux);
       int tablaotm=   metodos.idByTable(aux, tablas);
-      ArrayList<Integer> auxotm =otm.get(tablaotm);
+
+      ArrayList<Integer> auxmto =mto.get(i);
+      if(auxmto==null) {auxmto=new ArrayList<>();}
+      auxmto.add(tablaotm);
+      mto.put(i, auxmto);
+      ArrayList<Integer> auxotm =mto.get(tablaotm);
       if(auxotm==null) {auxotm=new ArrayList<>();}
-      auxotm.add(tablaotm);
-      otm.put(i, auxotm);
+      auxotm.add(i);
+      otm.put(tablaotm, auxotm);
+      
+
       System.out.println(tablaotm+" "+auxx+" aux  "+aux+"  tabla"+i); 
-  
+      
+      
         }else {
           //TODO MTM no hay na echo
           
@@ -74,7 +84,7 @@ if(!fk.isEmpty()) {fks.put(i, fk);}
   for (int i = 1; i < tablas.size()+1; i++) {
     if(otm.get(i)!=null) {
   for(int q:otm.get(i)) {
-    System.out.println(i+"   "+q ); 
+    System.out.println(q+"  key "+i ); 
     
   } } 
   }
@@ -108,7 +118,7 @@ public static void FieldsyVars(    Map<Integer, ArrayList<String>> vars,
   
   
   Map<String, String> toVars=new HashMap<>();
-  toVars.put("INT", "int");
+  toVars.put("INT", "Integer");
   toVars.put("VARCHAR", "String");
   toVars.put("BIT", "boolean");
   

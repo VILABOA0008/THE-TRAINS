@@ -17,7 +17,7 @@ public class Agregadospeques {
   public static String finalFk(String var) {
     String a;
     a =
-        "   \npublic static final String FK_"
+        "   \npublic static final String "
             + var.toUpperCase()
             + " = \""
             + metodos.Capital(var)

@@ -21,9 +21,7 @@ public class AgregadosGrandes {
   public static String tableGenerator(String agg) {
     String a;
 
-    a = "  @TableGenerator(name = GENERATOR, table = SEQUENCE, pkColumnName = KEY_VAL, valueColumnName = VALUE, pkColumnValue = TABLE_NAME, allocationSize = 1)\n"
-        +
-        " \n" +
+    a = "  @TableGenerator(name = GENERATOR, table = SEQUENCE, pkColumnName = KEY_VAL, valueColumnName = VALUE, pkColumnValue = TABLE_NAME, allocationSize = 1)\n"+
         "  @Id\n" +
         "  @GeneratedValue(strategy = GenerationType.TABLE, generator = GENERATOR)\n" +
         "  @Column(name = ID_"+agg.toUpperCase()+", nullable = false, unique = true)\n" +

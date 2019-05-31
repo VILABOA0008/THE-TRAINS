@@ -1,6 +1,7 @@
 package main;
 
 import java.util.ArrayList;
+import java.util.Map;
 import java.util.Scanner;
 
 import textos.AgregadosGrandes;
@@ -21,12 +22,12 @@ public class AgregadoMetodosPLUS_PLUS_PLUS {
     return a;
   }
 
-  public static String ManyToOne(ArrayList<String> fkmoFinal, ArrayList<String> fkmoVarFinal) {
+  public static String ManyToOne(ArrayList<String> fks, ArrayList<String> fkmoVarFinal) {
 
     String a = "";
 
-    for (int i = 0; i < fkmoFinal.size(); i++) {
-      a += AgregadosGrandes.manyToOne(fkmoFinal.get(i), fkmoVarFinal.get(i));
+    for (int i = 0; i < fks.size(); i++) {
+      a += AgregadosGrandes.manyToOne(fks.get(i).toUpperCase(), fkmoVarFinal.get(i));
     }
     return a;
   }
@@ -57,15 +58,21 @@ public class AgregadoMetodosPLUS_PLUS_PLUS {
     return tabla;
   }
 
-  public static String NombreAggregado(String a) {
-    String agg = "";
+  public static void NombreAggregado(ArrayList<String> aggs,ArrayList<String> tablas,Map<Integer, Boolean> mtm ) {
+    String[] aggss= {"Page","Button","DocType","Document","null","Style","null","Configuration","null"};
+    int c=1 ;String agg;
+    for(String i:tablas) {
     Scanner s = new Scanner(System.in);
-    System.out.println("nombre del agregado de la tabla "+a);
+    if(mtm.get(c)==false) {
+    System.out.println("nombre del agregado de la tabla "+i);
+//       agg=s.nextLine();
+       agg=aggss[c-1];
+      aggs.add(metodos.Capital(agg));
+      }else {aggs.add(null);}
+    c++;
+    }
 
-      agg = metodos.Capital(s.nextLine());
-    
-
-    return agg;
+   
   }
 
   public static String Fields(
@@ -74,17 +81,17 @@ public class AgregadoMetodosPLUS_PLUS_PLUS {
     int nf, c = 0;
     String tipo, var;
     Scanner s = new Scanner(System.in);
-    System.out.println("Cuantos fields sin relaciones");
+   // System.out.println("Cuantos fields sin relaciones");
 
     
     while (fieldsType.size() > c) {
-      System.out.println(fieldsType.size()+" tipo"+c);
+    //  System.out.println(fieldsType.size()+" tipo"+c);
 
 
        // tipo = s.nextLine();
       
 
-      System.out.println("variable");
+   //   System.out.println("variable");
 
 
       //  var = s.nextLine();
@@ -99,7 +106,7 @@ public class AgregadoMetodosPLUS_PLUS_PLUS {
     return a;
   }
 
-  public static String OnesToManys(
+  public static String OnesToManys(String agg,ArrayList<Integer>  otm,ArrayList<String> aggs,
       ArrayList<String> mapedBy, ArrayList<String> mapedByV, ArrayList<String> mapedByFinal) {
     Scanner s = new Scanner(System.in);
     String a = "", MappedBy, mappedByV;
@@ -107,12 +114,9 @@ public class AgregadoMetodosPLUS_PLUS_PLUS {
     System.out.println("Numero de ones to manies");
     int c = 0;
 
-    if (automatico) {
-      nf = 1;
-    } else {
-      nf = s.nextInt();
-      s.nextLine();
-    }
+
+      nf = otm.size();
+ 
 
     while (nf > c) {
 
@@ -226,31 +230,26 @@ public class AgregadoMetodosPLUS_PLUS_PLUS {
     return a;
   }
 
-  public static String ManysToOnes(ArrayList<String> fkmoFinal, ArrayList<String> fkmoVarFinal) {
-
+  public static String ManysToOnes(ArrayList<String> aggs ,ArrayList<String> fks,ArrayList<String>fkmoVarFinal ,ArrayList<Integer> mto) {
+    System.out.println("aggs   "+aggs ); 
     String a = "";
     int nf;
     int c = 0;
-    System.out.println("Numero de manys to one");
-    Scanner s = new Scanner(System.in);
-    if (automatico) {
-      nf = 2;
-    } else {
-      nf = s.nextInt();
-      s.nextLine();
-    }
+  //  System.out.println("Numero de manys to one");
+    System.out.println(fks+" \n "+mto );
+    System.out.println(fks.size()-1); 
+      nf=fks.size();
+    System.out.println("nf  "+nf ); 
 
-    while (nf > c) {
+    while (c <nf) {
       String fk;
-      System.out.println("Nombre");
-      if (automatico) {
-        String ccv[] = {"style", "page"};
-        fk = ccv[c];
-      } else {
-        fk = s.nextLine();
-      }
-      fkmoFinal.add("FK_" + fk.toUpperCase());
-      a += Agregadospeques.finalFk(fk);
+    //  System.out.println("Nombre");
+
+
+        fk=aggs.get(mto.get(c)-1).toLowerCase();
+        
+        System.out.println("\n\nfk  "+fks.get(c) ); 
+      a += Agregadospeques.finalFk(fks.get(c) );
       fkmoVarFinal.add(fk);
 
       c++;

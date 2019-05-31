@@ -17,10 +17,13 @@ public class AgregadoPLUSPLUS {
       Map<Integer, ArrayList<String>> foreign,
       ArrayList<String> arrayprimary,
       ArrayList<String> tablas,
-      Map<Integer, ArrayList<String>> fks,Map<Integer, Boolean> mtm ,Map<Integer, ArrayList<Integer>> otm)
+      Map<Integer, ArrayList<String>> fks,Map<Integer, Boolean> mtm 
+      ,Map<Integer, ArrayList<Integer>> otm ,Map<Integer, ArrayList<Integer>> mto)
       throws IOException {
     
-    int c=3;
+    
+    ArrayList<String> aggs = new ArrayList<>();
+    int c=1;
     String ag = "", ag2 = "";
     // MANY TO MANY
     ArrayList<String> mtmVar = new ArrayList<>();
@@ -28,7 +31,6 @@ public class AgregadoPLUSPLUS {
     ArrayList<String> mtmappedVar = new ArrayList<>();
     // MANY TO ONE
     ArrayList<String> fkmoVarFinal = new ArrayList<>();
-    ArrayList<String> fkmoFinal = new ArrayList<>();
     // ONE TO MANY
     ArrayList<String> mapedBy = new ArrayList<>();
     ArrayList<String> mapedByV = new ArrayList<>();
@@ -40,13 +42,16 @@ public class AgregadoPLUSPLUS {
     // NOMBRE DE LA TABLA DE L AGREGADO Y DEL ID
     String agg;
     String tabla =tablas.get(c-1);
-
+    
     // DISTINTAS VARIABLES
     String MappedBy, mappedByV;
 
+    AgregadoMetodosPLUS_PLUS_PLUS.NombreAggregado(aggs,tablas, mtm);
     
-    //TODO agg = AgregadoMetodosPLUS_PLUS_PLUS.NombreAggregado(tabla);
-agg="Button";
+    for(String i:aggs) {
+      System.out.println(i ); 
+    }
+    agg=aggs.get(c-1);
     ag += Agregadospeques.paqueteAgg();
 
     ag += Agregadospeques.imports();
@@ -60,10 +65,13 @@ agg="Button";
     ag += Agregadospeques.ID();
 
     ag += Agregadospeques.finalId(agg);
-    System.out.println(tipos.get(c).toString()); 
+    
+    
+    
     ag += AgregadoMetodosPLUS_PLUS_PLUS.Fields(tipos.get(c), fieldsFinal, vars.get(c));
-//    ag += AgregadoMetodosPLUS_PLUS_PLUS.ManysToOnes(fkmoFinal, fkmoVarFinal);
-//    ag += AgregadoMetodosPLUS_PLUS_PLUS.OnesToManys(mapedBy, mapedByV, mapedByFinal);
+    if(fks.get(c)!=null){
+    ag += AgregadoMetodosPLUS_PLUS_PLUS.ManysToOnes(aggs,fks.get(c), fkmoVarFinal,mto.get(c));}
+    ag += AgregadoMetodosPLUS_PLUS_PLUS.OnesToManys(agg,otm.get(c),aggs,mapedBy, mapedByV, mapedByFinal);
 //    ag += AgregadoMetodosPLUS_PLUS_PLUS.ManyToMany(agg, mtmVar);
 //    ag += AgregadoMetodosPLUS_PLUS_PLUS.ManyToManyMapped(agg, mtmappedVar);
 
@@ -74,24 +82,25 @@ agg="Button";
 
     ag += AgregadoMetodosPLUS_PLUS_PLUS.VariablesBasicas(fieldsFinal, tipos.get(c), vars.get(c));
     ag += Agregadospeques.constructorEmpty(agg);
-    ag += AgregadoMetodosPLUS_PLUS_PLUS.ManyToOne(fkmoFinal, fkmoVarFinal);
-
+    if(fks.get(c)!=null){
+    ag += AgregadoMetodosPLUS_PLUS_PLUS.ManyToOne(fks.get(c), fkmoVarFinal);}
+/*
     if (!mapedByV.isEmpty()) {
       ag += AgregadosGrandes.oneToMany(mapedByFinal, mapedByV);
     }
     ag += AgregadosGrandes.ManysToManys(agg, mtmVar);
     ag += Agregadospeques.manyToManyMappedBy(agg, mtmappedVar);
-
+*/
     ag += "\n\n\n";
 
     ag += Agregadospeques.getId(agg);
     ag += Agregadospeques.getBasics(tipos.get(c), vars.get(c));
     ag += Agregadospeques.setBasics(tipos.get(c), vars.get(c));
-    ag += AgregadosGrandes.setAddSets(mapedByV);
+    //ag += AgregadosGrandes.setAddSets(mapedByV);
     ag += AgregadosGrandes.getSetEntities(fkmoVarFinal);
 
     ag += Agregadospeques.acabalo();
-
+/*
     System.out.println(ag);
     System.out.println("\n\n\n ID \n\n\n");
     System.out.println("\n\n\n" + AgregadoId.id(agg));
@@ -108,7 +117,7 @@ agg="Button";
         "\n\n\n" + Assembler.createAssembler(agg, tipos.get(c), vars.get(c), fkmoVarFinal));
     System.out.println("\n\n\n  ASSEMBLER \n\n\n");
     System.out.println("\n\n\n" + Assembler.Assembler(agg, tipos.get(c), vars.get(c), fkmoVarFinal));
-
+*/
     // ENTITY , ID
     Escribir.escribir(
         "C:\\Users\\pabcos\\Documents\\trains\\prubas\\proyecto seedstack base\\src\\main\\java\\ctag\\domain\\model\\customer\\"+ metodos.Capital(agg)+".java",
