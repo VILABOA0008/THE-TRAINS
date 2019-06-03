@@ -30,9 +30,11 @@ public class Main {
         for (String q : Mtm.get(i)) {
            System.out.print(q+"   " );
         }      }    }
+    System.out.println("\n" ); 
     
+
     AgregadoPLUSPLUS.test(vars,tipos,fields, foreign, arrayprimary,tablas,fks,mtm,otm,mto,Mtm);
-    
+      
 
     
 //    Agregado.test();

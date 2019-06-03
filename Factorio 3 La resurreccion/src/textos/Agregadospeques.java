@@ -108,6 +108,11 @@ public class Agregadospeques {
 
     return a;
   }
+  public static String importAgg(String agg) {
+    
+    String a="import ctag.domain.model."+agg.toLowerCase();
+    return a;
+  }
 
   public static String imports() {
     String a;
@@ -144,9 +149,9 @@ public class Agregadospeques {
     return a;
   }
 
-  public static String paqueteAgg() {
+  public static String paqueteAgg(String agg) {
     String a;
-    a = "package ctag.domain.model.customer;\n\n";
+    a = "package ctag.domain.model."+agg.toLowerCase()+";\n\n";
 
     return a;
   }
@@ -251,16 +256,16 @@ public class Agregadospeques {
     return a;
   }
 
-  public static String DtoPackage() {
+  public static String DtoPackage(String agg) {
     String a;
-    a = "package ctag.dtos.dto.customer;\n\n";
+    a = "package ctag.dtos.dto."+agg.toLowerCase()+";\n\n";
 
     return a;
   }
 
-  public static String CreateDtoImport() {
+  public static String CreateDtoImport(String agg) {
     String a;
-    a ="\nimport ctag.domain.model.aggregate.modelospruebas.Customers;\n" + 
+    a ="\nimport ctag.domain.model.aggregate.modelospruebas."+agg+";\n" + 
         "import org.seedstack.business.assembler.DtoOf; \n" + 
         "import org.seedstack.business.assembler.FactoryArgument;\n" + 
         "import com.fasterxml.jackson.annotation.JsonProperty;\n" + 
@@ -279,9 +284,9 @@ public class Agregadospeques {
 
     return a;
   }
-  public static String AssemblerPackage() {
+  public static String AssemblerPackage(String agg) {
     String a;
-    a = "  package ctag.dtos.assembler.customer;\n" + 
+    a = "  package ctag.dtos.assembler."+agg.toLowerCase()+";\n" + 
         "\n";
     
     return a;
@@ -303,9 +308,9 @@ public class Agregadospeques {
     return a;
   }
   
-  public static String FactoryImplPackage() {
+  public static String FactoryImplPackage(String agg) {
     String a;
-    a ="package ctag.application.factoryimpl.customer;\n\n";
+    a ="package ctag.application.factoryimpl."+agg.toLowerCase()+";\n\n";
     
     return a;
   }

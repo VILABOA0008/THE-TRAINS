@@ -11,8 +11,8 @@ public class Dto {
     String a = "";
     agg = metodos.Capital(agg);
     
-    a+=Agregadospeques.DtoPackage();    
-    a+=Agregadospeques.CreateDtoImport();
+    a+=Agregadospeques.DtoPackage(agg);    
+    a+=Agregadospeques.CreateDtoImport(agg);
     
 
     a += "\n@DtoOf(" + agg + ".class)\n" +
@@ -68,7 +68,7 @@ public class Dto {
     String a="";
     agg = metodos.Capital(agg);
 
-    a+=Agregadospeques.DtoPackage();
+    a+=Agregadospeques.DtoPackage(agg);
     a+=Agregadospeques.DtoImport();
 
     

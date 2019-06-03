@@ -15,7 +15,7 @@ public class Assembler {
     String b = "", c = "";
     agg = metodos.Capital(agg);
 
-    a += Agregadospeques.AssemblerPackage();
+    a += Agregadospeques.AssemblerPackage(agg);
     a += Agregadospeques.CreateAssemblerImport();
 
     for (int i = 0; i < fieldsType.size(); i++) {
@@ -79,7 +79,7 @@ public class Assembler {
     String a = "";
     agg = metodos.Capital(agg);
 
-    a += Agregadospeques.AssemblerPackage();
+    a += Agregadospeques.AssemblerPackage(agg);
     a += Agregadospeques.AssemblerImport();
 
     a +=

@@ -8,7 +8,7 @@ public class AgregadoId {
 
     String id = metodos.Capital(agg) + "Id";
 
-    String a=Agregadospeques.paqueteAgg();
+    String a=Agregadospeques.paqueteAgg(agg);
 
     
 a+=Agregadospeques.importsId();

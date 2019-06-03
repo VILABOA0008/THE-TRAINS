@@ -11,7 +11,7 @@ public class Factory {
     String a="";
     agg = metodos.Capital(agg);
     
-    a+=Agregadospeques.paqueteAgg();
+    a+=Agregadospeques.paqueteAgg(agg);
 
     String b = "";
     for (int i = 0; i < fieldsType.size(); i++) {
@@ -44,7 +44,7 @@ public class Factory {
 
     agg = metodos.Capital(agg);
     String a="";
-    a+=Agregadospeques.FactoryImplPackage();
+    a+=Agregadospeques.FactoryImplPackage(agg);
     
     String b = "", c = "";
     for (int i = 0; i < fieldsType.size(); i++) {

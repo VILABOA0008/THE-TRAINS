@@ -69,7 +69,7 @@ public class AgregadoMetodosPLUS_PLUS_PLUS {
 
       } else {
         System.out.println("\n\nQue agregado es la padre de " + i);
-
+         
         System.out.println(
             "1   Agregado   "
                 + aggs.get(Integer.valueOf(Mtm.get(c)[1]) - 1)

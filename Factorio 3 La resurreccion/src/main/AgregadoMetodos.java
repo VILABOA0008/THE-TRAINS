@@ -178,7 +178,7 @@ public class AgregadoMetodos {
       String clase, id, tabla;
       System.out.println("tipo (en minuscula) ");
       if (automatico) {
-        clase = "page";
+        clase = "pagesina";
       } else {
         clase = s.nextLine();
       }

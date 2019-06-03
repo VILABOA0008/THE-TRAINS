@@ -1,5 +1,6 @@
 package main;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -23,7 +24,7 @@ public class AgregadoPLUSPLUS {
       Map<Integer, Boolean> mtm,
       Map<Integer, ArrayList<Integer>> otm,
       Map<Integer, ArrayList<Integer>> mto,
-      Map<Integer, String[]> Mtm )
+      Map<Integer, String[]> Mtm)
       throws IOException {
 
 
@@ -33,31 +34,38 @@ public class AgregadoPLUSPLUS {
     // MANY TO MANY
     Map<Integer, ArrayList<String[]>> MTM=new HashMap<>();
     Map<Integer, ArrayList<Integer>> MTMapped=new HashMap<>();
-    ArrayList<String> mtmVar = new ArrayList<>();
-    // MANY TO MANY
-    ArrayList<String> mtmappedVar = new ArrayList<>();
-    // MANY TO ONE
-    ArrayList<String> fkmoVarFinal = new ArrayList<>();
-    // ONE TO MANY
-    ArrayList<String> mapedBy = new ArrayList<>();
-    ArrayList<String> mapedByV = new ArrayList<>();
-    ArrayList<String> mapedByFinal = new ArrayList<>();
-    // FIELDS
-    ArrayList<String> fieldsFinal = new ArrayList<>();
+
     // ArrayList<String> fieldsVar = new ArrayList<>();
     // ArrayList<String> fieldsType = new ArrayList<>();
     // NOMBRE DE LA TABLA Y EL AGREGADO D    
     String agg;
     String tabla;
-    int c = 2;
+    int c ;
     
     AgregadoMetodosPLUS_PLUS_PLUS.NombreAggregado(aggs, tablas, mtm,Mtm,MTM,MTMapped);
 
 
+    for(int i=1;i<mtm.size();i++) {
+      if(mtm.get(i)==false) {
+        ArrayList<String> mtmVar = new ArrayList<>();
+        // MANY TO MANY
+        ArrayList<String> mtmappedVar = new ArrayList<>();
+        // MANY TO ONE
+        ArrayList<String> fkmoVarFinal = new ArrayList<>();
+        // ONE TO MANY
+        ArrayList<String> mapedBy = new ArrayList<>();
+        ArrayList<String> mapedByV = new ArrayList<>();
+        ArrayList<String> mapedByFinal = new ArrayList<>();
+        // FIELDS
+        ArrayList<String> fieldsFinal = new ArrayList<>();
+        System.out.println( mtm.get(i)); 
+        ag="";
+   c=i;
     tabla = tablas.get(c - 1);
 
     agg = aggs.get(c - 1);
-    ag += Agregadospeques.paqueteAgg();
+    ag2=Agregadospeques.importAgg(agg);
+    ag += Agregadospeques.paqueteAgg(agg);
 
     ag += Agregadospeques.imports();
 
@@ -121,80 +129,67 @@ public class AgregadoPLUSPLUS {
     ag += AgregadosGrandes.getSetEntities(fkmoVarFinal);
 
     ag += Agregadospeques.acabalo();
-    /*
-        System.out.println(ag);
-        System.out.println("\n\n\n ID \n\n\n");
-        System.out.println("\n\n\n" + AgregadoId.id(agg));
-        System.out.println("\n\n\n FACTORY \n\n\n");
-        System.out.println("\n\n\n" + Factory.factory(agg, tipos.get(c), vars.get(c), fkmoVarFinal));
-        System.out.println("\n\n\n FACTORY_IMPL \n\n\n");
-        System.out.println("\n\n\n" + Factory.factoryImpl(agg, tipos.get(c), vars.get(c), fkmoVarFinal));
-        System.out.println("\n\n\n CREATE  DTO \n\n\n");
-        System.out.println("\n\n\n" + Dto.createDto(agg, tipos.get(c), vars.get(c), fkmoVarFinal));
-        System.out.println("\n\n\n DTO \n\n\n");
-        System.out.println("\n\n\n" + Dto.Dto(agg));
-        System.out.println("\n\n\n CREATE ASSEMBLER \n\n\n");
-        System.out.println(
-            "\n\n\n" + Assembler.createAssembler(agg, tipos.get(c), vars.get(c), fkmoVarFinal));
-        System.out.println("\n\n\n  ASSEMBLER \n\n\n");
-        System.out.println("\n\n\n" + Assembler.Assembler(agg, tipos.get(c), vars.get(c), fkmoVarFinal));
-    */
-    // ENTITY , ID
+
+    
+    
+    
+    String url="C:\\Users\\pabcos\\Documents\\trains\\prubas\\proyecto seedstack base\\src\\main\\java\\ctag\\";
+    agg=metodos.Capital(agg);
+    System.out.println(new File(url+"domain\\model\\"+agg.toLowerCase()).mkdir() ); 
     Escribir.escribir(
-        "C:\\Users\\pabcos\\Documents\\trains\\prubas\\proyecto seedstack base\\src\\main\\java\\ctag\\domain\\model\\customer\\"
-            + metodos.Capital(agg)
+        url+"domain\\model\\"+agg+"\\"
+            + agg
             + ".java",
         ag);
    
     Escribir.escribir(
-        "C:\\Users\\pabcos\\Documents\\trains\\prubas\\proyecto seedstack base\\src\\main\\java\\ctag\\domain\\model\\customer\\"
-            + metodos.Capital(agg)
+        url+"domain\\model\\"+agg+"\\"
+            + agg
             + "Id.java",
         AgregadoId.id(agg));
     // DTOS
+    System.out.println(new File(url+"dtos\\dto\\"+agg.toLowerCase()).mkdir() ); 
     Escribir.escribir(
-        "C:\\Users\\pabcos\\Documents\\trains\\prubas\\proyecto seedstack base\\src\\main\\java\\ctag\\dtos\\dto\\customer\\"
-            + metodos.Capital(agg)
+        url+"dtos\\dto\\"+agg+"\\"
+            + agg
             + "CreateDto.java",
         Dto.createDto(agg, tipos.get(c), vars.get(c), fkmoVarFinal));
     Escribir.escribir(
-        "C:\\Users\\pabcos\\Documents\\trains\\prubas\\proyecto seedstack base\\src\\main\\java\\ctag\\dtos\\dto\\customer\\"
-            + metodos.Capital(agg)
+        url+"dtos\\dto\\"+agg+"\\"
+            + agg
             + "Dto.java",
         Dto.Dto(agg));
     // ASSEMBLERS
+    System.out.println(new File(url+"dtos\\assembler\\"+agg.toLowerCase()).mkdir()); 
     Escribir.escribir(
-        "C:\\Users\\pabcos\\Documents\\trains\\prubas\\proyecto seedstack base\\src\\main\\java\\ctag\\dtos\\assembler\\customer\\"
-            + metodos.Capital(agg)
+        url+"dtos\\assembler\\"+agg+"\\"
+            + agg
             + "CreateAssembler.java",
         Assembler.createAssembler(agg, tipos.get(c), vars.get(c), fkmoVarFinal));
     Escribir.escribir(
-        "C:\\Users\\pabcos\\Documents\\trains\\prubas\\proyecto seedstack base\\src\\main\\java\\ctag\\dtos\\assembler\\customer\\"
-            + metodos.Capital(agg)
+        url+"dtos\\assembler\\"+agg+"\\"
+            + agg
             + "Assembler.java",
         Assembler.Assembler(agg, tipos.get(c), vars.get(c), fkmoVarFinal));
-    // FACTORUE
+    // FACTORY
+    System.out.println(new File(url+"application\\factoryimpl\\"+agg.toLowerCase()).mkdir() ); 
     Escribir.escribir(
-        "C:\\Users\\pabcos\\Documents\\trains\\prubas\\proyecto seedstack base\\src\\main\\java\\ctag\\domain\\model\\customer\\"
-            + metodos.Capital(agg)
+        url+"domain\\model\\"+agg+"\\"
+            + agg
             + "Factory.java",
         Factory.factory(agg, tipos.get(c), vars.get(c), fkmoVarFinal));
     Escribir.escribir(
-        "C:\\Users\\pabcos\\Documents\\trains\\prubas\\proyecto seedstack base\\src\\main\\java\\ctag\\domain\\model\\customer\\"
-            + metodos.Capital(agg)
-            + "Factory.java",
-        Factory.factory(agg, tipos.get(c), vars.get(c), fkmoVarFinal));
-    Escribir.escribir(
-        "C:\\Users\\pabcos\\Documents\\trains\\prubas\\proyecto seedstack base\\src\\main\\java\\ctag\\application\\factoryimpl\\customer\\"
-            + metodos.Capital(agg)
+        url+"application\\factoryimpl\\"+agg+"\\"
+            + agg
             + "FactoryImpl.java",
         Factory.factoryImpl(agg, tipos.get(c), vars.get(c), fkmoVarFinal));
-    // Escribir.escribir("C:\\Users\\pabcos\\Desktop\\cosas.txt",ag);
 
+  System.out.println(c+"    iiii");}}
+//
+//
   }
-
   //////////////////////////////////////////////////////
   //////////////////////////////////////////////////////
   //////////////////////////////////////////////////////
-
+  
 }
