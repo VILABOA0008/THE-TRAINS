@@ -2,7 +2,9 @@ package main;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
+import java.util.Scanner;
 
 import cosas.Escribir;
 import textos.AgregadosGrandes;
@@ -20,13 +22,17 @@ public class AgregadoPLUSPLUS {
       Map<Integer, ArrayList<String>> fks,
       Map<Integer, Boolean> mtm,
       Map<Integer, ArrayList<Integer>> otm,
-      Map<Integer, ArrayList<Integer>> mto)
+      Map<Integer, ArrayList<Integer>> mto,
+      Map<Integer, String[]> Mtm )
       throws IOException {
 
+
     ArrayList<String> aggs = new ArrayList<>();
-    int c = 1;
+   
     String ag = "", ag2 = "";
     // MANY TO MANY
+    Map<Integer, ArrayList<String[]>> MTM=new HashMap<>();
+    Map<Integer, ArrayList<Integer>> MTMapped=new HashMap<>();
     ArrayList<String> mtmVar = new ArrayList<>();
     // MANY TO MANY
     ArrayList<String> mtmappedVar = new ArrayList<>();
@@ -40,26 +46,22 @@ public class AgregadoPLUSPLUS {
     ArrayList<String> fieldsFinal = new ArrayList<>();
     // ArrayList<String> fieldsVar = new ArrayList<>();
     // ArrayList<String> fieldsType = new ArrayList<>();
-    // NOMBRE DE LA TABLA DE L AGREGADO Y DEL ID
+    // NOMBRE DE LA TABLA Y EL AGREGADO D    
     String agg;
-    String tabla = tablas.get(c - 1);
+    String tabla;
+    int c = 2;
+    
+    AgregadoMetodosPLUS_PLUS_PLUS.NombreAggregado(aggs, tablas, mtm,Mtm,MTM,MTMapped);
 
-    // DISTINTAS VARIABLES
-    String MappedBy, mappedByV;
 
-    AgregadoMetodosPLUS_PLUS_PLUS.NombreAggregado(aggs, tablas, mtm);
+    tabla = tablas.get(c - 1);
 
-    for (String i : aggs) {
-      System.out.println(i);
-    }
     agg = aggs.get(c - 1);
     ag += Agregadospeques.paqueteAgg();
 
     ag += Agregadospeques.imports();
 
     ag += AgregadosGrandes.clas(agg);
-
-    //  tabla = AgregadoMetodosPLUS_PLUS_PLUS.NombreTabla();
 
     ag += Agregadospeques.finalTable(tabla);
 
@@ -71,12 +73,26 @@ public class AgregadoPLUSPLUS {
     if (fks.get(c) != null) {
       ag += AgregadoMetodosPLUS_PLUS_PLUS.ManysToOnes(aggs, fks.get(c), fkmoVarFinal, mto.get(c));
     }
-    ag +=
-        AgregadoMetodosPLUS_PLUS_PLUS.OnesToManys(
-            agg, otm.get(c), aggs, mapedBy, mapedByV, mapedByFinal);
-    //    ag += AgregadoMetodosPLUS_PLUS_PLUS.ManyToMany(agg, mtmVar);
-    //    ag += AgregadoMetodosPLUS_PLUS_PLUS.ManyToManyMapped(agg, mtmappedVar);
+    if (otm.get(c) != null) {
+    ag +=   AgregadoMetodosPLUS_PLUS_PLUS.OnesToManys(
+            agg, otm.get(c), aggs, mapedBy, mapedByV, mapedByFinal);}
+    
+    
 
+    if(MTM.get(c)!=null) {
+        ag += AgregadoMetodosPLUS_PLUS_PLUS.ManyToMany(agg, mtmVar,MTM.get(c));
+  
+    }
+
+        
+        if(MTMapped.get(c)!=null) {
+        ag += AgregadoMetodosPLUS_PLUS_PLUS.ManyToManyMapped(agg, mtmappedVar,MTMapped.get(c),aggs);
+      
+        System.out.println(MTMapped.get(c) );
+    }
+
+
+    
     ag += Agregadospeques.finalGenerator(agg);
     ag += AgregadosGrandes.tableGenerator(agg);
 
@@ -91,9 +107,10 @@ public class AgregadoPLUSPLUS {
     if (!mapedByV.isEmpty()) {
       ag += AgregadosGrandes.oneToMany(mapedByFinal, mapedByV);
     }
-
-    //    ag += AgregadosGrandes.ManysToManys(agg, mtmVar);
-    //    ag += Agregadospeques.manyToManyMappedBy(agg, mtmappedVar);
+        
+        ag += AgregadosGrandes.ManysToManys(agg, mtmVar);
+       
+       ag += Agregadospeques.manyToManyMappedBy(agg, mtmappedVar);
 
     ag += "\n\n\n";
 
@@ -128,6 +145,7 @@ public class AgregadoPLUSPLUS {
             + metodos.Capital(agg)
             + ".java",
         ag);
+   
     Escribir.escribir(
         "C:\\Users\\pabcos\\Documents\\trains\\prubas\\proyecto seedstack base\\src\\main\\java\\ctag\\domain\\model\\customer\\"
             + metodos.Capital(agg)
@@ -157,7 +175,7 @@ public class AgregadoPLUSPLUS {
         Assembler.Assembler(agg, tipos.get(c), vars.get(c), fkmoVarFinal));
     // FACTORUE
     Escribir.escribir(
-        "C:\\Users\\pabcos\\Documents\\trains\\prubas\\proyecto seedstack base\\src\\main\\java\\ctag\\domain\\model\\aggregate\\ModelosPruebas\\"
+        "C:\\Users\\pabcos\\Documents\\trains\\prubas\\proyecto seedstack base\\src\\main\\java\\ctag\\domain\\model\\customer\\"
             + metodos.Capital(agg)
             + "Factory.java",
         Factory.factory(agg, tipos.get(c), vars.get(c), fkmoVarFinal));

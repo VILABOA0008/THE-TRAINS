@@ -10,7 +10,8 @@ import bd.Bdd;
 public class Main {
 
   public static void main(String[] args) throws IOException {
-    Map<Integer, ArrayList<Integer>> mto = new HashMap<>();
+    Map<Integer, String[]> Mtm = new HashMap<>();
+    Map<Integer, ArrayList<Integer>> mto  = new HashMap<>();
     Map<Integer, ArrayList<Integer>> otm = new HashMap<>();
     Map<Integer, Boolean> mtm = new HashMap<>();//SI LA TABLA ES MTM O NO
     Map<Integer, ArrayList<String>> fks = new HashMap<>();//NOMBRE DE TODAS LAS FKS
@@ -21,22 +22,20 @@ public class Main {
   ArrayList<String>arrayprimary=new ArrayList<>();//TODOS LOS IDS LOS QUE SON 2 SEPARADOS POR UN ESPACIO
   ArrayList<String>tablas=new ArrayList<>();//NOMBRE D ELAS TABLAS
     Bdd.bdd(fields,foreign,arrayprimary,tablas,mtm);
-    ConverToPojo.pojo(vars,tipos,fields, foreign, arrayprimary,tablas,fks,mtm,otm,mto);
+    ConverToPojo.pojo(vars,tipos,fields, foreign, arrayprimary,tablas,fks,mtm,otm,mto,Mtm);
     
-    System.out.println("\n\nHERE\n" ); 
-    for (int i=1;i<tablas.size()+1;i++) {
-System.out.println();
-      if(mto.get(i)!=null)
-      for(Integer q:mto.get(i)) {
-        System.out.println(i+"  valor "+q ); 
-      }
-    }
+    for (int i = 1; i < tablas.size() + 1; i++) {
+      if (Mtm.get(i) != null) {
+        System.out.println("\n\nTABLA" ); 
+        for (String q : Mtm.get(i)) {
+           System.out.print(q+"   " );
+        }      }    }
     
-    AgregadoPLUSPLUS.test(vars,tipos,fields, foreign, arrayprimary,tablas,fks,mtm,otm,mto);
+    AgregadoPLUSPLUS.test(vars,tipos,fields, foreign, arrayprimary,tablas,fks,mtm,otm,mto,Mtm);
     
 
     
-    //Agregado.test();
+//    Agregado.test();
 //    automata.a();
 
   }

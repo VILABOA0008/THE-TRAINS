@@ -41,6 +41,7 @@ public class Agregadospeques {
   }
 
   public static String finalManytoMany(String agg, String clase, String id, String tabla) {
+
     String a = "";
 
     a +=
@@ -221,14 +222,14 @@ public class Agregadospeques {
     return a;
   }
 
-  public static String finalManytoManyMapped(String clase, String mapped) {
+  public static String finalManytoManyMapped(String clase,String map) {
     String a = "";
 
     a +=
         "   \nprivate static final String MAPPED_BY_"
-            + clase.toUpperCase()
+            + map.toUpperCase()
             + " = \""
-            + mapped
+            + clase.toLowerCase()
             + "\";";
 
     return a;
@@ -238,14 +239,14 @@ public class Agregadospeques {
     String a = "";
     for (String i : mapped) {
       a +=
-          "  @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY, mappedBy =  MAPPED_BY_"
+          "  \n@ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY, mappedBy =  MAPPED_BY_"
               + i.toUpperCase()
               + ")\n"
               + "  private Set<"
               + metodos.Capital(i)
               + "> "
               + i
-              + "s;";
+              + "s;\n";
     }
     return a;
   }
