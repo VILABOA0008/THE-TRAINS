@@ -24,8 +24,6 @@ public class Main {
     Bdd.bdd(fields,foreign,arrayprimary,tablas,mtm);
     ConverToPojo.pojo(vars,tipos,fields, foreign, arrayprimary,tablas,fks,mtm,otm,mto,Mtm);
     
-    
-    /*
     for (int i = 1; i < tablas.size() + 1; i++) {
       if (Mtm.get(i) != null) {
         System.out.println("\n\nTABLA" ); 
@@ -33,7 +31,7 @@ public class Main {
            System.out.print(q+"   " );
         }      }    }
     System.out.println("\n" ); 
-    */
+    
 
     AgregadoPLUSPLUS.test(vars,tipos,fields, foreign, arrayprimary,tablas,fks,mtm,otm,mto,Mtm);
       

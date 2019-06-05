@@ -17,10 +17,10 @@ public class ConverToPojo {
       Map<Integer, Boolean> mtm,
       Map<Integer, ArrayList<Integer>> otm,
       Map<Integer, ArrayList<Integer>> mto,
-      Map<Integer, String[]> Mtm) {
+      Map<Integer, String[]> Mtm ) {
 
     FieldsyVars(vars, tipos, fields, tablas);
-    ManiesToOnes(vars, tipos, fields, tablas, foreign, fks, arrayprimary, mtm, otm, mto, Mtm);
+    ManiesToOnes(vars, tipos, fields, tablas, foreign, fks, arrayprimary, mtm, otm, mto,Mtm);
   }
 
   public static void ManiesToOnes(
@@ -39,8 +39,8 @@ public class ConverToPojo {
     String aux = "";
     for (int i = 1; i < tablas.size() + 1; i++) {
       fk = new ArrayList<>();
-      String[] auxmtm = new String[4];
-      int mtmc = 0;
+      String[]auxmtm=new String[4];
+      int mtmc=0;
       for (String q : foreign.get(i)) {
         q += " ";
         if (metodos.word(q, 1).equalsIgnoreCase("FOREIGN")) {
@@ -53,15 +53,12 @@ public class ConverToPojo {
 
           } else {
             // TODO MTM no hay na echo
-
             aux = metodos.word(q, 3);
-
             aux = metodos.comillas(aux);
             aux = metodos.comillas(aux);
-            System.out.println(mtmc + "  aux  " + aux);
-            auxmtm[mtmc] = aux;
+            auxmtm[mtmc]=aux;
             mtmc++;
-            System.out.println(aux);
+            System.out.println(aux ); 
           }
 
         } else {
@@ -83,31 +80,28 @@ public class ConverToPojo {
             if (auxotm == null) {
               auxotm = new ArrayList<>();
             }
-            auxotm.add(i);
+            auxotm.add(i);            
             otm.put(tablaotm, auxotm);
 
             System.out.println(tablaotm + " " + auxx + " aux  " + aux + "  tabla" + i);
 
           } else {
             // TODO MTM no hay na echo
-
+           
             String auxx = aux;
             aux = metodos.word(q, 2);
             aux = metodos.specialword(q, '.');
             aux = metodos.comillas(aux);
-            Integer auxid = metodos.idByTable(aux, tablas);
-            auxmtm[mtmc] = String.valueOf(auxid);
+            Integer auxid=metodos.idByTable(aux, tablas);
+            auxmtm[mtmc]=String.valueOf(auxid);
             mtmc++;
             System.out.println(" refere    " + auxid);
-            if (mtmc == 4) {
-              Mtm.put(i, auxmtm);
-            }
+            if(mtmc==4) {Mtm.put(i, auxmtm);}
           }
         }
-
+        
         if (!fk.isEmpty()) {
-          fks.put(i, fk);
-        }
+          fks.put(i, fk);}
       }
     }
 
@@ -118,6 +112,7 @@ public class ConverToPojo {
         }
       }
     }
+
 
     /*
     for(int i=1;i<tablas.size()+1;i++) {
@@ -136,8 +131,6 @@ public class ConverToPojo {
     toVars.put("INT", "Integer");
     toVars.put("VARCHAR", "String");
     toVars.put("BIT", "boolean");
-    toVars.put("FLOAT", "float");
-    toVars.put("TIMESTAMP", "LocalDateTime");
 
     String s = "";
     ArrayList<String> var = new ArrayList<>();
@@ -155,13 +148,6 @@ public class ConverToPojo {
         var.add(aux);
         aux = metodos.word(s, 2);
         aux = metodos.varchar(aux);
-        if (aux.contains("INT")) {
-          aux = "INT";
-        }
-        if (aux.contains("BIT")) {
-          aux = "BIT";
-        }
-
         aux = toVars.get(aux);
         tipo.add(aux);
       }

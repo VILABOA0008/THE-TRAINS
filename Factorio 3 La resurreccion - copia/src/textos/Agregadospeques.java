@@ -110,7 +110,7 @@ public class Agregadospeques {
   }
   public static String importAgg(String agg) {
     
-    String a="\nimport ctag.domain.model."+agg.toLowerCase()+".*;\n";
+    String a="import ctag.domain.model."+agg.toLowerCase();
     return a;
   }
 

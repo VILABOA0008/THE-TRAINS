@@ -26,15 +26,15 @@ public class AgregadoPLUSPLUS {
       Map<Integer, ArrayList<Integer>> mto,
       Map<Integer, String[]> Mtm)
       throws IOException {
-Scanner s=new Scanner(System.in)  ;
+
 
     ArrayList<String> aggs = new ArrayList<>();
    
-    String ag = "", importagg = "";
-    Map<Integer, Boolean> readOnly=new HashMap<>();
+    String ag = "", ag2 = "";
     // MANY TO MANY
     Map<Integer, ArrayList<String[]>> MTM=new HashMap<>();
     Map<Integer, ArrayList<Integer>> MTMapped=new HashMap<>();
+
     // ArrayList<String> fieldsVar = new ArrayList<>();
     // ArrayList<String> fieldsType = new ArrayList<>();
     // NOMBRE DE LA TABLA Y EL AGREGADO D    
@@ -42,11 +42,9 @@ Scanner s=new Scanner(System.in)  ;
     String tabla;
     int c ;
     
-    AgregadoMetodosPLUS_PLUS_PLUS.NombreAggregado(aggs, tablas, mtm,Mtm,MTM,MTMapped,readOnly);
-for(int j=1;j<9;j++) {
-  System.out.println(readOnly.get(j));
-}
-    
+    AgregadoMetodosPLUS_PLUS_PLUS.NombreAggregado(aggs, tablas, mtm,Mtm,MTM,MTMapped);
+
+
     for(int i=1;i<mtm.size();i++) {
       if(mtm.get(i)==false) {
         ArrayList<String> mtmVar = new ArrayList<>();
@@ -66,7 +64,7 @@ for(int j=1;j<9;j++) {
     tabla = tablas.get(c - 1);
 
     agg = aggs.get(c - 1);
-    importagg=Agregadospeques.importAgg(agg);
+    ag2=Agregadospeques.importAgg(agg);
     ag += Agregadospeques.paqueteAgg(agg);
 
     ag += Agregadospeques.imports();
@@ -149,7 +147,6 @@ for(int j=1;j<9;j++) {
             + agg
             + "Id.java",
         AgregadoId.id(agg));
-    if(readOnly.get(c)==false) {
     // DTOS
     System.out.println(new File(url+"dtos\\dto\\"+agg.toLowerCase()).mkdir() ); 
     Escribir.escribir(
@@ -185,8 +182,8 @@ for(int j=1;j<9;j++) {
         url+"application\\factoryimpl\\"+agg+"\\"
             + agg
             + "FactoryImpl.java",
-        Factory.factoryImpl(agg, tipos.get(c), vars.get(c), fkmoVarFinal,importagg));
-    }
+        Factory.factoryImpl(agg, tipos.get(c), vars.get(c), fkmoVarFinal));
+
   System.out.println(c+"    iiii");}}
 //
 //

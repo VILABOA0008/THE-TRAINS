@@ -91,7 +91,7 @@ public class Agregado {
     System.out.println("\n\n\n FACTORY \n\n\n");
     System.out.println("\n\n\n" + Factory.factory(agg, fieldsType, fieldsVar, fkmoVarFinal));
     System.out.println("\n\n\n FACTORY_IMPL \n\n\n");
-    System.out.println("\n\n\n" + Factory.factoryImpl(agg, fieldsType, fieldsVar, fkmoVarFinal,agg));
+    System.out.println("\n\n\n" + Factory.factoryImpl(agg, fieldsType, fieldsVar, fkmoVarFinal));
     System.out.println("\n\n\n CREATE  DTO \n\n\n");
     System.out.println("\n\n\n" + Dto.createDto(agg, fieldsType, fieldsVar, fkmoVarFinal));
     System.out.println("\n\n\n DTO \n\n\n");
@@ -153,7 +153,7 @@ public class Agregado {
         "C:\\Users\\pabcos\\Documents\\trains\\prubas\\proyecto seedstack base\\src\\main\\java\\ctag\\application\\factoryimpl\\customer\\"
             + agg
             + "FactoryImpl.java",
-        Factory.factoryImpl(agg, fieldsType, fieldsVar, fkmoVarFinal,agg));
+        Factory.factoryImpl(agg, fieldsType, fieldsVar, fkmoVarFinal));
     // Escribir.escribir("C:\\Users\\pabcos\\Desktop\\cosas.txt",ag);
 
   }

@@ -1,7 +1,6 @@
 package main;
 
 import java.util.ArrayList;
-import java.util.InputMismatchException;
 import java.util.Map;
 import java.util.Scanner;
 
@@ -51,7 +50,7 @@ public class AgregadoMetodosPLUS_PLUS_PLUS {
       Map<Integer, Boolean> mtm,
       Map<Integer, String[]> Mtm,
       Map<Integer, ArrayList<String[]>> MTM,
-      Map<Integer, ArrayList<Integer>> MTMapped,Map<Integer, Boolean> readOnly) {
+      Map<Integer, ArrayList<Integer>> MTMapped) {
     String[] aggss = {
       "Page", "Button", "DocType", "Document", "null", "Style", "null", "Configuration", "null"
     };
@@ -59,31 +58,17 @@ public class AgregadoMetodosPLUS_PLUS_PLUS {
     int c = 1;
     String agg;
     String[] arraymtm = new String[6];
-    
-    System.out.println("EN CASO DE QUE LA TABLA EN CUESTION SE READ ONLY ESCIRBA   un 1 y el agregado CONTINUACION\n" );
-    System.out.println("2  Ejemplos:          1Configuration \n \n" ); 
+
     for (String i : tablas) {
       Scanner s = new Scanner(System.in);
-
-      if (!mtm.get(c)) {
-
-        System.out.println("\n "+c+"   Nombre del agregado de la tabla " + i);
+      if (mtm.get(c) == false) {
+        System.out.println("nombre del agregado de la tabla " + i);
                agg=s.nextLine();
 //        agg = aggss[c - 1];
-        
- 
-       try {
-       Integer.valueOf(agg.substring(0, 1));
-          readOnly.put(c, true);          
-agg=agg.substring(1);
-        }catch (NumberFormatException e) {
-          readOnly.put(c, false);
-        }
-       aggs.add(metodos.Capital(agg));
+        aggs.add(metodos.Capital(agg));
+
       } else {
-        int op=0 ;
-        while(op!=1&&op!=2) {
-        System.out.println("\n\n  "+c+"Que agregado es la padre de " + i);
+        System.out.println("\n\nQue agregado es la padre de " + i);
          
         System.out.println(
             "1   Agregado   "
@@ -95,15 +80,7 @@ agg=agg.substring(1);
                 + aggs.get(Integer.valueOf(Mtm.get(c)[3]) - 1)
                 + "  con  "
                 + Mtm.get(c)[0]);
-       
-        try {
-       op= s.nextInt();
-        }catch (InputMismatchException e) {
-          s.nextLine();
-            System.out.println("Fallo tecnico Tuyo" ); 
-        }
-        }
-        
+        int op = s.nextInt();
         String aux, aggpadre, tabla, fk1, fk2, agghijo;
         Integer auxmapped;
         arraymtm = new String[6];
@@ -172,7 +149,7 @@ agg=agg.substring(1);
 
   
         aggs.add(null);
-        readOnly.put(c, false);
+
  
       }
       c++;

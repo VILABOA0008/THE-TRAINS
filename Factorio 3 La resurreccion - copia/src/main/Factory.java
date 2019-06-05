@@ -40,12 +40,11 @@ public class Factory {
   }
 
   public static String factoryImpl(String agg, ArrayList<String> fieldsType,
-      ArrayList<String> fieldsVar, ArrayList<String> fkmoVarFinal,String importagg) {
+      ArrayList<String> fieldsVar, ArrayList<String> fkmoVarFinal) {
 
     agg = metodos.Capital(agg);
     String a="";
     a+=Agregadospeques.FactoryImplPackage(agg);
-    a+=importagg;
     
     String b = "", c = "";
     for (int i = 0; i < fieldsType.size(); i++) {

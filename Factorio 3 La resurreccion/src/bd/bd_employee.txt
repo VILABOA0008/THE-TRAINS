@@ -1,0 +1,165 @@
+-- MySQL Workbench Forward Engineering
+
+SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
+SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
+SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
+
+-- -----------------------------------------------------
+-- Schema mydb
+-- -----------------------------------------------------
+-- -----------------------------------------------------
+-- Schema PLC_Collector
+-- -----------------------------------------------------
+
+-- -----------------------------------------------------
+-- Schema PLC_Collector
+-- -----------------------------------------------------
+CREATE SCHEMA IF NOT EXISTS `PLC_Collector` DEFAULT CHARACTER SET utf8 ;
+USE `PLC_Collector` ;
+
+-- -----------------------------------------------------
+-- Table `PLC_Collector`.`CaptureSetting`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `PLC_Collector`.`CaptureSetting` (
+  `IdSetting` INT(11) NOT NULL,
+  `Name` VARCHAR(50) NOT NULL,
+  `Description` VARCHAR(2000) NOT NULL,
+  `Active` BIT(1) NOT NULL,
+  `MaxActiveSeconds` INT(11) NOT NULL DEFAULT '3600',
+  `LastActivation` TIMESTAMP NULL DEFAULT NULL,
+  PRIMARY KEY (`IdSetting`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+
+
+-- -----------------------------------------------------
+-- Table `PLC_Collector`.`DataType`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `PLC_Collector`.`DataType` (
+  `IdDataType` INT(11) NOT NULL AUTO_INCREMENT,
+  `Name` VARCHAR(200) NOT NULL,
+  `ByteLength` INT(10) UNSIGNED NOT NULL,
+  `VariableLength` BIT(1) NULL DEFAULT NULL,
+  PRIMARY KEY (`IdDataType`))
+ENGINE = InnoDB
+AUTO_INCREMENT = 10
+DEFAULT CHARACTER SET = utf8;
+
+
+-- -----------------------------------------------------
+-- Table `PLC_Collector`.`PLC`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `PLC_Collector`.`PLC` (
+  `IdPLC` INT(11) NOT NULL AUTO_INCREMENT,
+  `IpAddress` VARCHAR(15) NOT NULL DEFAULT '255.255.255.255',
+  `Port` INT(10) UNSIGNED NOT NULL DEFAULT '102',
+  `Rack` INT(11) NOT NULL,
+  `Slot` INT(11) NOT NULL,
+  `Name` VARCHAR(200) NULL DEFAULT NULL,
+  PRIMARY KEY (`IdPLC`),
+  UNIQUE INDEX `IdPLC_UNIQUE` (`IdPLC` ASC))
+ENGINE = InnoDB
+AUTO_INCREMENT = 4
+DEFAULT CHARACTER SET = utf8;
+
+
+-- -----------------------------------------------------
+-- Table `PLC_Collector`.`Topic`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `PLC_Collector`.`Topic` (
+  `IdTopic` INT(11) NOT NULL,
+  `TopicAddress` VARCHAR(500) NOT NULL,
+  PRIMARY KEY (`IdTopic`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+
+
+-- -----------------------------------------------------
+-- Table `PLC_Collector`.`Variable`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `PLC_Collector`.`Variable` (
+  `IdVariable` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `FK_PLC` INT(11) NOT NULL,
+  `FK_Topic` INT(11) NOT NULL,
+  `FK_DataType` INT(11) NOT NULL,
+  `DataBlock` INT(11) NOT NULL,
+  `ByteOffset` INT(11) NOT NULL,
+  `BitOffset` INT(11) NULL DEFAULT NULL,
+  `ByteLength` INT(11) NULL DEFAULT NULL,
+  `Name` VARCHAR(200) NULL DEFAULT NULL,
+  PRIMARY KEY (`IdVariable`),
+  UNIQUE INDEX `IdVariable_UNIQUE` (`IdVariable` ASC),
+  INDEX `FK_DataType_idx` (`FK_DataType` ASC),
+  INDEX `FK_PLC_idx` (`FK_PLC` ASC),
+  INDEX `fk_Variable_Topic1_idx` (`FK_Topic` ASC),
+  CONSTRAINT `FK_DataType`
+    FOREIGN KEY (`FK_DataType`)
+    REFERENCES `PLC_Collector`.`DataType` (`IdDataType`),
+  CONSTRAINT `FK_PLC`
+    FOREIGN KEY (`FK_PLC`)
+    REFERENCES `PLC_Collector`.`PLC` (`IdPLC`),
+  CONSTRAINT `fk_Variable_Topic1`
+    FOREIGN KEY (`FK_Topic`)
+    REFERENCES `PLC_Collector`.`Topic` (`IdTopic`))
+ENGINE = InnoDB
+AUTO_INCREMENT = 6
+DEFAULT CHARACTER SET = utf8;
+
+
+-- -----------------------------------------------------
+-- Table `PLC_Collector`.`CaptureSettingVariable`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `PLC_Collector`.`CaptureSettingVariable` (
+  `IdSetting` INT(11) NOT NULL,
+  `IdVariable` INT(10) UNSIGNED NOT NULL,
+  PRIMARY KEY (`IdSetting`, `IdVariable`),
+  INDEX `fk_CaptureSettings_has_Variable_Variable1_idx` (`IdVariable` ASC),
+  INDEX `fk_CaptureSettings_has_Variable_CaptureSettings1_idx` (`IdSetting` ASC),
+  CONSTRAINT `fk_CaptureSettings_has_Variable_CaptureSettings1`
+    FOREIGN KEY (`IdSetting`)
+    REFERENCES `PLC_Collector`.`CaptureSetting` (`IdSetting`),
+  CONSTRAINT `fk_CaptureSettings_has_Variable_Variable1`
+    FOREIGN KEY (`IdVariable`)
+    REFERENCES `PLC_Collector`.`Variable` (`IdVariable`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+
+
+-- -----------------------------------------------------
+-- Table `PLC_Collector`.`NanoTerminal`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `PLC_Collector`.`NanoTerminal` (
+  `IdDevice` VARCHAR(32) NOT NULL,
+  `IpAddress` VARCHAR(15) NOT NULL,
+  `Alias` VARCHAR(50) NULL DEFAULT NULL,
+  `LastSeen` TIMESTAMP NULL DEFAULT NULL,
+  PRIMARY KEY (`IdDevice`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+
+
+-- -----------------------------------------------------
+-- Table `PLC_Collector`.`NanoTerminalPLC`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `PLC_Collector`.`NanoTerminalPLC` (
+  `IdPLC` INT(11) NOT NULL,
+  `IdDevice` VARCHAR(32) NOT NULL,
+  PRIMARY KEY (`IdPLC`, `IdDevice`),
+  INDEX `fk_PLC_has_NanoTerminal_PLC1_idx` (`IdPLC` ASC),
+  INDEX `fk_PLC_has_NanoTerminal_NanoTerminal1_idx` (`IdDevice` ASC),
+  CONSTRAINT `fk_PLC_has_NanoTerminal_NanoTerminal1`
+    FOREIGN KEY (`IdDevice`)
+    REFERENCES `PLC_Collector`.`NanoTerminal` (`IdDevice`),
+  CONSTRAINT `fk_PLC_has_NanoTerminal_PLC1`
+    FOREIGN KEY (`IdPLC`)
+    REFERENCES `PLC_Collector`.`PLC` (`IdPLC`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+
+
+
+
+
+SET SQL_MODE=@OLD_SQL_MODE;
+SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
+SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
