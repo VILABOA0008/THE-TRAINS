@@ -52,7 +52,12 @@ public class Agregadospeques {
             + " = \""
             + tabla
             + "\";";
-    a += "   \nprivate static final String ID_" + clase.toUpperCase() + " = \"" + id + "\";";
+    
+
+    return a;
+  }
+  public static String finalManytoManyId(String agg, String clase, String id, String tabla) {
+    String a = "   \nprivate static final String ID_" + clase.toUpperCase() + " = \"" + id + "\";";
 
     return a;
   }

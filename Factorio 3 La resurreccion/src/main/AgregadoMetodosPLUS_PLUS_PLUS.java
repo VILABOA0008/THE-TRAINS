@@ -35,7 +35,7 @@ public class AgregadoMetodosPLUS_PLUS_PLUS {
 
   public static String MappedBy(ArrayList<String> fkmoFinal, ArrayList<String> fkmoVarFinal) {
 
-//    System.out.println("");
+    //    System.out.println("");
 
     String a = "";
 
@@ -51,60 +51,61 @@ public class AgregadoMetodosPLUS_PLUS_PLUS {
       Map<Integer, Boolean> mtm,
       Map<Integer, String[]> Mtm,
       Map<Integer, ArrayList<String[]>> MTM,
-      Map<Integer, ArrayList<Integer>> MTMapped,Map<Integer, Boolean> readOnly) {
+      Map<Integer, ArrayList<Integer>> MTMapped,
+      Map<Integer, Boolean> readOnly) {
     String[] aggss = {
       "Page", "Button", "DocType", "Document", "null", "Style", "null", "Configuration", "null"
     };
-    System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n" ); 
+    System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
     int c = 1;
     String agg;
     String[] arraymtm = new String[6];
-    
-    System.out.println("EN CASO DE QUE LA TABLA EN CUESTION SE READ ONLY ESCIRBA   un 1 y el agregado CONTINUACION\n" );
-    System.out.println("2  Ejemplos:          1Configuration \n \n" ); 
+
+    System.out.println(
+        "EN CASO DE QUE LA TABLA EN CUESTION SE READ ONLY ESCIRBA   un 1 y el agregado CONTINUACION\n");
+    System.out.println("2  Ejemplos:          1Configuration \n \n");
     for (String i : tablas) {
       Scanner s = new Scanner(System.in);
 
       if (!mtm.get(c)) {
 
-        System.out.println("\n "+c+"   Nombre del agregado de la tabla " + i);
-//               agg=s.nextLine();
-        agg=i;
-//        agg = aggss[c - 1];
-        
- 
-       try {
-       Integer.valueOf(agg.substring(0, 1));
-          readOnly.put(c, true);          
-agg=agg.substring(1);
-        }catch (NumberFormatException e) {
+        System.out.println("\n " + c + "   Nombre del agregado de la tabla " + i);
+        //               agg=s.nextLine();
+        agg = i;
+        //        agg = aggss[c - 1];
+
+        try {
+          Integer.valueOf(agg.substring(0, 1));
+          readOnly.put(c, true);
+          agg = agg.substring(1);
+        } catch (NumberFormatException e) {
           readOnly.put(c, false);
         }
-       aggs.add(metodos.Capital(agg));
+        aggs.add(metodos.Capital(agg));
       } else {
-        int op=0 ;
-        while(op!=1&&op!=2) {
-        System.out.println("\n\n  "+c+"Que agregado es la padre de " + i);
-         
-        System.out.println(
-            "1   Agregado   "
-                + aggs.get(Integer.valueOf(Mtm.get(c)[1]) - 1)
-                + "  con  "
-                + Mtm.get(c)[2]);
-        System.out.println(
-            "2   Agregado   "
-                + aggs.get(Integer.valueOf(Mtm.get(c)[3]) - 1)
-                + "  con  "
-                + Mtm.get(c)[0]);
-       
-        try {
-       op= s.nextInt();
-        }catch (InputMismatchException e) {
-          s.nextLine();
-            System.out.println("Fallo tecnico Tuyo" ); 
+        int op = 0;
+        while (op != 1 && op != 2) {
+          System.out.println("\n\n  " + c + "Que agregado es la padre de " + i);
+
+          System.out.println(
+              "1   Agregado   "
+                  + aggs.get(Integer.valueOf(Mtm.get(c)[1]) - 1)
+                  + "  con  "
+                  + Mtm.get(c)[2]);
+          System.out.println(
+              "2   Agregado   "
+                  + aggs.get(Integer.valueOf(Mtm.get(c)[3]) - 1)
+                  + "  con  "
+                  + Mtm.get(c)[0]);
+
+          try {
+            op = s.nextInt();
+          } catch (InputMismatchException e) {
+            s.nextLine();
+            System.out.println("Fallo tecnico Tuyo");
+          }
         }
-        }
-        
+
         String aux, aggpadre, tabla, fk1, fk2, agghijo;
         Integer auxmapped;
         arraymtm = new String[6];
@@ -171,10 +172,8 @@ agg=agg.substring(1);
           MTMapped.put(auxmapped, aa);
         }
 
-  
         aggs.add(null);
         readOnly.put(c, false);
- 
       }
       c++;
     }
@@ -208,12 +207,12 @@ agg=agg.substring(1);
       ArrayList<String> mapedByFinal) {
     String a = "", MappedBy, mappedByV;
     int nf;
-//    System.out.println("Numero de ones to manies");
+    //    System.out.println("Numero de ones to manies");
     int c = 0;
     nf = otm.size();
     while (nf > c) {
 
-//      System.out.println("mapped by");
+      //      System.out.println("mapped by");
 
       MappedBy = agg.toLowerCase();
 
@@ -222,9 +221,10 @@ agg=agg.substring(1);
       if (!MappedBy.isEmpty()) {
         String MappedByFinal = "MAPPED_BY_" + MappedBy.toUpperCase();
         mapedByFinal.add(MappedByFinal);
-        System.out.println(MappedByFinal+"   mapeddd    "+ MappedBy); 
-if(c==0) {
-        a += Agregadospeques.MappedBy(MappedByFinal, MappedBy);}
+        System.out.println(MappedByFinal + "   mapeddd    " + MappedBy);
+        if (c == 0) {
+          a += Agregadospeques.MappedBy(MappedByFinal, MappedBy);
+        }
         System.out.println("Escribe la variable");
 
         mappedByV = aggs.get(otm.get(c) - 1);
@@ -239,7 +239,7 @@ if(c==0) {
 
   public static String ManyToMany(String agg, ArrayList<String> mtmVar, ArrayList<String[]> MTM) {
     String a = "";
-//    System.out.println("Numero de manys to manys sin mapped by");
+    //    System.out.println("Numero de manys to manys sin mapped by");
     int nf;
     int c = 0;
 
@@ -248,19 +248,23 @@ if(c==0) {
     while (nf > c) {
       String clase, id, tabla;
 
-//    TIPO");
+      //    TIPO");
       clase = metodos.despital(MTM.get(c)[5]);
-
       mtmVar.add(clase);
-
-//   ID
+      //   ID
       id = MTM.get(c)[4];
 
-//      System.out.println("tabla ");
+      //      System.out.println("tabla ");
       tabla = MTM.get(c)[2];
-
-      a += Agregadospeques.finalManytoMany(agg, clase, id, tabla);
-
+      if (a.contains(clase.toUpperCase())) {
+        clase+="2";
+        a += Agregadospeques.finalManytoMany(agg, clase, id, tabla);
+      } else {
+        
+        a += Agregadospeques.finalManytoMany(agg, clase, id, tabla);
+        a += Agregadospeques.finalManytoManyId(agg, clase, id, tabla);
+      }
+      
       c++;
       System.out.println(clase);
     }
@@ -271,10 +275,10 @@ if(c==0) {
       String agg, ArrayList<String> mtmVar, ArrayList<Integer> mapped, ArrayList<String> aggs) {
     String a = "";
     int nf;
-//    System.out.println("Numero de manys to manys con mapped by");
+    //    System.out.println("Numero de manys to manys con mapped by");
     int c = 0;
 
-    agg = agg.toLowerCase();
+    agg = metodos.despital(agg);
     nf = mapped.size();
 
     while (nf > c) {
@@ -282,13 +286,14 @@ if(c==0) {
 
       clase = agg + "s";
 
-//      System.out.println("mappedby ");
-      map = aggs.get(mapped.get(c) - 1).toLowerCase();
+      //      System.out.println("mappedby ");
+      map = metodos.despital(aggs.get(mapped.get(c) - 1));
       mtmVar.add(map);
 
-//      System.out.println(clase + "  clase   " + map);
-if(c==0) {
-      a += Agregadospeques.finalManytoManyMapped(clase, map);}
+      //      System.out.println(clase + "  clase   " + map);
+      if (c == 0) {
+        a += Agregadospeques.finalManytoManyMapped(clase, map);
+      }
 
       c++;
     }
@@ -305,10 +310,10 @@ if(c==0) {
     int nf;
     int c = 0;
     //  System.out.println("Numero de manys to one");
-//    System.out.println(fks + " \n " + mto);
-//    System.out.println(fks.size() - 1);
+    //    System.out.println(fks + " \n " + mto);
+    //    System.out.println(fks.size() - 1);
     nf = fks.size();
-//    System.out.println("nf  " + nf);
+    //    System.out.println("nf  " + nf);
 
     while (c < nf) {
       String fk;
@@ -316,7 +321,7 @@ if(c==0) {
 
       fk = aggs.get(mto.get(c) - 1).toLowerCase();
 
-//      System.out.println("\n\nfk  " + fks.get(c));
+      //      System.out.println("\n\nfk  " + fks.get(c));
       a += Agregadospeques.finalFk(fks.get(c));
       fkmoVarFinal.add(fk);
 

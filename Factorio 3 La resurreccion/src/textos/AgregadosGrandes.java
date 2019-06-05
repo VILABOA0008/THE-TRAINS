@@ -100,15 +100,16 @@ public class AgregadosGrandes {
   }
 
   public static String ManysToManys(String agg,ArrayList<String>mtmVar) {
-    String a="";
+    String a="",c="";
+    int b=1;
     for(String i:mtmVar) {
-    
+    if (a.contains(i+c)) {b++;c=String.valueOf(b);}else {c="";}
     a += " \n @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)\n" + 
         "  @JoinTable(\n" + 
-        "      name = TABLE_"+agg.toUpperCase()+"_"+i.toUpperCase()+",\n" + 
+        "      name = TABLE_"+agg.toUpperCase()+"_"+i.toUpperCase()+c+",\n" + 
         "      joinColumns = {@JoinColumn(name = ID_"+agg.toUpperCase()+", nullable = false, updatable = false)},\n" + 
         "      inverseJoinColumns = {@JoinColumn(name = ID_"+i.toUpperCase()+", nullable = false, updatable = false)})\n" + 
-        "  private Set<"+metodos.Capital(i)+"> "+i+"s;\n";
+        "  private Set<"+metodos.Capital(i)+"> "+i+"s"+c+";\n";
 
     }
     return a;
