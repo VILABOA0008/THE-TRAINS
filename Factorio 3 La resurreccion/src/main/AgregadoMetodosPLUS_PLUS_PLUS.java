@@ -68,7 +68,8 @@ public class AgregadoMetodosPLUS_PLUS_PLUS {
       if (!mtm.get(c)) {
 
         System.out.println("\n "+c+"   Nombre del agregado de la tabla " + i);
-               agg=s.nextLine();
+//               agg=s.nextLine();
+        agg=i;
 //        agg = aggss[c - 1];
         
  
@@ -221,8 +222,9 @@ agg=agg.substring(1);
       if (!MappedBy.isEmpty()) {
         String MappedByFinal = "MAPPED_BY_" + MappedBy.toUpperCase();
         mapedByFinal.add(MappedByFinal);
-
-        a += Agregadospeques.MappedBy(MappedByFinal, MappedBy);
+        System.out.println(MappedByFinal+"   mapeddd    "+ MappedBy); 
+if(c==0) {
+        a += Agregadospeques.MappedBy(MappedByFinal, MappedBy);}
         System.out.println("Escribe la variable");
 
         mappedByV = aggs.get(otm.get(c) - 1);
@@ -245,13 +247,13 @@ agg=agg.substring(1);
 
     while (nf > c) {
       String clase, id, tabla;
-//      System.out.println("tipo (en minuscula) ");
 
-      clase = MTM.get(c)[5].toLowerCase();
+//    TIPO");
+      clase = metodos.despital(MTM.get(c)[5]);
 
       mtmVar.add(clase);
 
-//      System.out.println("id  en la tabla");
+//   ID
       id = MTM.get(c)[4];
 
 //      System.out.println("tabla ");
@@ -285,8 +287,8 @@ agg=agg.substring(1);
       mtmVar.add(map);
 
 //      System.out.println(clase + "  clase   " + map);
-
-      a += Agregadospeques.finalManytoManyMapped(clase, map);
+if(c==0) {
+      a += Agregadospeques.finalManytoManyMapped(clase, map);}
 
       c++;
     }

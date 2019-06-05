@@ -58,7 +58,11 @@ public class ConverToPojo {
 
             aux = metodos.comillas(aux);
             aux = metodos.comillas(aux);
-            System.out.println(mtmc + "  aux  " + aux);
+            System.out.println(auxmtm ); 
+            for(String g:auxmtm) {
+              System.out.print(g +"   "); 
+            }
+            System.out.println("\n\n "+tablas.get(i-1) + "  aux  " + aux);
             auxmtm[mtmc] = aux;
             mtmc++;
             System.out.println(aux);
@@ -134,10 +138,14 @@ public class ConverToPojo {
 
     Map<String, String> toVars = new HashMap<>();
     toVars.put("INT", "Integer");
+    toVars.put("TINYINT", "Byte");
     toVars.put("VARCHAR", "String");
     toVars.put("BIT", "boolean");
     toVars.put("FLOAT", "float");
     toVars.put("TIMESTAMP", "LocalDateTime");
+    toVars.put("TIME", "LocalTime");
+    toVars.put("BINARY", "byte[]");
+
 
     String s = "";
     ArrayList<String> var = new ArrayList<>();
@@ -161,6 +169,13 @@ public class ConverToPojo {
         if (aux.contains("BIT")) {
           aux = "BIT";
         }
+        if (aux.contains("TINYINT")) {
+          aux = "TINYINT";
+        }
+        if (aux.contains("BINARY")) {
+          aux = "BINARY";
+        }
+        
 
         aux = toVars.get(aux);
         tipo.add(aux);
