@@ -115,7 +115,7 @@ public class Agregadospeques {
   }
   public static String importAgg(String agg) {
     
-    String a="\nimport ctag.domain.model."+agg.toLowerCase()+".*;\n";
+    String a="\nimport ctag.domain.model."+metodos.despital(agg)+".*;\n";
     return a;
   }
 
@@ -239,7 +239,7 @@ public class Agregadospeques {
         "   \nprivate static final String MAPPED_BY_"
             + map.toUpperCase()
             + " = \""
-            + clase.toLowerCase()
+            + metodos.despital(clase)
             + "\";";
 
     return a;

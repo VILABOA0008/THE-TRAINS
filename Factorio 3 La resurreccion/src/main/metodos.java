@@ -16,7 +16,7 @@ public class metodos {
     }
   }
     return b;
-  }
+  } 
   public static String removeLast(String a) {
  
     a=a.substring(0,a.length()-1);

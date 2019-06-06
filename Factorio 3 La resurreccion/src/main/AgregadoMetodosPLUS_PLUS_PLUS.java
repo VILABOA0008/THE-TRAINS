@@ -214,7 +214,7 @@ public class AgregadoMetodosPLUS_PLUS_PLUS {
 
       //      System.out.println("mapped by");
 
-      MappedBy = agg.toLowerCase();
+      MappedBy = metodos.despital(agg);
 
       mapedBy.add(MappedBy);
 
@@ -227,7 +227,7 @@ public class AgregadoMetodosPLUS_PLUS_PLUS {
         }
         System.out.println("Escribe la variable");
 
-        mappedByV = aggs.get(otm.get(c) - 1);
+        mappedByV = metodos.despital(aggs.get(otm.get(c) - 1));
 
         mapedByV.add(mappedByV);
       }
@@ -241,6 +241,7 @@ public class AgregadoMetodosPLUS_PLUS_PLUS {
     String a = "";
     //    System.out.println("Numero de manys to manys sin mapped by");
     int nf;
+    int cc=2;
     int c = 0;
 
     nf = MTM.size();
@@ -257,7 +258,7 @@ public class AgregadoMetodosPLUS_PLUS_PLUS {
       //      System.out.println("tabla ");
       tabla = MTM.get(c)[2];
       if (a.contains(clase.toUpperCase())) {
-        clase+="2";
+        clase+=cc;cc++;
         a += Agregadospeques.finalManytoMany(agg, clase, id, tabla);
       } else {
         
@@ -276,7 +277,7 @@ public class AgregadoMetodosPLUS_PLUS_PLUS {
     String a = "";
     int nf;
     //    System.out.println("Numero de manys to manys con mapped by");
-    int c = 0;
+    int c = 0, cc=0;
 
     agg = metodos.despital(agg);
     nf = mapped.size();
@@ -288,12 +289,13 @@ public class AgregadoMetodosPLUS_PLUS_PLUS {
 
       //      System.out.println("mappedby ");
       map = metodos.despital(aggs.get(mapped.get(c) - 1));
+      if(a.contains(map)) {map+=cc;clase+=cc;cc++;}
       mtmVar.add(map);
 
       //      System.out.println(clase + "  clase   " + map);
-      if (c == 0) {
+//      if (c == 0) {
         a += Agregadospeques.finalManytoManyMapped(clase, map);
-      }
+//      }
 
       c++;
     }
@@ -319,7 +321,7 @@ public class AgregadoMetodosPLUS_PLUS_PLUS {
       String fk;
       //  System.out.println("Nombre");
 
-      fk = aggs.get(mto.get(c) - 1).toLowerCase();
+      fk = metodos.despital(aggs.get(mto.get(c) - 1));
 
       //      System.out.println("\n\nfk  " + fks.get(c));
       a += Agregadospeques.finalFk(fks.get(c));
