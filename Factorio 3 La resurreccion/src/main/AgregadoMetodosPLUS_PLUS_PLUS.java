@@ -277,7 +277,7 @@ public class AgregadoMetodosPLUS_PLUS_PLUS {
     String a = "";
     int nf;
     //    System.out.println("Numero de manys to manys con mapped by");
-    int c = 0, cc=0;
+    int c = 0, cc=2;
 
     agg = metodos.despital(agg);
     nf = mapped.size();
@@ -289,12 +289,13 @@ public class AgregadoMetodosPLUS_PLUS_PLUS {
 
       //      System.out.println("mappedby ");
       map = metodos.despital(aggs.get(mapped.get(c) - 1));
-      if(a.contains(map)) {map+=cc;clase+=cc;cc++;}
+      if(a.contains(map.toUpperCase())) {mtmVar.add(map);a += Agregadospeques.finalManytoManyMapped((clase+cc), (map+cc));clase+=cc;cc++;}else {
       mtmVar.add(map);
 
       //      System.out.println(clase + "  clase   " + map);
 //      if (c == 0) {
-        a += Agregadospeques.finalManytoManyMapped(clase, map);
+      
+        a += Agregadospeques.finalManytoManyMapped(clase, map);}
 //      }
 
       c++;

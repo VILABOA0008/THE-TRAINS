@@ -49,7 +49,6 @@ public class ConverToPojo {
             aux = metodos.comillas(aux);
             aux = metodos.comillas(aux);
             fk.add(aux);
-            System.out.println();
 
           } else {
             // TODO MTM no hay na echo
@@ -58,14 +57,10 @@ public class ConverToPojo {
 
             aux = metodos.comillas(aux);
             aux = metodos.comillas(aux);
-            System.out.println(auxmtm ); 
-            for(String g:auxmtm) {
-              System.out.print(g +"   "); 
-            }
-            System.out.println("\n\n "+tablas.get(i-1) + "  aux  " + aux);
+//            for(String g:auxmtm) {
+//            }
             auxmtm[mtmc] = aux;
             mtmc++;
-            System.out.println(aux);
           }
 
         } else {
@@ -90,7 +85,6 @@ public class ConverToPojo {
             auxotm.add(i);
             otm.put(tablaotm, auxotm);
 
-            System.out.println(tablaotm + " " + auxx + " aux  " + aux + "  tabla" + i);
 
           } else {
             // TODO MTM no hay na echo
@@ -102,7 +96,6 @@ public class ConverToPojo {
             Integer auxid = metodos.idByTable(aux, tablas);
             auxmtm[mtmc] = String.valueOf(auxid);
             mtmc++;
-            System.out.println(" refere    " + auxid);
             if (mtmc == 4) {
               Mtm.put(i, auxmtm);
             }
@@ -118,14 +111,12 @@ public class ConverToPojo {
     for (int i = 1; i < tablas.size() + 1; i++) {
       if (otm.get(i) != null) {
         for (int q : otm.get(i)) {
-          // System.out.println(q+"  key "+i );
         }
       }
     }
 
     /*
     for(int i=1;i<tablas.size()+1;i++) {
-    System.out.println(mtm.get(i) );
     }*/
 
   }
@@ -145,8 +136,9 @@ public class ConverToPojo {
     toVars.put("TIMESTAMP", "LocalDateTime");
     toVars.put("TIME", "LocalTime");
     toVars.put("BINARY", "byte[]");
+    toVars.put("DECIMAL", "BigDecimal");
 
-
+    
     String s = "";
     ArrayList<String> var = new ArrayList<>();
     ArrayList<String> tipo = new ArrayList<>();
@@ -174,6 +166,9 @@ public class ConverToPojo {
         }
         if (aux.contains("BINARY")) {
           aux = "BINARY";
+        }
+        if (aux.contains("DECIMAL")) {
+          aux = "DECIMAL";
         }
         
 

@@ -64,7 +64,7 @@ public class Bdd {
               foreign(a, fr, arrayforeign);
               fields(a, fr, arrayfields);
               aux = null;
-              d += primaries(a, fr, arrayprimary,ctabla,mtm);
+              d += primaries(a, fr, arrayprimary,ctabla,mtm, arrayfields.size());
             }
             if (i == '\n') {
               b += a + "\n";
@@ -78,21 +78,8 @@ public class Bdd {
         a = "";
       }
 
-      //  System.out.print((char) i);
     }
-//    int cc = 1;
-//
-//    System.out.println("\n\n\nTABLAS\n");
-//
-//    for (String q : tablas) {
-//      System.out.println("\n\n" + q);
-//      fields.get(cc).forEach(n -> System.out.println(n));
-//      System.out.println("            FOREIGN");
-//      foreign.get(cc).forEach(n -> System.out.println(n));
-//      System.out.println("             PRIMARY");
-//      System.out.println(arrayprimary.get(cc - 1));
-//      cc++;
-//    }
+
   }
 
   // DETECT
@@ -149,7 +136,7 @@ public class Bdd {
     }
   }
 
-  public static String primaries(String s, FileReader fr, ArrayList<String> arrayPrimary,int ctabla,  Map<Integer, Boolean> mtm )
+  public static String primaries(String s, FileReader fr, ArrayList<String> arrayPrimary,int ctabla,  Map<Integer, Boolean> mtm,int fields )
       throws IOException {
     int i;
     String aux="";
@@ -164,8 +151,10 @@ public class Bdd {
 //      a=metodos.word(a,3);
 //      a=metodos.comillas(a);a=metodos.comillas(a);
 //      a=metodos.removeSpecial(a,'`');
-      
+     
       if(a.contains("`,")) {
+        System.out.println(ctabla +"   "+fields); 
+        
         mtm.put(ctabla, true) ;
         String aux1,aux2;
         aux1=metodos.word(a, 3);
@@ -174,6 +163,9 @@ public class Bdd {
         aux2=metodos.removeLast(aux2);metodos.removeLast(aux2);aux2=metodos.removeLast(aux2);
         aux2=metodos.comillas(aux2);
         aux=aux1+" "+aux2;
+        
+        
+        
         }      
       else {
         mtm.put(ctabla, false);

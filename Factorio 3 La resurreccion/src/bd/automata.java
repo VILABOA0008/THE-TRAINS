@@ -10,7 +10,6 @@ public class automata {
   public static void a() throws IOException {
     
 String a="asdf";
-System.out.println(a.substring(1));
  /*   File file = 
         new File("C:\\Users\\pabcos\\Documents\\trains\\Factorio 3 La resurreccion\\src\\bd\\juan.txt"); 
       Scanner sc = new Scanner(file); 
@@ -19,7 +18,6 @@ System.out.println(a.substring(1));
         String ss=sc.nextLine();
         try {
         if(ss.substring(0, 3).equalsIgnoreCase("app")||ss.substring(0, 3).equalsIgnoreCase("/vnd")) {
-          System.out.println("'"+ss+"',");}
         }catch (StringIndexOutOfBoundsException e) {
         }
       }*/

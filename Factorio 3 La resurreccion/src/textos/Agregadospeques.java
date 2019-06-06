@@ -246,17 +246,20 @@ public class Agregadospeques {
   }
 
   public static String manyToManyMappedBy(String Agg, ArrayList<String> mapped) {
-    String a = "";
+    String a = "",c="";
+    int b=1;
+    
     for (String i : mapped) {
+      if (a.contains(i+c)) {b++;c=String.valueOf(b);}else {c="";}
       a +=
           "  \n@ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY, mappedBy =  MAPPED_BY_"
               + i.toUpperCase()
-              + ")\n"
+              +c+ ")\n"
               + "  private Set<"
               + metodos.Capital(i)
               + "> "
               + i
-              + "s;\n";
+              + "s"+c+";\n";
     }
     return a;
   }

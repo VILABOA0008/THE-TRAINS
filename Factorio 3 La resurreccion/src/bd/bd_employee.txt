@@ -786,7 +786,6 @@ CREATE TABLE IF NOT EXISTS `paperless`.`TimeUnit` (
   `IdUnit` INT(11) NOT NULL,
   `SecondsPerUnit` INT(11) NOT NULL,
   PRIMARY KEY (`IdUnit`),
-  CONSTRAINT `fk_TimeUnit_Unit1`
     FOREIGN KEY (`IdUnit`)
     REFERENCES `paperless`.`Unit` (`IdUnit`))
 ENGINE = InnoDB
