@@ -6,8 +6,11 @@ public class metodos {
 
   public static String word(String a,int c) {
     String b="";
-    int cc=0,ccc=0;
+    a+=" ";
+    int cc=0,ccc=0,cccc=0;
     while(cc<c) {
+      cccc++;
+      if(cccc>200) {return null;}
       b="";
     for(int i=ccc;i<a.length();i++) {
       if(a.charAt(i)==' '||i==a.length()) {  ccc=(i+1);cc++;break;}
@@ -15,6 +18,7 @@ public class metodos {
     
     }
   }
+    if(b.length()<1) {return null;}
     return b;
   } 
   public static String removeLast(String a) {

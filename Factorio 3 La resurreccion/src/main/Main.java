@@ -4,12 +4,15 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Scanner;
 
 import bd.Bdd;
 
 public class Main {
 
   public static void main(String[] args) throws IOException {
+    //tipo 3 =MANY TO MANY CON PARAMETRO
+    Map<Integer,Integer>tipo=new HashMap<>();
     Map<Integer, String[]> Mtm = new HashMap<>();
     Map<Integer, ArrayList<Integer>> mto  = new HashMap<>();
     Map<Integer, ArrayList<Integer>> otm = new HashMap<>();
@@ -21,9 +24,60 @@ public class Main {
   Map<Integer, ArrayList<String>> foreign = new HashMap<>();//foreign regerences sin limpiar
   ArrayList<String>arrayprimary=new ArrayList<>();//TODOS LOS IDS LOS QUE SON 2 SEPARADOS POR UN ESPACIO
   ArrayList<String>tablas=new ArrayList<>();//NOMBRE D ELAS TABLAS
-    Bdd.bdd(fields,foreign,arrayprimary,tablas,mtm);
+    Bdd.bdd(fields,foreign,arrayprimary,tablas,mtm,tipo);
     ConverToPojo.pojo(vars,tipos,fields, foreign, arrayprimary,tablas,fks,mtm,otm,mto,Mtm);
+    Scanner s=new Scanner(System.in);
     
+    
+    // Priueba word
+//   System.out.println("escribe");
+//   String aa=s.nextLine();
+//   String bb;
+//    for (int i=0;i<5;i++) {
+//      bb=metodos.word(aa, i);
+//      System.out.println(bb );      
+//      
+//    }
+//    s.nextLine();
+      
+    
+    
+    System.out.println("\n\n\nMAIN" );
+    int c=0;
+//    for(String i:arrayprimary) {
+//      c++;
+//      System.out.println(i+"    "+c ); 
+//      
+//    }
+    
+    
+    
+    
+      for (int i = 1; i < tablas.size() + 1; i++) {
+        //Hay que saber quien @ID y quien es base entiy
+        if(tipo.get(i)==1) {
+          tipo.put(i, 3);
+          System.out.println( "\n"+tablas.get(i-1)+"            "+"   cosas  "+arrayprimary.get(i-1)+""); 
+         String word;
+         System.out.println("vars antes   "+vars.get(i) ); 
+         c=0;
+          do {
+            word=null;
+            word=metodos.word(arrayprimary.get(i-1), c+1);
+                        if(word!=null) {
+                          for (int j = 0; j < vars.get(i).size(); j++) {
+                            word=metodos.despital(word);
+                            System.out.println("here   "+vars.get(i).get(j)+"   "+word ); 
+                            if(vars.get(i).get(j).equalsIgnoreCase(word)){
+                              vars.get(i).remove(j);
+                              tipos.get(i).remove(j);}
+                          }        }             
+                        c++;
+              }while(word!=null);
+          System.out.println("vars despues   "+vars.get(i) ); 
+        }
+        
+      }
     
     /*
     for (int i = 1; i < tablas.size() + 1; i++) {
@@ -35,7 +89,7 @@ public class Main {
     System.out.println("\n" ); 
     */
 
-    AgregadoPLUSPLUS.test(vars,tipos,fields, foreign, arrayprimary,tablas,fks,mtm,otm,mto,Mtm);
+    AgregadoPLUSPLUS.test(vars,tipos,fields, foreign, arrayprimary,tablas,fks,mtm,otm,mto,Mtm,tipo);
       
 
     

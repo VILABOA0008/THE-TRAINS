@@ -177,7 +177,7 @@ CREATE TABLE IF NOT EXISTS `paperless`.`AccountRole` (
   `IdAccount` INT(11) NOT NULL,
   `IdRole` INT(11) NOT NULL,
   `GrantedType` TINYINT(4) NOT NULL,
-  PRIMARY KEY (`IdAccount`, `IdRole`, `IdRealm`),
+  PRIMARY KEY (`IdAccount`, `IdRole`),
   INDEX `fk_Users_has_Roles_Roles1_idx` (`IdRole` ASC),
   INDEX `fk_Users_has_Roles_Users1_idx` (`IdAccount` ASC),
   INDEX `fk_AccountRole_Realm1_idx` (`IdRealm` ASC),

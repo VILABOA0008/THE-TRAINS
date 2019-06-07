@@ -13,7 +13,14 @@ public class Agregadospeques {
 
     return a;
   }
+  
+  
+  
 
+ 
+  
+  private Integer idPart;
+  
   public static String finalFk(String var) {
     String a;
     a =

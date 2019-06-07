@@ -30,8 +30,11 @@ public class AgregadosGrandes {
     return a;
   }
 
-  public static String manyToOne(String FIELD_FK, String var) {
+  public static String manyToOne(String FIELD_FK, String var,Integer tipo) {
+
+    
     String a;
+    if(tipo!=3) {
     a = "\n  @ManyToOne(fetch = FetchType.LAZY)\n" +
         "  @JoinColumn(name = " + FIELD_FK
         + ", nullable = false, insertable = false, updatable = false)\n" +
@@ -41,7 +44,16 @@ public class AgregadosGrandes {
         + FIELD_FK + ", nullable = true))\n" +
         "  private " + metodos.Capital(var) + "Id  id" + metodos.Capital(var) + ";\n\n"
         + "";
-
+}else {
+  a = "\n  @ManyToOne(fetch = FetchType.LAZY)\n" +
+      "  @JoinColumn(name = " + FIELD_FK
+      + ", nullable = false, insertable = false, updatable = false)\n" +
+      "  private " + metodos.Capital(var) + " " + var + ";\n\n"+      
+      "@Id\n" + 
+      "  @Column(name = "+FIELD_FK+")\n" + 
+      "  private Integer  id" + metodos.Capital(var) + ";\n\n";
+  
+}
 
     return a;
   }

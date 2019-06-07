@@ -24,7 +24,8 @@ public class AgregadoPLUSPLUS {
       Map<Integer, Boolean> mtm,
       Map<Integer, ArrayList<Integer>> otm,
       Map<Integer, ArrayList<Integer>> mto,
-      Map<Integer, String[]> Mtm)
+      Map<Integer, String[]> Mtm,
+      Map<Integer,Integer>tipo)
       throws IOException {
 Scanner s=new Scanner(System.in)  ;
 
@@ -102,16 +103,16 @@ for(int j=1;j<9;j++) {
     }
 
 
-    
+    if(tipo.get(c)==3) {}else {
     ag += Agregadospeques.finalGenerator(agg);
     ag += AgregadosGrandes.tableGenerator(agg);
-
+    }
     System.out.println("\n\n \n\n\n");
 
     ag += AgregadoMetodosPLUS_PLUS_PLUS.VariablesBasicas(fieldsFinal, tipos.get(c), vars.get(c));
     ag += Agregadospeques.constructorEmpty(agg);
     if (fks.get(c) != null) {
-      ag += AgregadoMetodosPLUS_PLUS_PLUS.ManyToOne(fks.get(c), fkmoVarFinal);
+      ag += AgregadoMetodosPLUS_PLUS_PLUS.ManyToOne(fks.get(c), fkmoVarFinal,tipo.get(c));
     }
 
     if (!mapedByV.isEmpty()) {

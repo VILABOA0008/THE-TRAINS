@@ -23,24 +23,24 @@ public class AgregadoMetodosPLUS_PLUS_PLUS {
     return a;
   }
 
-  public static String ManyToOne(ArrayList<String> fks, ArrayList<String> fkmoVarFinal) {
+  public static String ManyToOne(ArrayList<String> fks, ArrayList<String> fkmoVarFinal,Integer tipo) {
 
     String a = "";
 
     for (int i = 0; i < fks.size(); i++) {
-      a += AgregadosGrandes.manyToOne(fks.get(i).toUpperCase(), fkmoVarFinal.get(i));
+      a += AgregadosGrandes.manyToOne(fks.get(i).toUpperCase(), fkmoVarFinal.get(i),tipo);
     }
     return a;
   }
 
-  public static String MappedBy(ArrayList<String> fkmoFinal, ArrayList<String> fkmoVarFinal) {
+  public static String MappedBy(ArrayList<String> fkmoFinal, ArrayList<String> fkmoVarFinal,Integer tipo) {
 
     //    System.out.println("");
 
     String a = "";
 
     for (int i = 0; i < fkmoFinal.size(); i++) {
-      a += AgregadosGrandes.manyToOne(fkmoFinal.get(i), fkmoVarFinal.get(i));
+      a += AgregadosGrandes.manyToOne(fkmoFinal.get(i), fkmoVarFinal.get(i),tipo);
     }
     return a;
   }

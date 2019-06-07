@@ -26,7 +26,7 @@ public class AgregadoMetodos {
     String a = "";
 
     for (int i = 0; i < fkmoFinal.size(); i++) {
-      a += AgregadosGrandes.manyToOne(fkmoFinal.get(i), fkmoVarFinal.get(i));
+     // a += AgregadosGrandes.manyToOne(fkmoFinal.get(i), fkmoVarFinal.get(i));
     }
     return a;
   }
@@ -38,7 +38,7 @@ public class AgregadoMetodos {
     String a = "";
 
     for (int i = 0; i < fkmoFinal.size(); i++) {
-      a += AgregadosGrandes.manyToOne(fkmoFinal.get(i), fkmoVarFinal.get(i));
+ //     a += AgregadosGrandes.manyToOne(fkmoFinal.get(i), fkmoVarFinal.get(i));
     }
     return a;
   }
