@@ -59,7 +59,6 @@ Scanner s=new Scanner(System.in)  ;
         ArrayList<String> mapedByFinal = new ArrayList<>();
         // FIELDS
         ArrayList<String> fieldsFinal = new ArrayList<>();
-        System.out.println( mtm.get(i)); 
         ag="";
    c=i;
     tabla = tablas.get(c - 1);
@@ -75,6 +74,8 @@ Scanner s=new Scanner(System.in)  ;
     ag += Agregadospeques.finalTable(tabla);
 
     ag += Agregadospeques.ID();
+      if(tipo.get(c)!=3) {
+    ag+=Agregadospeques.tableStatic();}
 
     ag += Agregadospeques.finalId(agg);
 
@@ -97,7 +98,6 @@ Scanner s=new Scanner(System.in)  ;
         if(MTMapped.get(c)!=null) {
         ag += AgregadoMetodosPLUS_PLUS_PLUS.ManyToManyMapped(agg, mtmappedVar,MTMapped.get(c),aggs);
       
-        System.out.println(MTMapped.get(c) );
     }
 
 
@@ -106,11 +106,15 @@ Scanner s=new Scanner(System.in)  ;
     ag += AgregadosGrandes.tableGenerator(agg);
     }
     System.out.println("\n\n \n\n\n");
-
+    String url="C:\\Users\\pabcos\\Documents\\trains\\prubas\\proyecto seedstack base\\src\\main\\java\\ctag\\";
     ag += AgregadoMetodosPLUS_PLUS_PLUS.VariablesBasicas(fieldsFinal, tipos.get(c), vars.get(c));
     ag += Agregadospeques.constructorEmpty(agg);
     if (fks.get(c) != null) {
-      ag += AgregadoMetodosPLUS_PLUS_PLUS.ManyToOne(fks.get(c), fkmoVarFinal,tipo.get(c));
+      if(tipo.get(c)!=3) {
+      ag += AgregadoMetodosPLUS_PLUS_PLUS.ManyToOne(fks.get(c), fkmoVarFinal,tipo.get(c));}else {
+        System.out.println( ); 
+        ag+=AgregadoMetodosPLUS_PLUS_PLUS.ManyToOneEspecial(agg, fks.get(c), fkmoVarFinal, url);
+    
     }
 
     if (!mapedByV.isEmpty()) {
@@ -135,7 +139,7 @@ Scanner s=new Scanner(System.in)  ;
     
     
     
-    String url="C:\\Users\\pabcos\\Documents\\trains\\prubas\\proyecto seedstack base\\src\\main\\java\\ctag\\";
+
     agg=metodos.Capital(agg);
     System.out.println(new File(url+"domain\\model\\"+agg.toLowerCase()).mkdir() ); 
     Escribir.escribir(
@@ -143,12 +147,12 @@ Scanner s=new Scanner(System.in)  ;
             + agg
             + ".java",
         ag);
-   
+if(tipo.get(c)!=3) {
     Escribir.escribir(
         url+"domain\\model\\"+agg+"\\"
             + agg
             + "Id.java",
-        AgregadoId.id(agg));
+        AgregadoId.id(agg));}
     if(readOnly.get(c)==false) {
     // DTOS
     System.out.println(new File(url+"dtos\\dto\\"+agg.toLowerCase()).mkdir() ); 
@@ -194,5 +198,5 @@ Scanner s=new Scanner(System.in)  ;
   //////////////////////////////////////////////////////
   //////////////////////////////////////////////////////
   //////////////////////////////////////////////////////
-  
+  }
 }

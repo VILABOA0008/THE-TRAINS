@@ -34,7 +34,7 @@ public class AgregadosGrandes {
 
     
     String a;
-    if(tipo!=3) {
+
     a = "\n  @ManyToOne(fetch = FetchType.LAZY)\n" +
         "  @JoinColumn(name = " + FIELD_FK
         + ", nullable = false, insertable = false, updatable = false)\n" +
@@ -44,16 +44,7 @@ public class AgregadosGrandes {
         + FIELD_FK + ", nullable = true))\n" +
         "  private " + metodos.Capital(var) + "Id  id" + metodos.Capital(var) + ";\n\n"
         + "";
-}else {
-  a = "\n  @ManyToOne(fetch = FetchType.LAZY)\n" +
-      "  @JoinColumn(name = " + FIELD_FK
-      + ", nullable = false, insertable = false, updatable = false)\n" +
-      "  private " + metodos.Capital(var) + " " + var + ";\n\n"+      
-      "@Id\n" + 
-      "  @Column(name = "+FIELD_FK+")\n" + 
-      "  private Integer  id" + metodos.Capital(var) + ";\n\n";
-  
-}
+
 
     return a;
   }
@@ -98,10 +89,12 @@ public class AgregadosGrandes {
 
   public static String getSetEntities(ArrayList<String> fkmoVarFinal,Integer tipo) {
     String a="";
+    
     for(String i:fkmoVarFinal) {
       String descap=metodos.Capital(i);
       String cap=metodos.Capital(i);
       if(tipo!=3) {
+        
       
     a+= "  public "+cap+"Id getId"+cap+"() {\n" + 
         "    return id"+cap+";\n" + 
@@ -111,15 +104,15 @@ public class AgregadosGrandes {
         "  }\n";
     }else {
       
-      a+="  public "+cap+"Id getId"+cap+"() {\n" + 
-          "    return new "+cap+"Id(id"+cap+");\n" + 
-          "  }\n" + 
-          "  public void setId"+cap+"("+cap+"Id "+descap+"Id) {\n" + 
-          "    if ("+descap+"Id != null) {\n" + 
-          "      id"+cap+" = "+descap+"Id.getId();\n" + 
-          "    } else {\n" + 
-          "      id"+cap+" = null;\n" + 
-          "    }\n" + 
+      
+      a+= "  public "+cap+"Id getId"+cap+"() {\n" + 
+          "    return id.get"+cap+"Id();\n" + 
+          "  }\n"
+          + "  public "+cap+" get"+cap+"() {\n" + 
+          "    return "+i+";\n" + 
+          "  }"
+          + "  public void set"+cap+"("+cap+" "+i+") {\n" + 
+          "    this."+i+" = "+i+";\n" + 
           "  }\n";
       
       

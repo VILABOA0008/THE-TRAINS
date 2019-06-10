@@ -106,14 +106,24 @@ public class Agregadospeques {
   public static String ID() {
     String a;
     a =
-        "\nprivate static final String ID = \"id\";"
-            + " \nprivate static final String KEY_VAL = \"KeyVal\";\n"
-            + "private static final String SEQUENCE = \"SEQUENCE\";\n"
-            + "private static final String VALUE = \"Value\";";
-
+        "\nprivate static final String ID = \"id\"; \n";
+    return a;
+  }
+  
+  
+  public static String tableStatic() {
+    String a;
+    a =  "private static final String KEY_VAL = \"KeyVal\";\n"
+        + "private static final String SEQUENCE = \"SEQUENCE\";\n"
+        + "private static final String VALUE = \"Value\";";
+     
     return a;
   }
 
+  
+  
+
+  
   public static String constructorEmpty(String agg) {
     String a;
     a = "\n  " + agg + "() {\n" + "    // Required by Hibernate\n" + "  }\n";

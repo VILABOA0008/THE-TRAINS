@@ -5,6 +5,7 @@ import java.util.InputMismatchException;
 import java.util.Map;
 import java.util.Scanner;
 
+import cosas.Escribir;
 import textos.AgregadosGrandes;
 import textos.Agregadospeques;
 
@@ -23,6 +24,51 @@ public class AgregadoMetodosPLUS_PLUS_PLUS {
     return a;
   }
 
+  public static String ManyToOneEspecial(String agg,ArrayList<String> fks, ArrayList<String> fkmoVarFinal,String url ) {
+
+    
+    String var0=metodos.Capital(fkmoVarFinal.get(0)),var1=metodos.Capital(fkmoVarFinal.get(1));
+      
+String a="";       
+
+
+
+a += "\n  @ManyToOne(fetch = FetchType.LAZY)\n" +
+    "  @JoinColumn(name = " + fks.get(0).toUpperCase()+ ", nullable = false, insertable = false, updatable = false)\n" +
+    "  private " + var0+ " " + fkmoVarFinal.get(0) + ";\n";
+
+a += "\n  @ManyToOne(fetch = FetchType.LAZY)\n" +
+    "  @JoinColumn(name = " + fks.get(1).toUpperCase()+ ", nullable = false, insertable = false, updatable = false)\n" +
+    "  private " + var1+ " " + fkmoVarFinal.get(1) + ";\n";
+
+    a +="  @EmbeddedId\n"
+        + "@AttributeOverrides( {" + 
+        "  @AttributeOverride(name = \" id"+var0+"  \", column = @Column(name = "+fks.get(0).toUpperCase()+")),\n" + 
+        "  @AttributeOverride(name = \" id"+var1+"\", column = @Column(name ="+fks.get(1).toUpperCase()+"))})\n" + 
+        "  private "+agg+"Id id;\n" + 
+        "\n"
+        + "\n"
+        + "\n"
+        + "\n" + 
+        "  "+agg+"("+var0+"Id id"+var0+", "+var1+"Id id"+var1+") {\n" + 
+        "    id = new "+agg+"Id(id"+var0+".getId(), id"+var1+".getId());\n" + 
+        "  }"
+        + "\n" + 
+        "  @Override\n" + 
+        "  public "+agg+"Id getId() {\n" + 
+        "    return new "+agg+"Id(getId"+metodos.Capital(fkmoVarFinal.get(0))+"().getId(), getId"+metodos.Capital(fkmoVarFinal.get(1))+"().getId());\n" + 
+        "  }";
+    
+    Escribir.escribir(
+        url+"domain\\model\\"+agg+"\\"
+            + agg
+            + "Id.java",
+        AgregadoId.idMtm(agg,var0,var1));
+    return a;
+
+    
+    
+  }
   public static String ManyToOne(ArrayList<String> fks, ArrayList<String> fkmoVarFinal,Integer tipo) {
 
     String a = "";
