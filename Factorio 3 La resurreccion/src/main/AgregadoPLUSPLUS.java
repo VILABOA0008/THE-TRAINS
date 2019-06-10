@@ -43,10 +43,8 @@ Scanner s=new Scanner(System.in)  ;
     String tabla;
     int c ;
     
-    AgregadoMetodosPLUS_PLUS_PLUS.NombreAggregado(aggs, tablas, mtm,Mtm,MTM,MTMapped,readOnly);
-for(int j=1;j<9;j++) {
-  System.out.println(readOnly.get(j));
-}
+    AgregadoMetodosPLUS_PLUS_PLUS.NombreAggregado(aggs, tablas, mtm,Mtm,MTM,MTMapped,readOnly,tipo);
+
     
     for(int i=1;i<mtm.size();i++) {
       if(mtm.get(i)==false) {

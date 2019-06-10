@@ -81,7 +81,7 @@ public class Agregado {
     ag += Agregadospeques.getBasics(fieldsType, fieldsVar);
     ag += Agregadospeques.setBasics(fieldsType, fieldsVar);
     ag += AgregadosGrandes.setAddSets(mapedByV);
-    ag += AgregadosGrandes.getSetEntities(fkmoVarFinal);
+   // ag += AgregadosGrandes.getSetEntities(fkmoVarFinal);
 
     ag += Agregadospeques.acabalo();
 

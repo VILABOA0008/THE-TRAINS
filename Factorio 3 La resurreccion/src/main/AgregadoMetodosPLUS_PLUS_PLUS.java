@@ -52,7 +52,7 @@ public class AgregadoMetodosPLUS_PLUS_PLUS {
       Map<Integer, String[]> Mtm,
       Map<Integer, ArrayList<String[]>> MTM,
       Map<Integer, ArrayList<Integer>> MTMapped,
-      Map<Integer, Boolean> readOnly) {
+      Map<Integer, Boolean> readOnly,Map<Integer,Integer>tipo) {
     String[] aggss = {
       "Page", "Button", "DocType", "Document", "null", "Style", "null", "Configuration", "null"
     };
@@ -74,11 +74,10 @@ public class AgregadoMetodosPLUS_PLUS_PLUS {
         agg = i;
         //        agg = aggss[c - 1];
 
-        try {
-          Integer.valueOf(agg.substring(0, 1));
+        if(tipo.get(c)==3) {
           readOnly.put(c, true);
-          agg = agg.substring(1);
-        } catch (NumberFormatException e) {
+        }else {
+        
           readOnly.put(c, false);
         }
         aggs.add(metodos.Capital(agg));
