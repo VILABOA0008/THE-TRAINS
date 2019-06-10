@@ -103,7 +103,7 @@ for(int j=1;j<9;j++) {
     }
 
 
-    if(tipo.get(c)==3) {}else {
+    if(tipo.get(c)!=3) {
     ag += Agregadospeques.finalGenerator(agg);
     ag += AgregadosGrandes.tableGenerator(agg);
     }
@@ -125,11 +125,12 @@ for(int j=1;j<9;j++) {
 
     ag += "\n\n\n";
 
-    ag += Agregadospeques.getId(agg);
+    if(tipo.get(c)!=3) {
+    ag += Agregadospeques.getId(agg);}
     ag += Agregadospeques.getBasics(tipos.get(c), vars.get(c));
     ag += Agregadospeques.setBasics(tipos.get(c), vars.get(c));
     ag += AgregadosGrandes.setAddSets(mapedByV);
-    ag += AgregadosGrandes.getSetEntities(fkmoVarFinal);
+    ag += AgregadosGrandes.getSetEntities(fkmoVarFinal,tipo.get(c));
 
     ag += Agregadospeques.acabalo();
 

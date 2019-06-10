@@ -96,10 +96,12 @@ public class AgregadosGrandes {
   return a;
   }
 
-  public static String getSetEntities(ArrayList<String> fkmoVarFinal) {
+  public static String getSetEntities(ArrayList<String> fkmoVarFinal,Integer tipo) {
     String a="";
     for(String i:fkmoVarFinal) {
+      String descap=metodos.Capital(i);
       String cap=metodos.Capital(i);
+      if(tipo!=3) {
       
     a+= "  public "+cap+"Id getId"+cap+"() {\n" + 
         "    return id"+cap+";\n" + 
@@ -107,7 +109,21 @@ public class AgregadosGrandes {
         + "  public void setId"+cap+"("+cap+"Id id"+cap+") {\n" + 
         "    this.id"+cap+" = id"+cap+";\n" + 
         "  }\n";
-    }
+    }else {
+      
+      a+="  public "+cap+"Id getId"+cap+"() {\n" + 
+          "    return new "+cap+"Id(id"+cap+");\n" + 
+          "  }\n" + 
+          "  public void setId"+cap+"("+cap+"Id "+descap+"Id) {\n" + 
+          "    if ("+descap+"Id != null) {\n" + 
+          "      id"+cap+" = "+descap+"Id.getId();\n" + 
+          "    } else {\n" + 
+          "      id"+cap+" = null;\n" + 
+          "    }\n" + 
+          "  }\n";
+      
+      
+    }}
     return a;
   }
 
