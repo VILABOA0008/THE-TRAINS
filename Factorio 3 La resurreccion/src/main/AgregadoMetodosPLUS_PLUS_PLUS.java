@@ -233,7 +233,7 @@ a += "\n  @ManyToOne(fetch = FetchType.LAZY)\n" +
     while (fieldsType.size() > c) {
 
       var = fieldsVar.get(c);
-
+       var=metodos.mayusq(var);
       String Field = "FIELD_" + var.toUpperCase();
       fieldsFinal.add(Field);
       a += Agregadospeques.finalFields(Field, var);
@@ -260,11 +260,11 @@ a += "\n  @ManyToOne(fetch = FetchType.LAZY)\n" +
       //      System.out.println("mapped by");
 
       MappedBy = metodos.despital(agg);
-
+      
       mapedBy.add(MappedBy);
 
       if (!MappedBy.isEmpty()) {
-        String MappedByFinal = "MAPPED_BY_" + MappedBy.toUpperCase();
+        String MappedByFinal = "MAPPED_BY_" + metodos.mayusq(MappedBy).toUpperCase();
         mapedByFinal.add(MappedByFinal);
         System.out.println(MappedByFinal + "   mapeddd    " + MappedBy);
         if (c == 0) {
@@ -358,11 +358,7 @@ a += "\n  @ManyToOne(fetch = FetchType.LAZY)\n" +
     int nf;
     int c = 0;
     //  System.out.println("Numero de manys to one");
-    //    System.out.println(fks + " \n " + mto);
-    //    System.out.println(fks.size() - 1);
     nf = fks.size();
-    //    System.out.println("nf  " + nf);
-
     while (c < nf) {
       String fk;
       //  System.out.println("Nombre");

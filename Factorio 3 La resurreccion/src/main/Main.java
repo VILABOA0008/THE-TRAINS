@@ -27,6 +27,14 @@ public class Main {
     Bdd.bdd(fields,foreign,arrayprimary,tablas,mtm,tipo);
     ConverToPojo.pojo(vars,tipos,fields, foreign, arrayprimary,tablas,fks,mtm,otm,mto,Mtm);
     Scanner s=new Scanner(System.in);
+/*   int cd=0;
+    while(1>cd) {
+      System.out.println("escrbe" );
+      String a=s.nextLine();
+      metodos.mayusq(a);
+      
+    }*/
+    
     
     
     // Priueba word

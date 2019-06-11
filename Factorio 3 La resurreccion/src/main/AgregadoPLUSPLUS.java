@@ -78,6 +78,14 @@ Scanner s=new Scanner(System.in)  ;
     ag+=Agregadospeques.tableStatic();}
 
     ag += Agregadospeques.finalId(agg);
+    
+    //eliminar id field
+ArrayList<String>a=vars.get(c);
+ArrayList<String>aa=tipos.get(c);
+a.remove(0);aa.remove(0);
+System.out.println(a+"   compartative{");
+vars.put(c, a);
+tipos.put(c, aa);
 
     ag += AgregadoMetodosPLUS_PLUS_PLUS.Fields(tipos.get(c), fieldsFinal, vars.get(c));
     if (fks.get(c) != null) {

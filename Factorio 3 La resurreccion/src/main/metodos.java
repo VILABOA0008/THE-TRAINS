@@ -28,6 +28,22 @@ public class metodos {
     return a;
   }
   
+  public static String mayusq(String a) {
+    String b="";
+    b="";
+      for(int i=0;i<a.length();i++) {
+        String aux=a.substring(i, i+1);
+        if(aux.equals(aux.toUpperCase())) {
+          b+="_";
+        System.out.println("MAYUSCULA" ); 
+        }
+
+      b+=aux;  
+      }
+      System.out.println( b); 
+        return b;  
+      }
+  
   public static String removeSpecial(String a,char c) {
     String b="";
     b="";
