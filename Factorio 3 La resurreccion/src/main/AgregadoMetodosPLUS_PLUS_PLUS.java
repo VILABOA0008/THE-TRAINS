@@ -113,7 +113,7 @@ a += "\n  @ManyToOne(fetch = FetchType.LAZY)\n" +
     for (String i : tablas) {
       Scanner s = new Scanner(System.in);
 
-      if (!mtm.get(c)) {
+      if (!mtm.get(c)||tipo.get(c)==4) {
 
         System.out.println("\n " + c + "   Nombre del agregado de la tabla " + i);
         //               agg=s.nextLine();
@@ -128,14 +128,16 @@ a += "\n  @ManyToOne(fetch = FetchType.LAZY)\n" +
         }
         aggs.add(metodos.Capital(agg));
       } else {
+        
+        
         int op = 0;
         while (op != 1 && op != 2) {
           System.out.println("\n\n  " + c + "Que agregado es la padre de " + i);
 
           System.out.println(
               "1   Agregado   "
-                  + aggs.get(Integer.valueOf(Mtm.get(c)[1]) - 1)
                   + "  con  "
+                  + aggs.get(Integer.valueOf(Mtm.get(c)[1]) - 1)
                   + Mtm.get(c)[2]);
           System.out.println(
               "2   Agregado   "
@@ -266,11 +268,11 @@ a += "\n  @ManyToOne(fetch = FetchType.LAZY)\n" +
       if (!MappedBy.isEmpty()) {
         String MappedByFinal = "MAPPED_BY_" + metodos.mayusq(MappedBy).toUpperCase();
         mapedByFinal.add(MappedByFinal);
-        System.out.println(MappedByFinal + "   mapeddd    " + MappedBy);
+        //System.out.println(MappedByFinal + "   mapeddd    " + MappedBy);
         if (c == 0) {
           a += Agregadospeques.MappedBy(MappedByFinal, MappedBy);
         }
-        System.out.println("Escribe la variable");
+        //System.out.println("Escribe la variable");
 
         mappedByV = metodos.despital(aggs.get(otm.get(c) - 1));
 
@@ -312,7 +314,6 @@ a += "\n  @ManyToOne(fetch = FetchType.LAZY)\n" +
       }
       
       c++;
-      System.out.println(clase);
     }
     return a;
   }
@@ -353,7 +354,7 @@ a += "\n  @ManyToOne(fetch = FetchType.LAZY)\n" +
       ArrayList<String> fks,
       ArrayList<String> fkmoVarFinal,
       ArrayList<Integer> mto) {
-    System.out.println("aggs   " + aggs);
+    //System.out.println("aggs   " + aggs);
     String a = "";
     int nf;
     int c = 0;

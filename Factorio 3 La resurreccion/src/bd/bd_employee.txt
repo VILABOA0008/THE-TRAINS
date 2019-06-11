@@ -171,6 +171,19 @@ COLLATE = utf8_bin;
 
 
 -- -----------------------------------------------------
+-- Table `paperless`.`ShiftDay`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `paperless`.`ShiftDay` (
+  `FK_Shift` INT(11) NOT NULL,
+  `DayOfWeek` MEDIUMINT(9) NOT NULL,
+  PRIMARY KEY (`FK_Shift`, `DayOfWeek`),
+  CONSTRAINT `fk_ShiftDay_Shift1`
+    FOREIGN KEY (`FK_Shift`)
+    REFERENCES `paperless`.`Shift` (`IdShift`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+
+-- -----------------------------------------------------
 -- Table `paperless`.`AccountRole`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `paperless`.`AccountRole` (

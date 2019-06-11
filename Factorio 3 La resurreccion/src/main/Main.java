@@ -36,19 +36,7 @@ public class Main {
     }*/
     
     
-    
-    // Priueba word
-//   System.out.println("escribe");
-//   String aa=s.nextLine();
-//   String bb;
-//    for (int i=0;i<5;i++) {
-//      bb=metodos.word(aa, i);
-//      System.out.println(bb );      
-//      
-//    }
-//    s.nextLine();
-      
-    
+
     
     System.out.println("\n\n\nMAIN" );
     int c=0;
@@ -62,7 +50,7 @@ public class Main {
     
     
       for (int i = 1; i < tablas.size() + 1; i++) {
-        //Hay que saber quien @ID y quien es base entiy
+        //poner tipo=3 para base entities
         if(tipo.get(i)==1) {
           tipo.put(i, 3);
           System.out.println( "\n"+tablas.get(i-1)+"            "+"   cosas  "+arrayprimary.get(i-1)+""); 
@@ -86,6 +74,16 @@ public class Main {
         }
         
       }
+      
+      //Si  hay mas de una pk perooooo no es mtm
+      for(int i=1;i<tablas.size();i++){  
+        if(mtm.get(i)==true) {
+          System.out.println(tablas.get(i-1) ); 
+          if(Mtm.get(i)==null) { tipo.put(i, 4); }
+        }
+        
+      }
+          
     
     /*
     for (int i = 1; i < tablas.size() + 1; i++) {

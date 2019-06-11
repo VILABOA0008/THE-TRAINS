@@ -47,7 +47,11 @@ Scanner s=new Scanner(System.in)  ;
 
     
     for(int i=1;i<mtm.size();i++) {
-      if(mtm.get(i)==false) {
+      if(mtm.get(i)==false||tipo.get(i)==4) {
+        if(tipo.get(i)==4) {
+          System.out.println("hooalsdsadsad" ); 
+          
+        }
         ArrayList<String> mtmVar = new ArrayList<>();
         // MANY TO MANY
         ArrayList<String> mtmappedVar = new ArrayList<>();
@@ -74,18 +78,19 @@ Scanner s=new Scanner(System.in)  ;
     ag += Agregadospeques.finalTable(tabla);
 
     ag += Agregadospeques.ID();
-      if(tipo.get(c)!=3) {
+      if(tipo.get(c)!=3||tipo.get(c)!=4) {
     ag+=Agregadospeques.tableStatic();}
 
     ag += Agregadospeques.finalId(agg);
     
     //eliminar id field
+    if(tipo.get(c)!=4) {
 ArrayList<String>a=vars.get(c);
 ArrayList<String>aa=tipos.get(c);
 a.remove(0);aa.remove(0);
 System.out.println(a+"   compartative{");
 vars.put(c, a);
-tipos.put(c, aa);
+tipos.put(c, aa);}
 
     ag += AgregadoMetodosPLUS_PLUS_PLUS.Fields(tipos.get(c), fieldsFinal, vars.get(c));
     if (fks.get(c) != null) {
@@ -123,7 +128,7 @@ tipos.put(c, aa);
         System.out.println( ); 
         ag+=AgregadoMetodosPLUS_PLUS_PLUS.ManyToOneEspecial(agg, fks.get(c), fkmoVarFinal, url);
     
-    }
+    }}
 
     if (!mapedByV.isEmpty()) {
       ag += AgregadosGrandes.oneToMany(mapedByFinal, mapedByV);
@@ -145,9 +150,6 @@ tipos.put(c, aa);
     ag += Agregadospeques.acabalo();
 
     
-    
-    
-
     agg=metodos.Capital(agg);
     System.out.println(new File(url+"domain\\model\\"+agg.toLowerCase()).mkdir() ); 
     Escribir.escribir(
@@ -161,8 +163,10 @@ if(tipo.get(c)!=3) {
             + agg
             + "Id.java",
         AgregadoId.id(agg));}
+/*
     if(readOnly.get(c)==false) {
     // DTOS
+
     System.out.println(new File(url+"dtos\\dto\\"+agg.toLowerCase()).mkdir() ); 
     Escribir.escribir(
         url+"dtos\\dto\\"+agg+"\\"
@@ -198,11 +202,11 @@ if(tipo.get(c)!=3) {
             + agg
             + "FactoryImpl.java",
         Factory.factoryImpl(agg, tipos.get(c), vars.get(c), fkmoVarFinal,importagg));
+    }  */
+  System.out.println(c+"    iiii");}
+
     }
-  System.out.println(c+"    iiii");}}
-//
-//
-  }
+
   //////////////////////////////////////////////////////
   //////////////////////////////////////////////////////
   //////////////////////////////////////////////////////

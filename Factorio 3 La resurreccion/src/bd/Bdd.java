@@ -167,7 +167,7 @@ public class Bdd {
           aux=aux1+" "+aux2+" ";
           System.out.println(aux ); 
         }else {
-        
+
         mtm.put(ctabla, true) ;
         String aux1,aux2;
         aux1=metodos.word(a, 3);
@@ -176,6 +176,7 @@ public class Bdd {
         aux2=metodos.removeLast(aux2);metodos.removeLast(aux2);aux2=metodos.removeLast(aux2);
         aux2=metodos.comillas(aux2);
         aux=aux1+" "+aux2;
+
         }
         
         

@@ -87,7 +87,6 @@ public class ConverToPojo {
 
 
           } else {
-            // TODO MTM no hay na echo
 
             String auxx = aux;
             aux = metodos.word(q, 2);
