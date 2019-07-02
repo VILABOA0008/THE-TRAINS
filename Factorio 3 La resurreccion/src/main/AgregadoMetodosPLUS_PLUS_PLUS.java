@@ -107,9 +107,7 @@ a += "\n  @ManyToOne(fetch = FetchType.LAZY)\n" +
     String agg;
     String[] arraymtm = new String[6];
 
-    System.out.println(
-        "EN CASO DE QUE LA TABLA EN CUESTION SE READ ONLY ESCIRBA   un 1 y el agregado CONTINUACION\n");
-    System.out.println("2  Ejemplos:          1Configuration \n \n");
+
     for (String i : tablas) {
       Scanner s = new Scanner(System.in);
 
@@ -120,7 +118,7 @@ a += "\n  @ManyToOne(fetch = FetchType.LAZY)\n" +
         agg = i;
         //        agg = aggss[c - 1];
 
-        if(tipo.get(c)==3) {
+        if(/*tipo.get(c)==3||*/tipo.get(c)==4) {
           readOnly.put(c, true);
         }else {
         
@@ -136,8 +134,8 @@ a += "\n  @ManyToOne(fetch = FetchType.LAZY)\n" +
 
           System.out.println(
               "1   Agregado   "
-                  + "  con  "
                   + aggs.get(Integer.valueOf(Mtm.get(c)[1]) - 1)
+                  + "  con  "
                   + Mtm.get(c)[2]);
           System.out.println(
               "2   Agregado   "

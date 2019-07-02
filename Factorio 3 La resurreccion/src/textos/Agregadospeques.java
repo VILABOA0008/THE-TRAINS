@@ -25,7 +25,7 @@ public class Agregadospeques {
     String a;
     a =
         "   \npublic static final String "
-            + var.toUpperCase()
+            +var.toUpperCase()
             + " = \""
             + metodos.Capital(var)
             + "\";";

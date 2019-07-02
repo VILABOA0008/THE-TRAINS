@@ -39,7 +39,7 @@ public class AgregadosGrandes {
         "  @JoinColumn(name = " + FIELD_FK
         + ", nullable = false, insertable = false, updatable = false)\n" +
         "  private " + metodos.Capital(var) + " " + var + ";\n\n"
-        + "  @EmbeddedId\n" +
+        + "  @Embedded\n" +
         "  @AttributeOverride(name = ID  , column = @Column(name = "
         + FIELD_FK + ", nullable = true))\n" +
         "  private " + metodos.Capital(var) + "Id  id" + metodos.Capital(var) + ";\n\n"

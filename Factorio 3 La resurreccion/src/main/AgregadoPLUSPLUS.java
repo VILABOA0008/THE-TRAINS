@@ -84,7 +84,7 @@ Scanner s=new Scanner(System.in)  ;
     ag += Agregadospeques.finalId(agg);
     
     //eliminar id field
-    if(tipo.get(c)!=4) {
+    if(tipo.get(c)!=4&&tipo.get(c)!=3) {
 ArrayList<String>a=vars.get(c);
 ArrayList<String>aa=tipos.get(c);
 a.remove(0);aa.remove(0);
@@ -163,7 +163,7 @@ if(tipo.get(c)!=3) {
             + agg
             + "Id.java",
         AgregadoId.id(agg));}
-/*
+
     if(readOnly.get(c)==false) {
     // DTOS
 
@@ -202,7 +202,7 @@ if(tipo.get(c)!=3) {
             + agg
             + "FactoryImpl.java",
         Factory.factoryImpl(agg, tipos.get(c), vars.get(c), fkmoVarFinal,importagg));
-    }  */
+    }  
   System.out.println(c+"    iiii");}
 
     }

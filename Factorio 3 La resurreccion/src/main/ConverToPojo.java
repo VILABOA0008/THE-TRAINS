@@ -17,13 +17,64 @@ public class ConverToPojo {
       Map<Integer, Boolean> mtm,
       Map<Integer, ArrayList<Integer>> otm,
       Map<Integer, ArrayList<Integer>> mto,
-      Map<Integer, String[]> Mtm) {
+      Map<Integer, String[]> Mtm, Map<Integer,Integer>tipo) {
 
     FieldsyVars(vars, tipos, fields, tablas);
     ManiesToOnes(vars, tipos, fields, tablas, foreign, fks, arrayprimary, mtm, otm, mto, Mtm);
+    tipo(vars, tipos,  tablas,  arrayprimary, mtm,  Mtm,tipo);
+
   }
 
+  
+  public static void tipo(
+      Map<Integer, ArrayList<String>> vars,
+      Map<Integer, ArrayList<String>> tipos,
+      ArrayList<String> tablas,
+      ArrayList<String> arrayprimary,
+      Map<Integer, Boolean> mtm,
+      Map<Integer, String[]> Mtm,Map<Integer,Integer>tipo) {
+
+    int c;
+    for (int i = 1; i < tablas.size() + 1; i++) {
+      //poner tipo=3 para base entities
+      if(tipo.get(i)==1) {
+        tipo.put(i, 3);
+        System.out.println( "\n"+tablas.get(i-1)+"            "+"   cosas  "+arrayprimary.get(i-1)+""); 
+       String word;
+       System.out.println("vars antes   "+vars.get(i) ); 
+       c=0;
+        do {
+          word=null;
+          word=metodos.word(arrayprimary.get(i-1), c+1);
+                      if(word!=null) {
+                        for (int j = 0; j < vars.get(i).size(); j++) {
+                          word=metodos.despital(word);
+                          System.out.println("here   "+vars.get(i).get(j)+"   "+word ); 
+                          if(vars.get(i).get(j).equalsIgnoreCase(word)){
+                            vars.get(i).remove(j);
+                            tipos.get(i).remove(j);}
+                        }        }             
+                      c++;
+            }while(word!=null);
+        System.out.println("vars despues   "+vars.get(i) ); 
+      }
+      
+    }
+    
+    //Si  hay mas de una pk perooooo no es mtm
+    for(int i=1;i<tablas.size();i++){  
+      if(mtm.get(i)==true) {
+        System.out.println(tablas.get(i-1) ); 
+        if(Mtm.get(i)==null) { tipo.put(i, 4); }
+      }
+      
+    }
+    
+    
+    
+  }
   public static void ManiesToOnes(
+
       Map<Integer, ArrayList<String>> vars,
       Map<Integer, ArrayList<String>> tipos,
       Map<Integer, ArrayList<String>> fields,
@@ -44,21 +95,21 @@ public class ConverToPojo {
       for (String q : foreign.get(i)) {
         q += " ";
         if (metodos.word(q, 1).equalsIgnoreCase("FOREIGN")) {
+          
+
           if (mtm.get(i).equals(false)) {
+          //MTO OTM MTO OTM MTO OTM MTO OTM MTO OTM 
             aux = metodos.word(q, 3);
             aux = metodos.comillas(aux);
             aux = metodos.comillas(aux);
             fk.add(aux);
 
           } else {
-            // TODO MTM no hay na echo
+            //MTM MTM MTM MTM MTM MTM MTM MTM MTM MTM MTM MTM
 
             aux = metodos.word(q, 3);
-
             aux = metodos.comillas(aux);
             aux = metodos.comillas(aux);
-//            for(String g:auxmtm) {
-//            }
             auxmtm[mtmc] = aux;
             mtmc++;
           }
@@ -66,7 +117,6 @@ public class ConverToPojo {
         } else {
           if (mtm.get(i).equals(false)) {
 
-            String auxx = aux;
             aux = metodos.word(q, 2);
             aux = metodos.specialword(q, '.');
             aux = metodos.comillas(aux);
@@ -88,7 +138,6 @@ public class ConverToPojo {
 
           } else {
 
-            String auxx = aux;
             aux = metodos.word(q, 2);
             aux = metodos.specialword(q, '.');
             aux = metodos.comillas(aux);
