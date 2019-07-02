@@ -78,7 +78,7 @@ Scanner s=new Scanner(System.in)  ;
     ag += Agregadospeques.finalTable(tabla);
 
     ag += Agregadospeques.ID();
-      if(tipo.get(c)!=3||tipo.get(c)!=4) {
+      if(tipo.get(c)!=3&&tipo.get(c)!=4) {
     ag+=Agregadospeques.tableStatic();}
 
     ag += Agregadospeques.finalId(agg);
