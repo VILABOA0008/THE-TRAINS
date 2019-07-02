@@ -201,7 +201,7 @@ if(tipo.get(c)!=3) {
         url+"application\\factoryimpl\\"+agg+"\\"
             + agg
             + "FactoryImpl.java",
-        Factory.factoryImpl(agg, tipos.get(c), vars.get(c), fkmoVarFinal,importagg));
+        Factory.factoryImpl(agg, tipos.get(c), vars.get(c), fkmoVarFinal,importagg,tipo.get(c)));
     }  
   System.out.println(c+"    iiii");}
 
