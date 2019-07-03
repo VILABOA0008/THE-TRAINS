@@ -91,7 +91,6 @@ public class AgregadosGrandes {
     String a="";
     
     for(String i:fkmoVarFinal) {
-      String descap=metodos.Capital(i);
       String cap=metodos.Capital(i);
       if(tipo!=3) {
         
@@ -110,7 +109,7 @@ public class AgregadosGrandes {
           "  }\n"
           + "  public "+cap+" get"+cap+"() {\n" + 
           "    return "+i+";\n" + 
-          "  }"
+          "  }\n"
           + "  public void set"+cap+"("+cap+" "+i+") {\n" + 
           "    this."+i+" = "+i+";\n" + 
           "  }\n";

@@ -11,14 +11,14 @@ import main.metodos;
 public class Bdd {
 
   public static void bdd(
-      Map<Integer, ArrayList<String>> fields,  Map<Integer, ArrayList<String>> foreign,
-      ArrayList<String> arrayprimary,ArrayList<String> tablas,
-      Map<Integer, Boolean> mtm, Map<Integer,Integer>tipo )
+      Map<Integer, ArrayList<String>> fields, Map<Integer, ArrayList<String>> foreign,
+      ArrayList<String> arrayprimary, ArrayList<String> tablas,
+      Map<Integer, Boolean> mtm, Map<Integer, Integer> tipo)
       throws IOException {
     ArrayList<String> feas = new ArrayList<>();
 
-    ArrayList<String> arrayforeign=new ArrayList<>();
-    ArrayList<String> arrayfields=new ArrayList<>();
+    ArrayList<String> arrayforeign = new ArrayList<>();
+    ArrayList<String> arrayfields = new ArrayList<>();
     boolean in = false;
     feas.addAll(Arrays.asList("INDEX", "CONSTRAINT"));
     int ctabla = 0;
@@ -26,18 +26,16 @@ public class Bdd {
     boolean no = false;
     String aux;
     // pass the path to the file as a parameter
-    FileReader fr =
-        new FileReader(
-       "C:\\Users\\pabcos\\Documents\\trains\\Factorio 3 La resurreccion\\src\\bd\\bd_employee.txt");
+    FileReader fr = new FileReader(
+        "C:\\Users\\pabcos\\Documents\\trains\\Factorio 3 La resurreccion\\src\\bd\\bd_employee.txt");
 
-    String a = "", b = "", c = "", d = "";
+    String a = "";
     int i;
     while ((i = fr.read()) != -1) {
       if (i != ' ' && i != '\n') {
         a += (char) i;
       } else {
         if (!a.equalsIgnoreCase("")) {
-          c += a + "\n";
           if (feas.contains(a) || no == true) {
             no = true;
             if (i == '\n') {
@@ -55,7 +53,6 @@ public class Bdd {
             }
             if (engine(a, fr)) {
               in = false;
-              d += "\n\n";
               fields.put(ctabla, arrayfields);
               foreign.put(ctabla, arrayforeign);
             }
@@ -63,23 +60,11 @@ public class Bdd {
             if (in) {
               foreign(a, fr, arrayforeign);
               fields(a, fr, arrayfields);
-              aux = null;
-              d += primaries(a, fr, arrayprimary,ctabla,mtm, arrayfields,tipo);
+              primaries(a, fr, arrayprimary, ctabla, mtm, arrayfields, tipo);
             }
-            if (i == '\n') {
-              b += a + "\n";
-            } else {
-              b += a + "   ";
-            }
-          }
-        }
-
-        //              a="";}
+            } }
         a = "";
-      }
-
-    }
-
+      } }
   }
 
   // DETECT
@@ -88,7 +73,7 @@ public class Bdd {
     int i;
     String a = "";
     if (s.equals("CREATE")) {
-      while ((i = fr.read()) != (char) '.') {
+      while ((i = fr.read()) != '.') {
         a += ((char) i);
       }
 
@@ -110,7 +95,7 @@ public class Bdd {
     int i;
     String a = s + " ";
     if (s.equalsIgnoreCase("FOREIGN")) {
-      while ((i = fr.read()) != (char) '\n') {
+      while ((i = fr.read()) != '\n') {
         a += ((char) i);
       }
       aux.add(a);
@@ -128,69 +113,70 @@ public class Bdd {
     int i;
     String a = s + " ";
     if (s.substring(0, 1).equalsIgnoreCase("`")) {
-      while ((i = fr.read()) != (char) '\n') {
+      while ((i = fr.read()) != '\n') {
         a += ((char) i);
       }
-      if(!a.contains("FK")) {//QUITAR VAR FK
-      arrayfields.add(a);}
+      if (!a.contains("FK")) {// QUITAR VAR FK
+        arrayfields.add(a);
+      }
     }
   }
 
-  public static String primaries(String s, FileReader fr, ArrayList<String> arrayPrimary,int ctabla,  Map<Integer, Boolean> mtm,ArrayList<String> arrayfields , Map<Integer,Integer>tipo )
+  public static String primaries(String s, FileReader fr, ArrayList<String> arrayPrimary,
+      int ctabla, Map<Integer, Boolean> mtm, ArrayList<String> arrayfields,
+      Map<Integer, Integer> tipo)
       throws IOException {
-    int i,fields=arrayfields.size();;
-    String aux="";
+    int i;
+    int fields = arrayfields.size();
+    
+    String aux = "";
     String a = s + " ";
     if (s.equalsIgnoreCase("PRIMARY")) {
 
-
-      while ((i = fr.read()) != (char) '\n') {
+      while ((i = fr.read()) != '\n') {
         a += ((char) i);
       }
-      a+=" ";
-//      a=metodos.word(a,3);
-//      a=metodos.comillas(a);a=metodos.comillas(a);
-//      a=metodos.removeSpecial(a,'`');
+      a += " ";
+
       tipo.put(ctabla, 0);
-      if(a.contains("`,")) {
-      
-        if(fields>2) {
-          System.out.println(ctabla +"   "+arrayfields); 
+      if (a.contains("`,")) {
+
+        if (fields > 2) {
           tipo.put(ctabla, 1);
           mtm.put(ctabla, false);
-          String aux1,aux2;
-          aux1=metodos.word(a, 3);
-          aux1=metodos.comillas(aux1);aux1=metodos.comillas(aux1);
-          aux2=metodos.word(a, 4);
-          aux2=metodos.removeLast(aux2);metodos.removeLast(aux2);aux2=metodos.removeLast(aux2);
-          aux2=metodos.comillas(aux2);
-          aux=aux1+" "+aux2+" ";
-          System.out.println(aux ); 
-        }else {
-
-        mtm.put(ctabla, true) ;
-        String aux1,aux2;
-        aux1=metodos.word(a, 3);
-        aux1=metodos.comillas(aux1);aux1=metodos.comillas(aux1);
-        aux2=metodos.word(a, 4);
-        aux2=metodos.removeLast(aux2);metodos.removeLast(aux2);aux2=metodos.removeLast(aux2);
-        aux2=metodos.comillas(aux2);
-        aux=aux1+" "+aux2;
+          String aux1, aux2;
+          aux1 = metodos.word(a, 3);
+          aux1 = metodos.comillas(aux1);
+          aux1 = metodos.comillas(aux1);
+          aux2 = metodos.word(a, 4);
+          aux2 = metodos.removeLast(aux2);
+          metodos.removeLast(aux2);
+          aux2 = metodos.removeLast(aux2);
+          aux2 = metodos.comillas(aux2);
+          aux = aux1 + " " + aux2 + " ";
+        } else {
+          mtm.put(ctabla, true);
+          String aux1, aux2;
+          aux1 = metodos.word(a, 3);
+          aux1 = metodos.comillas(aux1);
+          aux1 = metodos.comillas(aux1);
+          aux2 = metodos.word(a, 4);
+          aux2 = metodos.removeLast(aux2);
+          metodos.removeLast(aux2);
+          aux2 = metodos.removeLast(aux2);
+          aux2 = metodos.comillas(aux2);
+          aux = aux1 + " " + aux2;
 
         }
-        
-        
-        }      
-      else {
+
+      } else {
         mtm.put(ctabla, false);
+        aux = metodos.word(a, 3);
+        aux = metodos.removeLast(aux);
+        aux = metodos.comillas(aux);
+        aux = metodos.comillas(aux);
 
-        aux=metodos.word(a, 3);
-       
-
-        aux=metodos.removeLast(aux);
-        aux=metodos.comillas(aux);aux=metodos.comillas(aux);
-      
-        }      
+      }
       arrayPrimary.add(aux);
     }
     return a;

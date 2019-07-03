@@ -81,7 +81,6 @@ a += "\n  @ManyToOne(fetch = FetchType.LAZY)\n" +
 
   public static String MappedBy(ArrayList<String> fkmoFinal, ArrayList<String> fkmoVarFinal,Integer tipo) {
 
-    //    System.out.println("");
 
     String a = "";
 
@@ -102,7 +101,6 @@ a += "\n  @ManyToOne(fetch = FetchType.LAZY)\n" +
     String[] aggss = {
       "Page", "Button", "DocType", "Document", "null", "Style", "null", "Configuration", "null"
     };
-    System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
     int c = 1;
     String agg;
     String[] arraymtm = new String[6];
@@ -114,9 +112,7 @@ a += "\n  @ManyToOne(fetch = FetchType.LAZY)\n" +
       if (!mtm.get(c)||tipo.get(c)==4) {
 
         System.out.println("\n " + c + "   Nombre del agregado de la tabla " + i);
-        //               agg=s.nextLine();
         agg = i;
-        //        agg = aggss[c - 1];
 
         if(/*tipo.get(c)==3||*/tipo.get(c)==4) {
           readOnly.put(c, true);
@@ -187,7 +183,6 @@ a += "\n  @ManyToOne(fetch = FetchType.LAZY)\n" +
           auxmapped = Integer.valueOf(Mtm.get(c)[1]);
         }
         // MANY TO MANY
-
         ArrayList<String[]> auxadd = new ArrayList<>();
         if (MTM.get(Integer.valueOf(aux)) == null) {
           auxadd.add(arraymtm);

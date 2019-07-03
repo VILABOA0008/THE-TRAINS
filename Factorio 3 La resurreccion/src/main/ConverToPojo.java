@@ -39,32 +39,26 @@ public class ConverToPojo {
       //poner tipo=3 para base entities
       if(tipo.get(i)==1) {
         tipo.put(i, 3);
-        System.out.println( "\n"+tablas.get(i-1)+"            "+"   cosas  "+arrayprimary.get(i-1)+""); 
        String word;
-       System.out.println("vars antes   "+vars.get(i) ); 
        c=0;
         do {
-          word=null;
           word=metodos.word(arrayprimary.get(i-1), c+1);
                       if(word!=null) {
                         for (int j = 0; j < vars.get(i).size(); j++) {
                           word=metodos.despital(word);
-                          System.out.println("here   "+vars.get(i).get(j)+"   "+word ); 
                           if(vars.get(i).get(j).equalsIgnoreCase(word)){
                             vars.get(i).remove(j);
                             tipos.get(i).remove(j);}
                         }        }             
                       c++;
             }while(word!=null);
-        System.out.println("vars despues   "+vars.get(i) ); 
       }
       
     }
     
     //Si  hay mas de una pk perooooo no es mtm
     for(int i=1;i<tablas.size();i++){  
-      if(mtm.get(i)==true) {
-        System.out.println(tablas.get(i-1) ); 
+      if(mtm.get(i)) {
         if(Mtm.get(i)==null) { tipo.put(i, 4); }
       }
       
@@ -74,7 +68,6 @@ public class ConverToPojo {
     
   }
   public static void ManiesToOnes(
-
       Map<Integer, ArrayList<String>> vars,
       Map<Integer, ArrayList<String>> tipos,
       Map<Integer, ArrayList<String>> fields,
@@ -106,7 +99,6 @@ public class ConverToPojo {
 
           } else {
             //MTM MTM MTM MTM MTM MTM MTM MTM MTM MTM MTM MTM
-
             aux = metodos.word(q, 3);
             aux = metodos.comillas(aux);
             aux = metodos.comillas(aux);
@@ -117,11 +109,9 @@ public class ConverToPojo {
         } else {
           if (mtm.get(i).equals(false)) {
 
-            aux = metodos.word(q, 2);
             aux = metodos.specialword(q, '.');
             aux = metodos.comillas(aux);
             int tablaotm = metodos.idByTable(aux, tablas);
-
             ArrayList<Integer> auxmto = mto.get(i);
             if (auxmto == null) {
               auxmto = new ArrayList<>();
@@ -137,8 +127,6 @@ public class ConverToPojo {
 
 
           } else {
-
-            aux = metodos.word(q, 2);
             aux = metodos.specialword(q, '.');
             aux = metodos.comillas(aux);
             Integer auxid = metodos.idByTable(aux, tablas);
@@ -146,27 +134,13 @@ public class ConverToPojo {
             mtmc++;
             if (mtmc == 4) {
               Mtm.put(i, auxmtm);
-            }
-          }
+            }}
         }
-
         if (!fk.isEmpty()) {
           fks.put(i, fk);
-        }
-      }
+        }}
     }
 
-    for (int i = 1; i < tablas.size() + 1; i++) {
-      if (otm.get(i) != null) {
-        for (int q : otm.get(i)) {
-          //
-        }
-      }
-    }
-
-    /*
-    for(int i=1;i<tablas.size()+1;i++) {
-    }*/
 
   }
 
@@ -219,23 +193,14 @@ public class ConverToPojo {
         if (aux.contains("DECIMAL")) {
           aux = "DECIMAL";
         }
-        
-
         aux = toVars.get(aux);
         tipo.add(aux);
       }
       vars.put(q, var);
       tipos.put(q, tipo);
 
-      // System.out.println("\n\n\n");
-      // for(int i=0;i<var.size();i++) {
-      //  System.out.println(var.get(i)+"   "+tipo.get(i));
-    }
-    for (int i = 1; i < tablas.size() + 1; i++) {
 
-      //      System.out.println("\nTABLA"+i );
-      //    vars.get(i).forEach(n->System.out.println(n ));
-      //    tipos.get(i).forEach(n->System.out.println(n ));
     }
+
   }
 }
