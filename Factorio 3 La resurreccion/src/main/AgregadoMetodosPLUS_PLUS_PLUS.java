@@ -108,7 +108,6 @@ a += "\n  @ManyToOne(fetch = FetchType.LAZY)\n" +
 
     for (String i : tablas) {
       Scanner s = new Scanner(System.in);
-
       if (!mtm.get(c)||tipo.get(c)==4) {
 
         System.out.println("\n " + c + "   Nombre del agregado de la tabla " + i);

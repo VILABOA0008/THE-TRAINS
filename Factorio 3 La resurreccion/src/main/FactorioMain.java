@@ -8,7 +8,7 @@ import java.util.Scanner;
 
 import bd.Bdd;
 
-public class Main {
+public class FactorioMain {
 
   public static void main(String[] args) throws IOException {
     //tipo 3 =MANY TO MANY CON PARAMETRO

@@ -144,7 +144,7 @@ public class AgregadoPLUSPLUS {
         }
         ag += Agregadospeques.getBasics(tipos.get(c), vars.get(c));
         ag += Agregadospeques.setBasics(tipos.get(c), vars.get(c));
-        ag += AgregadosGrandes.setAddSets(mapedByV);
+        ag += AgregadosGrandes.setAddSets(mapedByV,mtmappedVar,mtmVar);
         ag += AgregadosGrandes.getSetEntities(fkmoVarFinal, tipo.get(c));
         ag += Agregadospeques.acabalo();
         

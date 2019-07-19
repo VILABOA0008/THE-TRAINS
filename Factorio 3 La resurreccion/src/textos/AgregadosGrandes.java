@@ -64,11 +64,14 @@ public class AgregadosGrandes {
     return a;
   }
 
-  public static String setAddSets(ArrayList<String> mappedV) {
+  public static String setAddSets(ArrayList<String> mappedV,ArrayList<String> mtmChild,ArrayList<String> mtmParent) {
     String a="";
-    for(String i:mappedV) {
-      String cap=metodos.Capital(i);
-      
+    ArrayList<ArrayList<String>> tres=new ArrayList<>();
+    tres.add(mappedV);tres.add(mtmChild);tres.add(mtmParent);
+    
+    for(ArrayList<String>  tri:tres) {
+    for(String i:tri) {
+      String cap=metodos.Capital(i);     
       
     a += "  public Set<"+cap+"> get"+metodos.Capital(i)+"s() {\n" + 
         "    if ("+i+"s == null) {\n" + 
@@ -84,6 +87,7 @@ public class AgregadosGrandes {
         "    this."+i+"s.add("+i+");\n" + 
         "  }\n";
   }
+    }
   return a;
   }
 

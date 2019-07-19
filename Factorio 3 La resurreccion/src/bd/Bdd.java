@@ -27,7 +27,7 @@ public class Bdd {
     String aux;
     // pass the path to the file as a parameter
     FileReader fr = new FileReader(
-        "C:\\Users\\pabcos\\Documents\\trains\\Factorio 3 La resurreccion\\src\\bd\\bd_employee.txt");
+        "C:\\Users\\pabcos\\Documents\\trains\\Factorio 3 La resurreccion\\src\\bd\\bd_plcCollector.txt");
 
     String a = "";
     int i;
