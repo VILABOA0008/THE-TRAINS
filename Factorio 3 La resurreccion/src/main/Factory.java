@@ -40,7 +40,7 @@ public class Factory {
   }
 
   public static String factoryImpl(String agg, ArrayList<String> fieldsType,
-      ArrayList<String> fieldsVar, ArrayList<String> fkmoVarFinal,String importagg,Integer tipo) {
+      ArrayList<String> fieldsVar, ArrayList<String> fkmoVarFinal,String importagg) {
 
     agg = metodos.Capital(agg);
     String a="";
@@ -60,61 +60,20 @@ public class Factory {
       b += "Integer" + " id" + metodos.Capital(fkmoVarFinal.get(i));
     }
 
+    for (int i = 0; i < fieldsType.size(); i++) {
 
+      c += "\n  tmp" + agg + ".set" + metodos.Capital(fieldsVar.get(i)) + "(" + fieldsVar.get(i)
+          + ");";
+    }
 
-    if(tipo==3) {
-      
+    for (int i = 0; i < fkmoVarFinal.size(); i++) {
 
+      c += "\n  tmp" + agg + ".setId"+ metodos.Capital(fkmoVarFinal.get(i)) +"(new "
+          + metodos.Capital(fkmoVarFinal.get(i)) + "Id(id"
+          + metodos.Capital(fkmoVarFinal.get(i)) + "));";
+    }
 
-        c+="final  "+agg+" tmp"+agg+" = new  "+agg+"(";
-        for (int i = 0; i < fkmoVarFinal.size(); i++) {
-        c += "new "
-            + metodos.Capital(fkmoVarFinal.get(i)) + "Id(id"
-            + metodos.Capital(fkmoVarFinal.get(i)) + ")";
-        if(i!=fkmoVarFinal.size()-1) {c+=",";}else {c+=");";
-      }
-        }
- 
-        for (int i = 0; i < fieldsType.size(); i++) {
-
-          c += "\n  tmp" + agg + ".set" + metodos.Capital(fieldsVar.get(i)) + "(" + fieldsVar.get(i)
-              + ");";
-        }
-        
-      a += "\n" +
-          "import org.seedstack.business.domain.BaseFactory; \n" +
-          "\n" +
-          "public class " + agg + "FactoryImpl extends BaseFactory<" + agg + "> implements " + agg
-          + "Factory {\n" +
-          "\n" +
-          "  @Override\n" +
-          "  public " + agg + " create" + agg + "(" + b + ") {\n" +
-          "\n" + c +
-          "\n" +
-          "\n" +
-          "\n    return tmp" + agg + ";\n" +
-          "  }\n" +
-          "\n" +
-          "}\n" +
-          "";
-      a += "";
-      
-    }else {
-
-      for (int i = 0; i < fieldsType.size(); i++) {
-
-        c += "\n  tmp" + agg + ".set" + metodos.Capital(fieldsVar.get(i)) + "(" + fieldsVar.get(i)
-            + ");";
-      }
-      
-      for (int i = 0; i < fkmoVarFinal.size(); i++) {
-
-        c += "\n  tmp" + agg + ".setId"+ metodos.Capital(fkmoVarFinal.get(i)) +"(new "
-            + metodos.Capital(fkmoVarFinal.get(i)) + "Id(id"
-            + metodos.Capital(fkmoVarFinal.get(i)) + "));";
-      }
-     
-        a += "\n" +
+     a += "\n" +
         "import org.seedstack.business.domain.BaseFactory; \n" +
         "\n" +
         "public class " + agg + "FactoryImpl extends BaseFactory<" + agg + "> implements " + agg
@@ -131,7 +90,7 @@ public class Factory {
         "\n" +
         "}\n" +
         "";
-    a += "";}
+    a += "";
 
     return a;
   }

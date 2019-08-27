@@ -39,7 +39,7 @@ public class AgregadosGrandes {
         "  @JoinColumn(name = " + FIELD_FK
         + ", nullable = false, insertable = false, updatable = false)\n" +
         "  private " + metodos.Capital(var) + " " + var + ";\n\n"
-        + "  @Embedded\n" +
+        + "  @EmbeddedId\n" +
         "  @AttributeOverride(name = ID  , column = @Column(name = "
         + FIELD_FK + ", nullable = true))\n" +
         "  private " + metodos.Capital(var) + "Id  id" + metodos.Capital(var) + ";\n\n"
@@ -55,7 +55,7 @@ public class AgregadosGrandes {
     String a="";
     int c=0;
       for(String i:mapedByV) {
-    a += "\n  @OneToMany(mappedBy = "+mapedByFinal.get(c)+", cascade = CascadeType.ALL, fetch = FetchType.EAGER)\n" +
+    a += "\n  @OneToMany(mappedBy = "+mapedByFinal.get(c)+", cascade = CascadeType.ALL, fetch = FetchType.LAZY)\n" +
         "  private Set<" + metodos.Capital(i) + "> " + i + "s;\n";
     c++;
     }
@@ -64,14 +64,11 @@ public class AgregadosGrandes {
     return a;
   }
 
-  public static String setAddSets(ArrayList<String> mappedV,ArrayList<String> mtmChild,ArrayList<String> mtmParent) {
+  public static String setAddSets(ArrayList<String> mappedV) {
     String a="";
-    ArrayList<ArrayList<String>> tres=new ArrayList<>();
-    tres.add(mappedV);tres.add(mtmChild);tres.add(mtmParent);
-    
-    for(ArrayList<String>  tri:tres) {
-    for(String i:tri) {
-      String cap=metodos.Capital(i);     
+    for(String i:mappedV) {
+      String cap=metodos.Capital(i);
+      
       
     a += "  public Set<"+cap+"> get"+metodos.Capital(i)+"s() {\n" + 
         "    if ("+i+"s == null) {\n" + 
@@ -87,7 +84,6 @@ public class AgregadosGrandes {
         "    this."+i+"s.add("+i+");\n" + 
         "  }\n";
   }
-    }
   return a;
   }
 
@@ -95,6 +91,7 @@ public class AgregadosGrandes {
     String a="";
     
     for(String i:fkmoVarFinal) {
+      String descap=metodos.Capital(i);
       String cap=metodos.Capital(i);
       if(tipo!=3) {
         
@@ -113,7 +110,7 @@ public class AgregadosGrandes {
           "  }\n"
           + "  public "+cap+" get"+cap+"() {\n" + 
           "    return "+i+";\n" + 
-          "  }\n"
+          "  }"
           + "  public void set"+cap+"("+cap+" "+i+") {\n" + 
           "    this."+i+" = "+i+";\n" + 
           "  }\n";
