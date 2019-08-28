@@ -1,0 +1,372 @@
+-- MySQL Workbench Forward Engineering
+
+SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
+SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
+SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
+
+-- -----------------------------------------------------
+-- Schema totem
+-- -----------------------------------------------------
+
+-- -----------------------------------------------------
+-- Schema totem
+-- -----------------------------------------------------
+CREATE SCHEMA IF NOT EXISTS `totem` DEFAULT CHARACTER SET utf8 ;
+USE `totem` ;
+
+
+
+
+
+
+-- -----------------------------------------------------
+-- Table `Design`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `Design` ;
+
+
+
+-- -----------------------------------------------------
+-- Table `totem`.`TOT_Page`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `totem`.`TOT_Page` (
+  `IdPage` INT NOT NULL,
+  `Name` VARCHAR(50) NOT NULL,
+  `Order` INT NOT NULL,
+  `Active` BIT NOT NULL,
+  PRIMARY KEY (`IdPage`))
+ENGINE = InnoDB;
+
+-- -----------------------------------------------------
+-- Table `DeclarationType`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS`DeclarationType` ;
+
+CREATE TABLE IF NOT EXISTS  `s`.`DeclarationType` (
+  `IdDeclarationType` INT NOT NULL,
+  `Name` VARCHAR(80) NOT NULL,
+  PRIMARY KEY (`IdDeclarationType`))
+ENGINE = InnoDB;
+
+-- -----------------------------------------------------
+-- Table `ParameterType`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `ParameterType` ;
+
+CREATE TABLE IF NOT EXISTS `s`.`ParameterType` (
+  `IdParameterType` INT NOT NULL,
+  `Name` VARCHAR(60) NOT NULL,
+  PRIMARY KEY (`IdParameterType`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `Parameter`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `Parameter` ;
+
+CREATE TABLE IF NOT EXISTS `s`.`Parameter` (
+  `IdParameter` INT NOT NULL,
+  `FK_ParameterType` INT NOT NULL,
+  `Name` VARCHAR(70) NOT NULL,
+  `HasPoints` BIT(1) NOT NULL DEFAULT 0,
+  PRIMARY KEY (`IdParameter`),
+  CONSTRAINT `fk_Parameter_ParameterType1`
+    FOREIGN KEY (`FK_ParameterType`)
+    REFERENCES `ds`.`ParameterType` (`IdParameterType`)
+    ON DELETE RESTRICT
+    ON UPDATE RESTRICT)
+ENGINE = InnoDB;
+
+CREATE INDEX `fk_Parameter_ParameterType1_idx` ON `Parameter` (`FK_ParameterType` ASC);
+
+
+
+
+
+-- -----------------------------------------------------
+-- Table `PsaShift`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `PsaShift` ;
+
+CREATE TABLE IF NOT EXISTS `s`.`PsaShift` (
+  `idPsaShift` INT NOT NULL AUTO_INCREMENT,
+  `Name` VARCHAR(30) NOT NULL,
+  `Active` BIT(1) NOT NULL,
+  PRIMARY KEY (`idPsaShift`))
+ENGINE = InnoDB
+-- -----------------------------------------------------
+-- Table `SourceMaterialType`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `SourceMaterialType` ;
+
+CREATE TABLE IF NOT EXISTS `s`.`SourceMaterialType` (
+  `IdSourceMaterial` INT NOT NULL AUTO_INCREMENT,
+  `Name` VARCHAR(200) NOT NULL,
+  PRIMARY KEY (`IdSourceMaterial`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `ProcessVigilanceState`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `ProcessVigilanceState` ;
+
+CREATE TABLE IF NOT EXISTS `s`.`ProcessVigilanceState` (
+  `IdState` INT NOT NULL,
+  `Name` VARCHAR(60) NOT NULL,
+  PRIMARY KEY (`IdState`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `LineType`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `LineType` ;
+
+CREATE TABLE IF NOT EXISTS `s`.`LineType` (
+  `IdLineType` INT NOT NULL AUTO_INCREMENT,
+  `Name` VARCHAR(60) NOT NULL,
+  `Active` BIT(1) NOT NULL,
+  PRIMARY KEY (`IdLineType`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `LineTypeParameter`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `LineTypeParameter` ;
+
+CREATE TABLE IF NOT EXISTS `s`.`LineTypeParameter` (
+  `IdLineType` INT NOT NULL,
+  `IdParameter` INT NOT NULL,
+  `Points` INT NOT NULL DEFAULT 1,
+  PRIMARY KEY (`IdLineType`, `IdParameter`),
+  CONSTRAINT `fk_LineTypeParameter_Parameter1`
+    FOREIGN KEY (`IdParameter`)
+    REFERENCES `s`.`Parameter` (`IdParameter`)
+    ON DELETE RESTRICT
+    ON UPDATE RESTRICT,
+  CONSTRAINT `fk_LineTypeParameter_LineType1`
+    FOREIGN KEY (`IdLineType`)
+    REFERENCES `s`.`LineType` (`IdLineType`)
+    ON DELETE RESTRICT
+    ON UPDATE RESTRICT)
+ENGINE = InnoDB;
+
+CREATE INDEX `fk_LineTypeParameter_Parameter1_idx` ON `LineTypeParameter` (`IdParameter` ASC);
+
+
+
+
+
+
+-- -----------------------------------------------------
+-- Table `PartState`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `PartState` ;
+
+CREATE TABLE IF NOT EXISTS `s`.`PartState` (
+  `IdState` INT NOT NULL AUTO_INCREMENT,
+  `Name` VARCHAR(50) NOT NULL,
+  PRIMARY KEY (`IdState`))
+ENGINE = InnoDB;
+
+
+
+CREATE TABLE IF NOT EXISTS `totem`.`Design` (
+  `IdDesign` INT NOT NULL AUTO_INCREMENT,
+  `Name` VARCHAR(180) CHARACTER SET 'utf8' COLLATE 'utf8_bin' NOT NULL,
+  `Code` VARCHAR(50) NOT NULL,
+  PRIMARY KEY (`IdDesign`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_bin;
+
+CREATE UNIQUE INDEX `Reference_UNIQUE` ON `Design` (`Code` ASC);
+
+
+-- -----------------------------------------------------
+-- Table `LineType`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `LineType` ;
+
+CREATE TABLE IF NOT EXISTS `totem`.`LineType` (
+  `IdLineType` INT NOT NULL AUTO_INCREMENT,
+  `Name` VARCHAR(60) NOT NULL,
+  `Active` BIT(1) NOT NULL,
+  PRIMARY KEY (`IdLineType`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `totem`.`TOT_DocType`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `totem`.`TOT_DocType` (
+  `IdDocType` INT NOT NULL,
+  `Name` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`IdDocType`))
+ENGINE = InnoDB;
+
+
+
+
+-- -----------------------------------------------------
+-- Table `totem`.`TOT_Style`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `totem`.`TOT_Style` (
+  `IdStyle` INT NOT NULL,
+  `Name` VARCHAR(90) NOT NULL,
+  `StyleClass` VARCHAR(100) NOT NULL,
+  PRIMARY KEY (`IdStyle`))
+ENGINE = InnoDB;
+
+-- -----------------------------------------------------
+-- Table `Account`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `Account` ;
+
+CREATE TABLE IF NOT EXISTS `s`.`Account` (
+  `IdAccount` INT NOT NULL AUTO_INCREMENT,
+  `Name` VARCHAR(60) CHARACTER SET 'utf8' COLLATE 'utf8_bin' NOT NULL,
+  PRIMARY KEY (`IdAccount`),
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_bin;
+
+
+-- -----------------------------------------------------
+-- Table `Line`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `Line` ;
+
+CREATE TABLE IF NOT EXISTS `s`.`Line` (
+  `IdLine` INT NOT NULL AUTO_INCREMENT,
+  `Name` VARCHAR(100) CHARACTER SET 'utf8' COLLATE 'utf8_bin' NOT NULL,
+  `FK_LineType` INT NOT NULL,
+  PRIMARY KEY (`IdLine`),
+  CONSTRAINT `fk_Line_LineType1`
+    FOREIGN KEY (`FK_LineType`)
+    REFERENCES `s`.`LineType` (`IdLineType`)
+    ON DELETE RESTRICT
+    ON UPDATE RESTRICT)
+ENGINE = InnoDB
+
+
+-- -----------------------------------------------------
+-- Table `Bom`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `Bom` ;
+
+CREATE TABLE IF NOT EXISTS `s`.`Bom` (
+  `IdBOM` INT(11) NOT NULL AUTO_INCREMENT,
+  `FK_Design` INT NOT NULL,
+  PRIMARY KEY (`IdBOM`),
+  CONSTRAINT `fk_Bom_Design1`
+    FOREIGN KEY (`FK_Design`)
+    REFERENCES `s`.`Design` (`IdDesign`))
+ENGINE = InnoDB
+
+
+-- -----------------------------------------------------
+-- Table `Bomasd`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `Bomasd` ;
+
+CREATE TABLE IF NOT EXISTS `s`.`ProcessVigilance` (
+  `idProcessVigilance` INT NOT NULL,
+    `Name` VARCHAR(100) NOT NULL,
+  `CHR` INT NOT NULL,
+  `ProgramNumber` VARCHAR(25) NOT NULL,
+    `FK_Bom` INT NOT NULL,
+    `FK_Line` INT NOT NULL,
+    `FK_State` INT NOT NULL,
+    `FK_SourceMaterial` INT NOT NULL,
+  PRIMARY KEY (`idProcessVigilance`),
+    CONSTRAINT `fk_ProcessVigilance_Bom1`
+    FOREIGN KEY (`FK_Bom`)
+    REFERENCES `s`.`Bom` (`IdBOM`)
+    ON DELETE RESTRICT
+    ON UPDATE RESTRICT,
+  CONSTRAINT `fk_ProcessVigilance_Line1`
+    FOREIGN KEY (`FK_Line`)
+    REFERENCES `s`.`Line` (`IdLine`)
+    ON DELETE RESTRICT
+    ON UPDATE RESTRICT,
+      CONSTRAINT `fk_ProcessVigilance_ProcessVigilanceState1`
+    FOREIGN KEY (`FK_State`)
+    REFERENCES `s`.`ProcessVigilanceState` (`IdState`)
+    ON DELETE RESTRICT
+    ON UPDATE RESTRICT,
+  CONSTRAINT `fk_ProcessVigilance_SourceMaterialType1`
+    FOREIGN KEY (`FK_SourceMaterial`)
+    REFERENCES `s`.`SourceMaterialType` (`IdSourceMaterial`)
+    ON DELETE RESTRICT
+    ON UPDATE RESTRICT)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_bin;
+
+CREATE INDEX `fk_Bom_Design1_idx` ON `Bom` (`FK_Design` ASC);
+
+-- -----------------------------------------------------
+-- Table `ProcessVigilance`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `ProcessVigilance` ;
+
+CREATE TABLE IF NOT EXISTS `s`.`ProcessVigilance3` (
+  `idProcessVigilance` INT NOT NULL,
+    `Name` VARCHAR(100) NOT NULL,
+  `CHR` INT NOT NULL,
+  `ProgramNumber` VARCHAR(25) NOT NULL,
+    `FK_Bom` INT NOT NULL,
+    `FK_Line` INT NOT NULL,
+    `FK_State` INT NOT NULL,
+    `FK_SourceMaterial` INT NOT NULL,
+  PRIMARY KEY (`idProcessVigilance`),
+    CONSTRAINT `fk_ProcessVigilance_Bom1`
+    FOREIGN KEY (`FK_Bom`)
+    REFERENCES `s`.`Bom` (`IdBOM`)
+    ON DELETE RESTRICT
+    ON UPDATE RESTRICT,
+  CONSTRAINT `fk_ProcessVigilance_Line1`
+    FOREIGN KEY (`FK_Line`)
+    REFERENCES `s`.`Line` (`IdLine`)
+    ON DELETE RESTRICT
+    ON UPDATE RESTRICT,
+      CONSTRAINT `fk_ProcessVigilance_ProcessVigilanceState1`
+    FOREIGN KEY (`FK_State`)
+    REFERENCES `s`.`ProcessVigilanceState` (`IdState`)
+    ON DELETE RESTRICT
+    ON UPDATE RESTRICT,
+  CONSTRAINT `fk_ProcessVigilance_SourceMaterialType1`
+    FOREIGN KEY (`FK_SourceMaterial`)
+    REFERENCES `s`.`SourceMaterialType` (`IdSourceMaterial`)
+    ON DELETE RESTRICT
+    ON UPDATE RESTRICT)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_bin;
+
+CREATE INDEX `fk_Bom_Design1_idx` ON `Bom` (`FK_Design` ASC);
+
+
+
+-- -----------------------------------------------------
+-- Table `totem`.`TOT_Configuration`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `totem`.`TOT_Configuration` (
+  `IdConfig` INT NOT NULL,
+  `Value` VARCHAR(90) NOT NULL,
+  PRIMARY KEY (`IdConfig`))
+ENGINE = InnoDB;
+
+SET SQL_MODE=@OLD_SQL_MODE;
+SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
+SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+
+
+
+
+
+
