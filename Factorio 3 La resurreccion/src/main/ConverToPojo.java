@@ -152,7 +152,7 @@ public class ConverToPojo {
       System.err.println(fields.get(q).size());
       a=false;
       }catch(NullPointerException e) {q++;}
-      System.err.println(tablas.get(q));
+//      System.err.println(tablas.get(q));
         }
       System.err.println(q+"  qqq");
       for (String i : fields.get(q)) {
