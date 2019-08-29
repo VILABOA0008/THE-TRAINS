@@ -134,6 +134,7 @@ public class ConverToPojo {
     toVars.put("TIMESTAMP", "LocalDateTime");
     toVars.put("TIME", "LocalTime");
     toVars.put("BINARY", "byte[]");
+    toVars.put("DATE", "LocalDate");
     toVars.put("DECIMAL", "BigDecimal");
 
     
@@ -177,6 +178,9 @@ public class ConverToPojo {
         }
         if (aux.contains("DECIMAL")) {
           aux = "DECIMAL";
+        }
+        if (aux.contains("DATE")) {
+          aux = "DATE";
         }
         
 

@@ -19,11 +19,6 @@ USE `totem` ;
 
 
 
--- -----------------------------------------------------
--- Table `Design`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `Design` ;
-
 
 
 -- -----------------------------------------------------
@@ -178,8 +173,27 @@ ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8
 COLLATE = utf8_bin;
 
-CREATE UNIQUE INDEX `Reference_UNIQUE` ON `Design` (`Code` ASC);
 
+-- -----------------------------------------------------
+-- Table `Part`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `Part` ;
+
+CREATE TABLE IF NOT EXISTS `s`.`Part` (
+  `IdPart` INT(11) NOT NULL AUTO_INCREMENT,
+  `FK_Design` INT NOT NULL,
+  `FK_State` INT NOT NULL DEFAULT 1,
+  `Name` VARCHAR(100) CHARACTER SET 'utf8' COLLATE 'utf8_bin' NOT NULL,
+  PRIMARY KEY (`IdPart`),
+  CONSTRAINT `fk_Part_Design1`
+    FOREIGN KEY (`FK_Design`)
+    REFERENCES `s`.`Design` (`IdDesign`),
+  CONSTRAINT `fk_Part_PartState1`
+    FOREIGN KEY (`FK_State`)
+    REFERENCES `s`.`PartState` (`IdState`)
+    ON DELETE RESTRICT
+    ON UPDATE RESTRICT)
+ENGINE = InnoDB
 
 -- -----------------------------------------------------
 -- Table `LineType`
@@ -247,6 +261,36 @@ CREATE TABLE IF NOT EXISTS `s`.`Line` (
     ON UPDATE RESTRICT)
 ENGINE = InnoDB
 
+CREATE TABLE IF NOT EXISTS `s`.`ReworkBatch` (
+  `IdReworkSession` INT NOT NULL,
+  `FK_PsaShift` INT NOT NULL,
+  `FK_Line` INT NOT NULL,
+  `FK_Reference` INT NOT NULL,
+  `BatchDate` DATE NOT NULL,
+  `ProductionDate` DATE NOT NULL,
+  `ReworkerRef` VARCHAR(25) NOT NULL,
+  `ReworkedParts` INT NOT NULL,
+  `NokParts` INT NOT NULL,
+  `BadSrcParts` INT NOT NULL,
+  `Time` INT NOT NULL,
+  `Comment` VARCHAR(600) NOT NULL,
+  PRIMARY KEY (`IdReworkSession`),
+  CONSTRAINT `fk_ReworkBatch_Line1`
+    FOREIGN KEY (`FK_Line`)
+    REFERENCES `s`.`Line` (`IdLine`)
+    ON DELETE RESTRICT
+    ON UPDATE RESTRICT,
+  CONSTRAINT `fk_ReworkBatch_PsaShift1`
+    FOREIGN KEY (`FK_PsaShift`)
+    REFERENCES `s`.`PsaShift` (`idPsaShift`)
+    ON DELETE RESTRICT
+    ON UPDATE RESTRICT,
+  CONSTRAINT `fk_ReworkBatch_Part1`
+    FOREIGN KEY (`FK_Reference`)
+    REFERENCES `s`.`Part` (`IdPart`)
+    ON DELETE RESTRICT
+    ON UPDATE RESTRICT)
+ENGINE = InnoDB;
 
 -- -----------------------------------------------------
 -- Table `Bom`
