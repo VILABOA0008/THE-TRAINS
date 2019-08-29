@@ -78,7 +78,6 @@ CREATE TABLE IF NOT EXISTS `s`.`Parameter` (
     ON UPDATE RESTRICT)
 ENGINE = InnoDB;
 
-CREATE INDEX `fk_Parameter_ParameterType1_idx` ON `Parameter` (`FK_ParameterType` ASC);
 
 
 
@@ -95,6 +94,8 @@ CREATE TABLE IF NOT EXISTS `s`.`PsaShift` (
   `Active` BIT(1) NOT NULL,
   PRIMARY KEY (`idPsaShift`))
 ENGINE = InnoDB
+
+
 -- -----------------------------------------------------
 -- Table `SourceMaterialType`
 -- -----------------------------------------------------
@@ -153,12 +154,6 @@ CREATE TABLE IF NOT EXISTS `s`.`LineTypeParameter` (
     ON DELETE RESTRICT
     ON UPDATE RESTRICT)
 ENGINE = InnoDB;
-
-CREATE INDEX `fk_LineTypeParameter_Parameter1_idx` ON `LineTypeParameter` (`IdParameter` ASC);
-
-
-
-
 
 
 -- -----------------------------------------------------
@@ -268,10 +263,11 @@ CREATE TABLE IF NOT EXISTS `s`.`Bom` (
 ENGINE = InnoDB
 
 
+
 -- -----------------------------------------------------
--- Table `Bomasd`
+-- Table `ProcessVigilance`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `Bomasd` ;
+DROP TABLE IF EXISTS `ProcessVigilance` ;
 
 CREATE TABLE IF NOT EXISTS `s`.`ProcessVigilance` (
   `idProcessVigilance` INT NOT NULL,
@@ -304,53 +300,190 @@ CREATE TABLE IF NOT EXISTS `s`.`ProcessVigilance` (
     ON DELETE RESTRICT
     ON UPDATE RESTRICT)
 ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8
-COLLATE = utf8_bin;
 
-CREATE INDEX `fk_Bom_Design1_idx` ON `Bom` (`FK_Design` ASC);
+
 
 -- -----------------------------------------------------
--- Table `ProcessVigilance`
+-- Table `ProcessVigilanceVersion`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `ProcessVigilance` ;
+DROP TABLE IF EXISTS `ProcessVigilanceVersion` ;
 
-CREATE TABLE IF NOT EXISTS `s`.`ProcessVigilance3` (
-  `idProcessVigilance` INT NOT NULL,
-    `Name` VARCHAR(100) NOT NULL,
-  `CHR` INT NOT NULL,
-  `ProgramNumber` VARCHAR(25) NOT NULL,
-    `FK_Bom` INT NOT NULL,
-    `FK_Line` INT NOT NULL,
-    `FK_State` INT NOT NULL,
-    `FK_SourceMaterial` INT NOT NULL,
-  PRIMARY KEY (`idProcessVigilance`),
-    CONSTRAINT `fk_ProcessVigilance_Bom1`
-    FOREIGN KEY (`FK_Bom`)
-    REFERENCES `s`.`Bom` (`IdBOM`)
+CREATE TABLE IF NOT EXISTS `s`.`ProcessVigilanceVersion` (
+  `IdProcessVigilanceVersion` INT NOT NULL,
+  `FK_ProcessVigilance` INT NOT NULL,
+  `Revision` INT NOT NULL,
+    `Creator` INT NOT NULL,
+  `LastModifier` INT NOT NULL,
+  `State` INT(11) NOT NULL,
+  `Activation` TIMESTAMP NOT NULL,
+  `Deactivation` TIMESTAMP NULL,
+  PRIMARY KEY (`IdProcessVigilanceVersion`),
+  CONSTRAINT `fk_ProcessVigilanceVersion_ProcessVigilance1`
+    FOREIGN KEY (`FK_ProcessVigilance`)
+    REFERENCES `dsa`.`ProcessVigilance` (`idProcessVigilance`)
     ON DELETE RESTRICT
     ON UPDATE RESTRICT,
-  CONSTRAINT `fk_ProcessVigilance_Line1`
-    FOREIGN KEY (`FK_Line`)
-    REFERENCES `s`.`Line` (`IdLine`)
+    CONSTRAINT `fk_ProcessVigilanceVersion_Account1`
+    FOREIGN KEY (`Creator`)
+    REFERENCES  `s`.`Account` (`IdAccount`)
     ON DELETE RESTRICT
     ON UPDATE RESTRICT,
-      CONSTRAINT `fk_ProcessVigilance_ProcessVigilanceState1`
-    FOREIGN KEY (`FK_State`)
-    REFERENCES `s`.`ProcessVigilanceState` (`IdState`)
-    ON DELETE RESTRICT
-    ON UPDATE RESTRICT,
-  CONSTRAINT `fk_ProcessVigilance_SourceMaterialType1`
-    FOREIGN KEY (`FK_SourceMaterial`)
-    REFERENCES `s`.`SourceMaterialType` (`IdSourceMaterial`)
+  CONSTRAINT `fk_ProcessVigilanceVersion_Account2`
+    FOREIGN KEY (`LastModifier`)
+    REFERENCES  `s`.`Account` (`IdAccount`)
     ON DELETE RESTRICT
     ON UPDATE RESTRICT)
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8
-COLLATE = utf8_bin;
-
-CREATE INDEX `fk_Bom_Design1_idx` ON `Bom` (`FK_Design` ASC);
+  
+ENGINE = InnoDB;
 
 
+
+-- -----------------------------------------------------
+-- Table `ProcessVigilanceVersionParameter`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `ProcessVigilanceVersionParameter` ;
+
+CREATE TABLE IF NOT EXISTS `s`.`ProcessVigilanceVersionParameter` (
+  `IdConfiguredParameter` INT NOT NULL AUTO_INCREMENT,
+  `IdProcessVigilanceVersion` INT NOT NULL,
+  `IdParameter` INT NOT NULL,
+  `Point` INT NOT NULL DEFAULT 1,
+  `Nominal` FLOAT NOT NULL DEFAULT 0,
+  `BooleanNominal` BIT(1) NOT NULL DEFAULT 0,
+  PRIMARY KEY (`IdConfiguredParameter`),
+  CONSTRAINT `fk_ProcessVigilanceVersion_has_Parameter_ProcessVigilanceVers1`
+    FOREIGN KEY (`IdProcessVigilanceVersion`)
+    REFERENCES `s`.`ProcessVigilanceVersion` (`IdProcessVigilanceVersion`)
+    ON DELETE RESTRICT
+    ON UPDATE RESTRICT,
+  CONSTRAINT `fk_ProcessVigilanceVersion_has_Parameter_Parameter1`
+    FOREIGN KEY (`IdParameter`)
+    REFERENCES `s`.`Parameter` (`IdParameter`)
+    ON DELETE RESTRICT
+    ON UPDATE RESTRICT)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `ProcessLaunch`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `ProcessLaunch` ;
+
+CREATE TABLE IF NOT EXISTS `s`.`ProcessLaunch` (
+  `IdLaunch` INT NOT NULL,
+  `FK_PsaShift` INT NOT NULL,
+  `FK_ProcessVigilanceVersion` INT NOT NULL,
+  `FK_Creator` INT NOT NULL,
+  `Stamps` INT NOT NULL,
+  `LaunchTime` TIMESTAMP NOT NULL,
+  `ModifiesParameter` BIT(1) NOT NULL,
+  PRIMARY KEY (`IdLaunch`),
+  CONSTRAINT `fk_ProcessLaunch_PsaShift1`
+    FOREIGN KEY (`FK_PsaShift`)
+    REFERENCES `s`.`PsaShift` (`idPsaShift`)
+    ON DELETE RESTRICT
+    ON UPDATE RESTRICT,
+  CONSTRAINT `fk_ProcessLaunch_ProcessVigilanceVersion1`
+    FOREIGN KEY (`FK_ProcessVigilanceVersion`)
+    REFERENCES `s`.`ProcessVigilanceVersion` (`IdProcessVigilanceVersion`)
+    ON DELETE RESTRICT
+    ON UPDATE RESTRICT,
+  CONSTRAINT `fk_ProcessLaunch_Account1`
+    FOREIGN KEY (`FK_Creator`)
+    REFERENCES `s`.`Account` (`IdAccount`)
+    ON DELETE RESTRICT
+    ON UPDATE RESTRICT)
+ENGINE = InnoDB;
+
+-- -----------------------------------------------------
+-- Table `CoilLaunch`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `CoilLaunch` ;
+
+CREATE TABLE IF NOT EXISTS `s`.`CoilLaunch` (
+  `IdCoilLaunch` INT NOT NULL AUTO_INCREMENT,
+  `FK_ProcessLaunch` INT NOT NULL,
+  `CoilNumber` VARCHAR(40) NOT NULL,
+  PRIMARY KEY (`IdCoilLaunch`),
+  CONSTRAINT `fk_CoilLaunches_ProcessLaunch1`
+    FOREIGN KEY (`FK_ProcessLaunch`)
+    REFERENCES `s`.`ProcessLaunch` (`IdLaunch`)
+    ON DELETE RESTRICT
+    ON UPDATE RESTRICT)
+ENGINE = InnoDB;
+
+-- -----------------------------------------------------
+-- Table `LaunchModifiedParameter`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `LaunchModifiedParameter` ;
+
+CREATE TABLE IF NOT EXISTS `s`.`LaunchModifiedParameter` (
+  `IdModifiedParameter` INT NOT NULL AUTO_INCREMENT,
+  `IdConfiguredParameter` INT NOT NULL,
+  `IdLaunch` INT NOT NULL,
+  `Value` FLOAT NOT NULL,
+  `BooleanValue` BIT(1) NOT NULL,
+  `Comment` VARCHAR(600) NOT NULL,
+  PRIMARY KEY (`IdModifiedParameter`),
+  CONSTRAINT `fk_ProcessVigilanceVersionParameter_has_ProcessLaunch_Process1`
+    FOREIGN KEY (`IdConfiguredParameter`)
+    REFERENCES `s`.`ProcessVigilanceVersionParameter` (`IdConfiguredParameter`)
+    ON DELETE RESTRICT
+    ON UPDATE RESTRICT,
+  CONSTRAINT `fk_ProcessVigilanceVersionParameter_has_ProcessLaunch_Process2`
+    FOREIGN KEY (`IdLaunch`)
+    REFERENCES `s`.`ProcessLaunch` (`IdLaunch`)
+    ON DELETE RESTRICT
+    ON UPDATE RESTRICT)
+ENGINE = InnoDB;
+
+
+
+-- -----------------------------------------------------
+-- Table `ProcessVigilanceWarning`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `ProcessVigilanceWarning` ;
+
+CREATE TABLE IF NOT EXISTS `s`.`ProcessVigilanceWarning` (
+  `IdWarning` INT NOT NULL,
+  `FK_OffendingParameter` INT NOT NULL,
+  `FK_Validator` INT NULL,
+  `Validation` TIMESTAMP NULL,
+  PRIMARY KEY (`IdWarning`),
+  CONSTRAINT `fk_ProcessVigilanceWarning_Account1`
+    FOREIGN KEY (`FK_Validator`)
+    REFERENCES `s`.`Account` (`IdAccount`)
+    ON DELETE RESTRICT
+    ON UPDATE RESTRICT,
+  CONSTRAINT `fk_ProcessVigilanceWarning_ProcessVigilanceVersionParameter1`
+    FOREIGN KEY (`FK_OffendingParameter`)
+    REFERENCES `s`.`ProcessVigilanceVersionParameter` (`IdConfiguredParameter`)
+    ON DELETE RESTRICT
+    ON UPDATE RESTRICT)
+ENGINE = InnoDB;
+
+
+
+-- -----------------------------------------------------
+-- Table `WarningModifiedValues`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `s`.`WarningModifiedValues` ;
+
+CREATE TABLE IF NOT EXISTS `s`.`WarningModifiedValues` (
+  `IdWarning` INT NOT NULL,
+  `IdModifiedParameter` INT NOT NULL,
+  PRIMARY KEY (`IdWarning`, `IdModifiedParameter`),
+  CONSTRAINT `fk_LaunchModifiedParameter_has_ProcessVigilanceWarning_Launch1`
+    FOREIGN KEY (`IdModifiedParameter`)
+    REFERENCES `s`.`LaunchModifiedParameter` (`IdModifiedParameter`)
+    ON DELETE RESTRICT
+    ON UPDATE RESTRICT,
+  CONSTRAINT `fk_LaunchModifiedParameter_has_ProcessVigilanceWarning_Proces1`
+    FOREIGN KEY (`IdWarning`)
+    REFERENCES `s`.`ProcessVigilanceWarning` (`IdWarning`)
+    ON DELETE RESTRICT
+    ON UPDATE RESTRICT)
+ENGINE = InnoDB;
 
 -- -----------------------------------------------------
 -- Table `totem`.`TOT_Configuration`
