@@ -91,11 +91,13 @@ public class AgregadosGrandes {
     String a="";
     
     for(String i:fkmoVarFinal) {
-      String descap=metodos.Capital(i);
+      String descap=i;
       String cap=metodos.Capital(i);
       if(tipo!=3) {
         
-      
+        a+= "   public "+cap+" get"+cap+"() {\n" + 
+            "    return "+descap+";\n" + 
+            "  }\n";
     a+= "  public "+cap+"Id getId"+cap+"() {\n" + 
         "    return id"+cap+";\n" + 
         "  }\n"
