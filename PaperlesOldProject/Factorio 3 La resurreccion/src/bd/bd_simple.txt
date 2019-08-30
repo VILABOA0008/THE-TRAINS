@@ -1,0 +1,1379 @@
+-- MySQL Workbench Forward Engineering
+
+SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
+SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
+SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
+
+-- -----------------------------------------------------
+-- Schema IEC_IND
+-- -----------------------------------------------------
+
+-- -----------------------------------------------------
+-- Table `Design`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `Design` (
+  `IdDesign` INT NOT NULL AUTO_INCREMENT,
+  `Name` VARCHAR(180) CHARACTER SET 'utf8' COLLATE 'utf8_bin' NOT NULL,
+  `Code` VARCHAR(50) NOT NULL,
+  PRIMARY KEY (`IdDesign`),
+  UNIQUE INDEX `Reference_UNIQUE` (`Code` ASC))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_bin;
+
+
+-- -----------------------------------------------------
+-- Table `Bom`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `Bom` (
+  `IdBOM` INT(11) NOT NULL AUTO_INCREMENT,
+  `FK_Design` INT NOT NULL,
+  PRIMARY KEY (`IdBOM`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_bin;
+
+
+-- -----------------------------------------------------
+-- Table `Cell`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `Cell` (
+  `IdCell` INT NOT NULL AUTO_INCREMENT,
+  `Name` VARCHAR(100) CHARACTER SET 'utf8' COLLATE 'utf8_bin' NOT NULL,
+  `FK_Line` INT NOT NULL,
+  PRIMARY KEY (`IdCell`),
+  INDEX `fk_Cell_Line1_idx` (`FK_Line` ASC))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_bin;
+
+
+-- -----------------------------------------------------
+-- Table `Client`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `Client` (
+  `IdClient` INT NOT NULL AUTO_INCREMENT,
+  `FK_Organization` INT NULL,
+  `Name` VARCHAR(60) CHARACTER SET 'utf8' COLLATE 'utf8_bin' NOT NULL,
+  `Code` VARCHAR(50) NOT NULL,
+  PRIMARY KEY (`IdClient`),
+  UNIQUE INDEX `Reference_UNIQUE` (`Code` ASC),
+  INDEX `fk_Client_Organizations1_idx` (`FK_Organization` ASC))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_bin;
+
+
+-- -----------------------------------------------------
+-- Table `Group`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `Group` (
+  `IdGroup` INT NOT NULL AUTO_INCREMENT,
+  `Name` VARCHAR(100) CHARACTER SET 'utf8' COLLATE 'utf8_bin' NOT NULL,
+  PRIMARY KEY (`IdGroup`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_bin;
+
+
+-- -----------------------------------------------------
+-- Table `PartState`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `PartState` (
+  `IdState` INT NOT NULL AUTO_INCREMENT,
+  `Name` VARCHAR(50) NOT NULL,
+  PRIMARY KEY (`IdState`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `Part`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `Part` (
+  `IdPart` INT(11) NOT NULL AUTO_INCREMENT,
+  `FK_Design` INT NOT NULL,
+  `FK_State` INT NOT NULL DEFAULT 1,
+  `Name` VARCHAR(100) CHARACTER SET 'utf8' COLLATE 'utf8_bin' NOT NULL,
+  PRIMARY KEY (`IdPart`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_bin;
+
+
+-- -----------------------------------------------------
+-- Table `Input`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `Input` (
+  `IdBOM` INT(11) NOT NULL AUTO_INCREMENT,
+  `IdPart` INT(11) NOT NULL,
+  `Quantity` INT(11) NOT NULL,
+  PRIMARY KEY (`IdBOM`, `IdPart`),
+  INDEX `fk_BOM_has_Parts1_BOM1_idx` (`IdBOM` ASC))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_bin;
+
+
+-- -----------------------------------------------------
+-- Table `LineType`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `LineType` (
+  `IdLineType` INT NOT NULL AUTO_INCREMENT,
+  `Name` VARCHAR(60) NOT NULL,
+  `Active` BIT(1) NOT NULL,
+  PRIMARY KEY (`IdLineType`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `Line`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `Line` (
+  `IdLine` INT NOT NULL AUTO_INCREMENT,
+  `Name` VARCHAR(100) CHARACTER SET 'utf8' COLLATE 'utf8_bin' NOT NULL,
+  `FK_Plant` INT NOT NULL,
+  `FK_Group` INT NOT NULL,
+  `FK_LineType` INT NOT NULL,
+  PRIMARY KEY (`IdLine`),
+  INDEX `fk_Line_Plant1_idx` (`FK_Plant` ASC),
+  INDEX `fk_Line_Group1_idx` (`FK_Group` ASC))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_bin;
+
+
+-- -----------------------------------------------------
+-- Table `Organization`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `Organization` (
+  `IdOrganization` INT NOT NULL AUTO_INCREMENT,
+  `Name` VARCHAR(120) CHARACTER SET 'utf8' COLLATE 'utf8_bin' NOT NULL,
+  PRIMARY KEY (`IdOrganization`),
+  UNIQUE INDEX `idOrganizations_UNIQUE` (`IdOrganization` ASC),
+  UNIQUE INDEX `Name_UNIQUE` (`Name` ASC))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_bin;
+
+
+-- -----------------------------------------------------
+-- Table `Output`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `Output` (
+  `IdBOM` INT NOT NULL AUTO_INCREMENT,
+  `IdPart` INT NOT NULL,
+  `Quantity` INT NOT NULL,
+  PRIMARY KEY (`IdBOM`, `IdPart`),
+  INDEX `FK_Outputs_IdPart_Idx` (`IdBOM` ASC))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_bin
+COMMENT = ' ';
+
+
+-- -----------------------------------------------------
+-- Table `Permission`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `Permission` (
+  `IdPermission` INT NOT NULL AUTO_INCREMENT,
+  `Name` VARCHAR(20) CHARACTER SET 'utf8' COLLATE 'utf8_bin' NOT NULL,
+  `Expression` VARCHAR(255) NOT NULL,
+  `Description` VARCHAR(180) CHARACTER SET 'utf8' COLLATE 'utf8_bin' NOT NULL,
+  PRIMARY KEY (`IdPermission`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_bin;
+
+
+-- -----------------------------------------------------
+-- Table `Contact`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `Contact` (
+  `IdContact` INT NOT NULL AUTO_INCREMENT,
+  `Name` VARCHAR(50) NOT NULL,
+  PRIMARY KEY (`IdContact`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `Personal`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `Personal` (
+  `IdPersonal` INT NOT NULL AUTO_INCREMENT,
+  `Name` VARCHAR(80) CHARACTER SET 'utf8' COLLATE 'utf8_bin' NOT NULL,
+  `FK_Organization` INT NULL,
+  `FK_Contact` INT NULL,
+  PRIMARY KEY (`IdPersonal`),
+  INDEX `fk_Personal_Organizations1_idx` (`FK_Organization` ASC))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_bin;
+
+
+-- -----------------------------------------------------
+-- Table `Plant`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `Plant` (
+  `IdPlant` INT NOT NULL AUTO_INCREMENT,
+  `FK_Organization` INT NOT NULL,
+  `FK_Location` INT NULL,
+  `Name` VARCHAR(100) CHARACTER SET 'utf8' COLLATE 'utf8_bin' NOT NULL,
+  PRIMARY KEY (`IdPlant`),
+  INDEX `fk_Plant_Organization1_idx` (`FK_Organization` ASC))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_bin;
+
+
+-- -----------------------------------------------------
+-- Table `Project`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `Project` (
+  `IdProject` INT NOT NULL AUTO_INCREMENT,
+  `FK_Client` INT NOT NULL,
+  `Name` VARCHAR(180) CHARACTER SET 'utf8' COLLATE 'utf8_bin' NOT NULL,
+  `Code` VARCHAR(50) NOT NULL,
+  PRIMARY KEY (`IdProject`),
+  UNIQUE INDEX `IdProject_UNIQUE` (`IdProject` ASC),
+  UNIQUE INDEX `Reference_UNIQUE` (`Code` ASC))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_bin;
+
+
+-- -----------------------------------------------------
+-- Table `Role`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `Role` (
+  `IdRole` INT NOT NULL AUTO_INCREMENT,
+  `Name` VARCHAR(60) CHARACTER SET 'utf8' COLLATE 'utf8_bin' NOT NULL,
+  `Description` VARCHAR(255) CHARACTER SET 'utf8' COLLATE 'utf8_bin' NOT NULL,
+  PRIMARY KEY (`IdRole`),
+  UNIQUE INDEX `Name_UNIQUE` (`Name` ASC))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_bin;
+
+
+-- -----------------------------------------------------
+-- Table `RolePermission`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `RolePermission` (
+  `IdRole` INT NOT NULL,
+  `IdPermission` INT NOT NULL,
+  `GrantedType` TINYINT(4) NOT NULL,
+  PRIMARY KEY (`IdRole`, `IdPermission`),
+  INDEX `fk_UserGroups_has_Permisions_UserGroups1_idx` (`IdRole` ASC))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_bin;
+
+
+-- -----------------------------------------------------
+-- Table `SEQUENCE`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `SEQUENCE` (
+  `KeyVal` VARCHAR(255) NOT NULL,
+  `Value` BIGINT(20) NULL DEFAULT NULL,
+  PRIMARY KEY (`KeyVal`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+
+
+-- -----------------------------------------------------
+-- Table `Station`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `Station` (
+  `IdStation` INT NOT NULL AUTO_INCREMENT,
+  `Name` VARCHAR(100) CHARACTER SET 'utf8' COLLATE 'utf8_bin' NOT NULL,
+  `FK_Cell` INT NOT NULL,
+  PRIMARY KEY (`IdStation`),
+  INDEX `fk_Stations_Cell1_idx` (`FK_Cell` ASC))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_bin;
+
+
+-- -----------------------------------------------------
+-- Table `Toolset`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `Toolset` (
+  `IdToolset` INT(11) NOT NULL AUTO_INCREMENT,
+  `Name` VARCHAR(50) CHARACTER SET 'utf8' COLLATE 'utf8_bin' NOT NULL,
+  PRIMARY KEY (`IdToolset`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_bin;
+
+
+-- -----------------------------------------------------
+-- Table `AccountStatus`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `AccountStatus` (
+  `IdStatus` INT NOT NULL AUTO_INCREMENT,
+  `Name` VARCHAR(40) NOT NULL,
+  PRIMARY KEY (`IdStatus`));
+
+
+-- -----------------------------------------------------
+-- Table `Realm`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `Realm` (
+  `IdRealm` INT NOT NULL,
+  `Name` VARCHAR(30) NOT NULL,
+  `HasAuth` BIT(1) NOT NULL,
+  PRIMARY KEY (`IdRealm`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `Account`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `Account` (
+  `IdAccount` INT NOT NULL AUTO_INCREMENT,
+  `FK_Realm` INT NOT NULL,
+  `FK_Status` INT NOT NULL,
+  `Name` VARCHAR(60) CHARACTER SET 'utf8' COLLATE 'utf8_bin' NOT NULL,
+  `FK_Personal` INT NULL,
+  `Salt` BLOB NULL,
+  `PassHash` BLOB(1024) NULL,
+  PRIMARY KEY (`IdAccount`),
+  UNIQUE INDEX `Name_UNIQUE` (`Name` ASC),
+  INDEX `fk_Users_Personal1_idx` (`FK_Personal` ASC),
+  INDEX `fk_User_AuthRealm1_idx` (`FK_Realm` ASC))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_bin;
+
+
+-- -----------------------------------------------------
+-- Table `AccountPermission`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `AccountPermission` (
+  `IdAccount` INT NOT NULL,
+  `IdPermission` INT NOT NULL,
+  `GrantedType` TINYINT(4) NOT NULL,
+  PRIMARY KEY (`IdAccount`, `IdPermission`),
+  INDEX `fk_Users_has_Permisions_Users1_idx` (`IdAccount` ASC))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_bin;
+
+
+-- -----------------------------------------------------
+-- Table `AccountRole`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `AccountRole` (
+  `IdAccount` INT NOT NULL,
+  `IdRole` INT NOT NULL,
+  `IdRealm` INT NOT NULL,
+  `GrantedType` TINYINT(4) NOT NULL,
+  PRIMARY KEY (`IdAccount`, `IdRole`, `IdRealm`),
+  INDEX `fk_Users_has_Roles_Users1_idx` (`IdAccount` ASC))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_bin;
+
+
+-- -----------------------------------------------------
+-- Table `OrganizationContact`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `OrganizationContact` (
+  `IdOrganization` INT NOT NULL,
+  `IdContact` INT NOT NULL,
+  PRIMARY KEY (`IdOrganization`, `IdContact`),
+  INDEX `fk_Organization_has_Contact_Organization1_idx` (`IdOrganization` ASC))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_bin;
+
+
+-- -----------------------------------------------------
+-- Table `ContactDetailType`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `ContactDetailType` (
+  `IdContactDetailType` INT NOT NULL AUTO_INCREMENT,
+  `Name` VARCHAR(45) NOT NULL,
+  `ValidationRule` VARCHAR(600) NULL,
+  PRIMARY KEY (`IdContactDetailType`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `ContactDetail`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `ContactDetail` (
+  `IdContactDetail` INT NOT NULL AUTO_INCREMENT,
+  `DetailValue` VARCHAR(500) NOT NULL,
+  `FK_ContactDetailType` INT NOT NULL,
+  `FK_Contact` INT NOT NULL,
+  PRIMARY KEY (`IdContactDetail`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `Dashboard`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `Dashboard` (
+  `IdDashboard` INT NOT NULL,
+  `FK_ParentDashboard` INT NULL,
+  `Path` VARCHAR(100) NOT NULL,
+  `Label` VARCHAR(100) NOT NULL,
+  `ElementStyle` VARCHAR(100) NOT NULL,
+  `GroupStyle` VARCHAR(100) NOT NULL,
+  PRIMARY KEY (`IdDashboard`),
+  UNIQUE INDEX `Path_UNIQUE` (`Path` ASC))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `DesignVersion`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `DesignVersion` (
+  `IdDesignVersion` INT NOT NULL,
+  `FK_Design` INT NOT NULL,
+  `Revision` INT NOT NULL,
+  `State` INT(11) NOT NULL,
+  `Activation` TIMESTAMP NULL,
+  `Deactivation` TIMESTAMP NULL,
+  PRIMARY KEY (`IdDesignVersion`),
+  UNIQUE INDEX `IdDesign_Revision_UNIQUE` (`FK_Design` ASC, `Revision` ASC))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `ControlPlan`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `ControlPlan` (
+  `IdControlPlan` INT NOT NULL,
+  `FK_Design` INT NOT NULL,
+  `Name` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`IdControlPlan`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `ControlPlanVersion`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `ControlPlanVersion` (
+  `IdControlPlanVersion` INT NOT NULL,
+  `Creator` INT NOT NULL,
+  `LastModifier` INT NOT NULL,
+  `FK_ControlPlan` INT NOT NULL,
+  `SpecificControls` BIT NOT NULL DEFAULT b'0',
+  `Comment` VARCHAR(200) NOT NULL DEFAULT '',
+  `Revision` INT NOT NULL,
+  `State` INT(11) NOT NULL,
+  `Activation` TIMESTAMP NULL,
+  `Deactivation` TIMESTAMP NULL,
+  PRIMARY KEY (`IdControlPlanVersion`),
+  UNIQUE INDEX `IdPlan_Revision_UNIQUE` (`FK_ControlPlan` ASC, `Revision` ASC),
+  INDEX `fk_ControlPlanVersion_Account1_idx` (`Creator` ASC),
+  INDEX `fk_ControlPlanVersion_Account2_idx` (`LastModifier` ASC))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `ControlPlanResult`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `ControlPlanResult` (
+  `IdControlPlanResult` INT NOT NULL AUTO_INCREMENT,
+  `FK_ControlPlanVersion` INT NOT NULL,
+  `LaunchDate` DATETIME NOT NULL,
+  `Finished` BIT NOT NULL DEFAULT b'1',
+  `WarningEnabled` BIT NOT NULL DEFAULT b'0',
+  `WarningChecked` TIMESTAMP NULL,
+  PRIMARY KEY (`IdControlPlanResult`),
+  INDEX `fk_ControlPlanResult_ControlPlanVersion1_idx` (`FK_ControlPlanVersion` ASC))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `BucketType`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `BucketType` (
+  `IdBucket` INT NOT NULL AUTO_INCREMENT,
+  `Name` VARCHAR(60) NOT NULL,
+  PRIMARY KEY (`IdBucket`));
+
+
+-- -----------------------------------------------------
+-- Table `ControlGroup`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `ControlGroup` (
+  `IdControlGroup` INT NOT NULL AUTO_INCREMENT,
+  `FK_Bucket` INT NULL,
+  `Color` CHAR(6) NULL,
+  `ShortName` VARCHAR(45) NOT NULL,
+  `Name` VARCHAR(300) NOT NULL,
+  PRIMARY KEY (`IdControlGroup`));
+
+
+-- -----------------------------------------------------
+-- Table `ControlTool`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `ControlTool` (
+  `IdControlTool` INT NOT NULL AUTO_INCREMENT,
+  `Name` VARCHAR(40) NOT NULL,
+  PRIMARY KEY (`IdControlTool`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `SSR`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `SSR` (
+  `IdSSR` INT NOT NULL AUTO_INCREMENT,
+  `Name` VARCHAR(20) NOT NULL,
+  `Description` VARCHAR(100) NOT NULL,
+  PRIMARY KEY (`IdSSR`));
+
+
+-- -----------------------------------------------------
+-- Table `ToleranceType`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `ToleranceType` (
+  `IdToleranceType` INT NOT NULL AUTO_INCREMENT,
+  `Name` VARCHAR(40) NOT NULL,
+  `FK_ResultType` INT NOT NULL,
+  PRIMARY KEY (`IdToleranceType`),
+  INDEX `fk_ToleranceType_ResultType1_idx` (`FK_ResultType` ASC))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `Unit`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `Unit` (
+  `IdUnit` INT NOT NULL AUTO_INCREMENT,
+  `Name` VARCHAR(40) NOT NULL,
+  `Abbreviation` VARCHAR(10) NOT NULL,
+  PRIMARY KEY (`IdUnit`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `CataloguedControl`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `CataloguedControl` (
+  `IdCataloguedControl` INT NOT NULL,
+  `FK_ControlGroup` INT(11) NOT NULL,
+  `FK_ToleranceType` INT NOT NULL,
+  `Name` VARCHAR(250) NOT NULL,
+  `FK_SSR` INT NULL,
+  `FK_ControlTool` INT NULL,
+  `FK_Unit` INT NULL,
+  `Code` VARCHAR(5) NULL,
+  PRIMARY KEY (`IdCataloguedControl`),
+  INDEX `fk_CataloguedControl_ControlGroup` (`FK_ControlGroup` ASC))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `ResultType`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `ResultType` (
+  `IdResultType` INT NOT NULL AUTO_INCREMENT,
+  `Name` VARCHAR(40) NOT NULL,
+  PRIMARY KEY (`IdResultType`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `CSS`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `CSS` (
+  `IdCSS` INT NOT NULL AUTO_INCREMENT,
+  `Name` VARCHAR(40) NOT NULL,
+  `Description` VARCHAR(100) NOT NULL,
+  `FailureText` VARCHAR(250) NOT NULL,
+  `RequiresValidation` BIT(1) NOT NULL DEFAULT b'0',
+  PRIMARY KEY (`IdCSS`));
+
+
+-- -----------------------------------------------------
+-- Table `Interval`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `Interval` (
+  `IdInterval` INT NOT NULL AUTO_INCREMENT,
+  `FK_Unit` INT NOT NULL,
+  `IsSpecial` BIT(1) NOT NULL DEFAULT b'0',
+  `Name` VARCHAR(40) NOT NULL,
+  PRIMARY KEY (`IdInterval`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `ControlDefinition`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `ControlDefinition` (
+  `IdControl` INT NOT NULL AUTO_INCREMENT,
+  `FK_ControlPlanVersion` INT NOT NULL,
+  `RequiresPart` BIT(1) NOT NULL DEFAULT b'0',
+  `Code` VARCHAR(5) NOT NULL,
+  `FK_CataloguedControl` INT NOT NULL,
+  `FK_ControlGroup` INT NOT NULL,
+  `SpecificControlText` VARCHAR(80) NOT NULL,
+  `FK_CSS` INT NULL,
+  `FK_ControlTool` INT NULL,
+  `SpecificControlToolText` VARCHAR(80) NOT NULL,
+  `FK_SSR` INT NULL,
+  `FK_Interval` INT NULL,
+  `IntervalValue` INT NULL,
+  `FK_ToleranceType` INT NULL,
+  `SpecificToleranceTypeText` VARCHAR(80) NOT NULL,
+  PRIMARY KEY (`IdControl`),
+  INDEX `fk_ControlDefinition_ControlPlanVersion1_idx` (`FK_ControlPlanVersion` ASC))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `File`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `File` (
+  `Hash` CHAR(130) NOT NULL,
+  `FK_Bucket` INT NOT NULL,
+  `Name` VARCHAR(50) NOT NULL,
+  `Extension` VARCHAR(15) NOT NULL,
+  PRIMARY KEY (`Hash`, `FK_Bucket`),
+  INDEX `fk_File_BucketType1_idx` (`FK_Bucket` ASC))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `ControlPlanVersionFile`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `ControlPlanVersionFile` (
+  `FK_ControlPlanVersion` INT(11) NOT NULL,
+  `FK_Hash` NCHAR(130) NOT NULL,
+  `FK_Bucket` INT(11) NOT NULL,
+  PRIMARY KEY (`FK_ControlPlanVersion`, `FK_Hash`, `FK_Bucket`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+
+
+-- -----------------------------------------------------
+-- Table `ControlPlanVersionSketch`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `ControlPlanVersionSketch` (
+  `FK_ControlPlanVersion` INT(11) NOT NULL,
+  `FK_Hash` NCHAR(130) NOT NULL,
+  `FK_Bucket` INT(11) NOT NULL,
+  PRIMARY KEY (`FK_ControlPlanVersion`, `FK_Hash`, `FK_Bucket`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+
+
+-- -----------------------------------------------------
+-- Table `ClientEvent`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `ClientEvent` (
+  `IdClientEvent` INT NOT NULL AUTO_INCREMENT,
+  `Order` INT NOT NULL,
+  `Name` VARCHAR(100) NOT NULL,
+  `OncePerEvent` BIT NOT NULL,
+  `FK_Client` INT NOT NULL,
+  `ColPos` INT NOT NULL,
+  `RowPos` INT NOT NULL,
+  PRIMARY KEY (`IdClientEvent`),
+  UNIQUE INDEX `FK_ClientEvent_Position` (`FK_Client` ASC, `ColPos` ASC, `RowPos` ASC))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `ControlResultType`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `ControlResultType` (
+  `IdControlResultType` INT NOT NULL AUTO_INCREMENT,
+  `Name` VARCHAR(10) NOT NULL,
+  PRIMARY KEY (`IdControlResultType`));
+
+
+-- -----------------------------------------------------
+-- Table `Shift`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `Shift` (
+  `IdShift` INT NOT NULL AUTO_INCREMENT,
+  `Name` VARCHAR(30) NOT NULL,
+  `FK_Plant` INT NOT NULL,
+  `StartTime` TIME NOT NULL,
+  `EndTime` TIME NOT NULL,
+  `ProductionOffsetHours` INT NOT NULL,
+  PRIMARY KEY (`IdShift`),
+  INDEX `fk_Shift_Plant1_idx` (`FK_Plant` ASC));
+
+
+-- -----------------------------------------------------
+-- Table `ShiftSummary`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `ShiftSummary` (
+  `IdShiftSummary` INT NOT NULL AUTO_INCREMENT,
+  `FK_Shift` INT NOT NULL,
+  `FK_Station` INT NOT NULL,
+  `ShiftDate` DATE NOT NULL,
+  PRIMARY KEY (`IdShiftSummary`),
+  UNIQUE INDEX `UK_Shift` (`FK_Shift` ASC, `FK_Station` ASC, `ShiftDate` ASC),
+  INDEX `fk_ShiftSummary_Station1_idx` (`FK_Station` ASC))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `PartPlanResult`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `PartPlanResult` (
+  `IdPartPlanResult` INT NOT NULL AUTO_INCREMENT,
+  `FK_ControlPlanResult` INT NOT NULL,
+  `FK_ShiftSummary` INT NOT NULL,
+  `FK_PartVersion` INT NOT NULL,
+  `LaunchDate` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `Finished` BIT NOT NULL DEFAULT b'0',
+  PRIMARY KEY (`IdPartPlanResult`),
+  INDEX `fk_PartPlanResult_PartVersion1_idx` (`FK_PartVersion` ASC))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `ControlResultBundle`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `ControlResultBundle` (
+  `IdControlResultBundle` INT NOT NULL AUTO_INCREMENT,
+  `PartCount` INT NOT NULL,
+  `Traceability` VARCHAR(50) NULL,
+  `FK_PartPlanResult` INT NOT NULL,
+  `FK_ClientEvent` INT NOT NULL,
+  `FK_ControlResultType` INT NOT NULL,
+  `LaunchDate` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `FK_Supervisor` INT NULL,
+  `SupervisionDate` TIMESTAMP NULL,
+  PRIMARY KEY (`IdControlResultBundle`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `ValidationResultType`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `ValidationResultType` (
+  `IdValidationResultType` INT NOT NULL AUTO_INCREMENT,
+  `FK_SourceResult` INT NOT NULL,
+  `ShortName` VARCHAR(10) NOT NULL,
+  `Description` VARCHAR(100) NOT NULL,
+  `RequiresSupervision` BIT NOT NULL,
+  PRIMARY KEY (`IdValidationResultType`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `ControlResult`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `ControlResult` (
+  `IdResult` INT NOT NULL AUTO_INCREMENT,
+  `FK_ControlResultBundle` INT NOT NULL,
+  `FK_Control` INT NOT NULL,
+  `Supervised` BIT NOT NULL DEFAULT b'0',
+  `FK_Controller` INT NULL,
+  `FK_Validation` INT NULL,
+  `FK_ControlResultType` INT NOT NULL,
+  `ResultInt` INT NULL,
+  `ResultFloat` DOUBLE NULL,
+  `LastAction` TIMESTAMP NULL,
+  `AffectedParts` INT NULL,
+  `Comment` VARCHAR(255) NULL,
+  PRIMARY KEY (`IdResult`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `DesignToolset`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `DesignToolset` (
+  `IdDesign` INT NOT NULL,
+  `IdToolset` INT(11) NOT NULL,
+  PRIMARY KEY (`IdDesign`, `IdToolset`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_bin;
+
+
+-- -----------------------------------------------------
+-- Table `PartVersion`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `PartVersion` (
+  `IdPartVersion` INT NOT NULL AUTO_INCREMENT,
+  `FK_Part` INT NOT NULL,
+  `Code` VARCHAR(50) NOT NULL,
+  `Revision` INT NOT NULL,
+  `State` INT(11) NOT NULL,
+  `Activation` TIMESTAMP NULL,
+  `Deactivation` TIMESTAMP NULL,
+  PRIMARY KEY (`IdPartVersion`),
+  UNIQUE INDEX `PartRevision_UNIQUE` (`FK_Part` ASC, `Revision` ASC))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `ControlPlanPart`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `ControlPlanPart` (
+  `IdControlPlan` INT NOT NULL,
+  `IdPart` INT(11) NOT NULL,
+  `NumParts` INT NOT NULL DEFAULT 1,
+  PRIMARY KEY (`IdControlPlan`, `IdPart`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `PartControl`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `PartControl` (
+  `IdPartVersion` INT NOT NULL,
+  `IdControl` INT NOT NULL,
+  PRIMARY KEY (`IdPartVersion`, `IdControl`),
+  INDEX `fk_PartVersionControlDefinition_PartVersion1_idx` (`IdPartVersion` ASC))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `LineDesign`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `LineDesign` (
+  `IdLine` INT NOT NULL,
+  `IdDesign` INT NOT NULL,
+  PRIMARY KEY (`IdLine`, `IdDesign`),
+  INDEX `fk_Design_has_Line_Line1_idx` (`IdLine` ASC))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_bin;
+
+
+-- -----------------------------------------------------
+-- Table `TimeUnit`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `TimeUnit` (
+  `IdUnit` INT NOT NULL,
+  `SecondsPerUnit` INT NOT NULL,
+  PRIMARY KEY (`IdUnit`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `SpecialInterval`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `SpecialInterval` (
+  `IdSpecialInterval` INT NOT NULL AUTO_INCREMENT,
+  `MonthNo` INT NULL,
+  `DayOfMonth` INT NULL,
+  `DayOfWeek` INT NULL,
+  `FK_Shift` INT NULL,
+  PRIMARY KEY (`IdSpecialInterval`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `SpecialIntervalCorrelation`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `SpecialIntervalCorrelation` (
+  `IdInterval` INT NOT NULL,
+  `IdSpecialInterval` INT NOT NULL,
+  PRIMARY KEY (`IdInterval`, `IdSpecialInterval`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `SystemEvent`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `SystemEvent` (
+  `IdSystemEvent` INT NOT NULL AUTO_INCREMENT,
+  `Name` VARCHAR(100) NOT NULL,
+  PRIMARY KEY (`IdSystemEvent`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `ClientEventSystemCorrelation`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `ClientEventSystemCorrelation` (
+  `IdSystemEvent` INT NOT NULL,
+  `IdClientEvent` INT NOT NULL,
+  PRIMARY KEY (`IdSystemEvent`, `IdClientEvent`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `ControlDefinitionEvent`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `ControlDefinitionEvent` (
+  `IdControl` INT NOT NULL,
+  `IdClientEvent` INT NOT NULL,
+  PRIMARY KEY (`IdControl`, `IdClientEvent`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `EventAttributeType`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `EventAttributeType` (
+  `IdAttributeType` INT NOT NULL,
+  `Name` VARCHAR(40) NOT NULL,
+  PRIMARY KEY (`IdAttributeType`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `EventAttribute`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `EventAttribute` (
+  `IdControlPlanVersion` INT NOT NULL,
+  `IdClientEvent` INT NOT NULL,
+  `IdAttributeType` INT NOT NULL,
+  `Value` INT NOT NULL,
+  PRIMARY KEY (`IdControlPlanVersion`, `IdClientEvent`, `IdAttributeType`),
+  INDEX `fk_ControlPlanVersion_has_ClientEvent_ControlPlanVersion1_idx` (`IdControlPlanVersion` ASC))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `ControlTolerance`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `ControlTolerance` (
+  `FK_Control` INT NOT NULL,
+  `UpperLimit` FLOAT NULL,
+  `UpperTolerance` FLOAT NULL,
+  `Nominal` INT NULL,
+  `LowerTolerance` FLOAT NULL,
+  `LowerLimit` FLOAT NULL,
+  PRIMARY KEY (`FK_Control`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `ControlDefinitionFile`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `ControlDefinitionFile` (
+  `FK_Control` INT(11) NOT NULL,
+  `FK_Hash` NCHAR(130) NOT NULL,
+  `FK_Bucket` INT(11) NOT NULL,
+  PRIMARY KEY (`FK_Control`, `FK_Hash`, `FK_Bucket`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+
+
+-- -----------------------------------------------------
+-- Table `ShiftDay`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `ShiftDay` (
+  `FK_Shift` INT NOT NULL,
+  `DayOfWeek` MEDIUMINT(9) NOT NULL,
+  PRIMARY KEY (`FK_Shift`, `DayOfWeek`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `TeamLeaderTrace`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `TeamLeaderTrace` (
+  `FK_ShiftSummary` INT NOT NULL,
+  `FK_User` INT NOT NULL,
+  `LoginDate` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `lastAction` TIMESTAMP NULL DEFAULT NULL,
+  `Active` BIT(1) NOT NULL,
+  PRIMARY KEY (`FK_ShiftSummary`, `FK_User`, `LoginDate`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `LineBOMS`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `LineBOMS` (
+  `FK_Line` INT NOT NULL,
+  `FK_BOM` INT NOT NULL,
+  `IsUsual` BIT(1) NOT NULL,
+  PRIMARY KEY (`FK_Line`, `FK_BOM`),
+  INDEX `fk_LineBOMS_Bom1_idx` (`FK_BOM` ASC))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `ControlResultValidationTrace`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `ControlResultValidationTrace` (
+  `FK_ControlResult` INT NOT NULL,
+  `ActionDate` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `FK_Validator` INT NOT NULL,
+  `FK_ValidationResult` INT NOT NULL,
+  PRIMARY KEY (`FK_ControlResult`, `ActionDate`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `ReviewType`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `ReviewType` (
+  `IdReviewType` INT NOT NULL AUTO_INCREMENT,
+  `Name` VARCHAR(30) NOT NULL,
+  PRIMARY KEY (`IdReviewType`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `ShiftReview`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `ShiftReview` (
+  `FK_ShiftSummary` INT NOT NULL,
+  `ReviewTime` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `FK_ReviewType` INT NOT NULL,
+  `FK_Reviewer` INT NOT NULL,
+  PRIMARY KEY (`FK_ShiftSummary`, `ReviewTime`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `Vehicle`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `Vehicle` (
+  `IdVehicle` INT NOT NULL AUTO_INCREMENT,
+  `Name` VARCHAR(40) NOT NULL,
+  `FK_Project` INT NOT NULL,
+  PRIMARY KEY (`IdVehicle`));
+
+
+-- -----------------------------------------------------
+-- Table `VehicleDesign`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `VehicleDesign` (
+  `FK_Design` INT NOT NULL,
+  `FK_Vehicle` INT NOT NULL,
+  PRIMARY KEY (`FK_Design`, `FK_Vehicle`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_bin;
+
+
+-- -----------------------------------------------------
+-- Table `Module`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `Module` (
+  `IdModule` INT NOT NULL,
+  `Name` VARCHAR(50) NOT NULL,
+  PRIMARY KEY (`IdModule`));
+
+
+-- -----------------------------------------------------
+-- Table `DefectType`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `DefectType` (
+  `IdDefectType` INT NOT NULL,
+  `FK_Module` INT NOT NULL,
+  `Name` VARCHAR(40) NOT NULL,
+  `Glyph` VARCHAR(20) NOT NULL,
+  PRIMARY KEY (`IdDefectType`),
+  INDEX `Module_idx` (`FK_Module` ASC));
+
+
+-- -----------------------------------------------------
+-- Table `Defect`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `Defect` (
+  `IdDefect` INT NOT NULL,
+  `FK_ControlResult` INT NOT NULL,
+  `FK_DefectType` INT NOT NULL,
+  `X` INT NOT NULL,
+  `Y` INT NOT NULL,
+  `Quadrant` VARCHAR(4) NOT NULL,
+  PRIMARY KEY (`IdDefect`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `Info`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `Info` (
+  `Record` VARCHAR(32) NOT NULL,
+  `Value` VARCHAR(32) NOT NULL,
+  PRIMARY KEY (`Record`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `CataloguedEvent`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `CataloguedEvent` (
+  `IdCataloguedControl` INT NOT NULL,
+  `IdClientEvent` INT NOT NULL,
+  PRIMARY KEY (`IdCataloguedControl`, `IdClientEvent`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `CustomerComplaint`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `CustomerComplaint` (
+  `IdComplaint` INT NOT NULL AUTO_INCREMENT,
+  `FK_Client` INT NOT NULL,
+  `FK_PartVersion` INT(11) NOT NULL,
+  `ComplaintDate` DATETIME NOT NULL,
+  `Reference` VARCHAR(50) NOT NULL,
+  `Comment` VARCHAR(500) NULL,
+  `FK_DefectType` INT NOT NULL,
+  PRIMARY KEY (`IdComplaint`),
+  INDEX `fk_CustomerComplaint_PartVersion1_idx` (`FK_PartVersion` ASC));
+
+
+-- -----------------------------------------------------
+-- Table `CustomerComplaintDefect`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `CustomerComplaintDefect` (
+  `IdComplaintDefect` INT NOT NULL AUTO_INCREMENT,
+  `FK_Complaint` INT NOT NULL,
+  `X` INT NOT NULL,
+  `Y` INT NOT NULL,
+  `Quadrant` VARCHAR(4) NOT NULL,
+  PRIMARY KEY (`IdComplaintDefect`));
+
+
+-- -----------------------------------------------------
+-- Table `TemporaryWarning`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `TemporaryWarning` (
+  `FK_ControlPlan` INT(11) NOT NULL,
+  `Enabled` BIT NOT NULL DEFAULT b'0',
+  `WarningStart` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `WarningEnd` TIMESTAMP NULL,
+  PRIMARY KEY (`FK_ControlPlan`),
+  INDEX `fk_TemporaryWarning_ControlPlan1_idx` (`FK_ControlPlan` ASC));
+
+
+-- -----------------------------------------------------
+-- Table `PartVersionFile`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `PartVersionFile` (
+  `FK_PartVersion` INT NOT NULL,
+  `FK_Hash` CHAR(130) NOT NULL,
+  `FK_Bucket` INT NOT NULL,
+  PRIMARY KEY (`FK_PartVersion`, `FK_Hash`, `FK_Bucket`),
+  INDEX `fk_PartVersion_has_File_PartVersion1_idx` (`FK_PartVersion` ASC))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `ProcessVigilanceState`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `ProcessVigilanceState` (
+  `IdState` INT NOT NULL,
+  `Name` VARCHAR(60) NOT NULL,
+  PRIMARY KEY (`IdState`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `SourceMaterialType`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `SourceMaterialType` (
+  `IdSourceMaterial` INT NOT NULL AUTO_INCREMENT,
+  `Name` VARCHAR(200) NOT NULL,
+  PRIMARY KEY (`IdSourceMaterial`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `ProcessVigilance`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `ProcessVigilance` (
+  `idProcessVigilance` INT NOT NULL,
+  `FK_Bom` INT NOT NULL,
+  `FK_Line` INT NOT NULL,
+  `FK_State` INT NOT NULL,
+  `FK_SourceMaterial` INT NOT NULL,
+  `Name` VARCHAR(100) NOT NULL,
+  `CostPerPart` DECIMAL(13,4) NOT NULL,
+  `CHR` INT NOT NULL,
+  `ProgramNumber` VARCHAR(25) NOT NULL,
+  PRIMARY KEY (`idProcessVigilance`),
+  UNIQUE INDEX `uq_refLine` (`FK_Bom` ASC, `FK_Line` ASC))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `ProcessVigilanceVersion`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `ProcessVigilanceVersion` (
+  `IdProcessVigilanceVersion` INT NOT NULL,
+  `FK_ProcessVigilance` INT NOT NULL,
+  `Revision` INT NOT NULL,
+  `Creator` INT NOT NULL,
+  `LastModifier` INT NOT NULL,
+  `State` INT(11) NOT NULL,
+  `Activation` TIMESTAMP NOT NULL,
+  `Deactivation` TIMESTAMP NULL,
+  PRIMARY KEY (`IdProcessVigilanceVersion`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `PsaShift`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `PsaShift` (
+  `idPsaShift` INT NOT NULL AUTO_INCREMENT,
+  `Name` VARCHAR(30) NOT NULL,
+  `Active` BIT(1) NOT NULL,
+  PRIMARY KEY (`idPsaShift`))
+ENGINE = InnoDB
+COMMENT = ' ';
+
+
+-- -----------------------------------------------------
+-- Table `ParameterType`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `ParameterType` (
+  `IdParameterType` INT NOT NULL,
+  `Name` VARCHAR(60) NOT NULL,
+  PRIMARY KEY (`IdParameterType`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `Parameter`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `Parameter` (
+  `IdParameter` INT NOT NULL,
+  `FK_ParameterType` INT NOT NULL,
+  `Name` VARCHAR(70) NOT NULL,
+  `HasPoints` BIT(1) NOT NULL DEFAULT 0,
+  PRIMARY KEY (`IdParameter`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `LineTypeParameter`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `LineTypeParameter` (
+  `IdLineType` INT NOT NULL,
+  `IdParameter` INT NOT NULL,
+  `Points` INT NOT NULL DEFAULT 1,
+  PRIMARY KEY (`IdLineType`, `IdParameter`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `ProcessVigilanceVersionParameter`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `ProcessVigilanceVersionParameter` (
+  `IdConfiguredParameter` INT NOT NULL AUTO_INCREMENT,
+  `IdProcessVigilanceVersion` INT NOT NULL,
+  `IdParameter` INT NOT NULL,
+  `Point` INT NOT NULL DEFAULT 1,
+  `Nominal` FLOAT NOT NULL DEFAULT 0,
+  `BooleanNominal` BIT(1) NOT NULL DEFAULT 0,
+  PRIMARY KEY (`IdConfiguredParameter`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `ProcessLaunch`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `ProcessLaunch` (
+  `IdLaunch` INT NOT NULL,
+  `FK_Creator` INT NOT NULL,
+  `FK_ProcessVigilanceVersion` INT NOT NULL,
+  `FK_PsaShift` INT NOT NULL,
+  `Stamps` INT NOT NULL,
+  `LaunchTime` TIMESTAMP NOT NULL,
+  `ModifiesParameter` BIT(1) NOT NULL,
+  PRIMARY KEY (`IdLaunch`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `CoilLaunch`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `CoilLaunch` (
+  `IdCoilLaunch` INT NOT NULL AUTO_INCREMENT,
+  `FK_ProcessLaunch` INT NOT NULL,
+  `CoilNumber` VARCHAR(40) NOT NULL,
+  PRIMARY KEY (`IdCoilLaunch`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `LaunchModifiedParameter`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `LaunchModifiedParameter` (
+  `IdModifiedParameter` INT NOT NULL AUTO_INCREMENT,
+  `IdConfiguredParameter` INT NOT NULL,
+  `IdLaunch` INT NOT NULL,
+  `Value` FLOAT NOT NULL,
+  `BooleanValue` BIT(1) NOT NULL,
+  `Comment` VARCHAR(600) NOT NULL,
+  PRIMARY KEY (`IdModifiedParameter`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `DeclarationType`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `DeclarationType` (
+  `IdDeclarationType` INT NOT NULL,
+  `Name` VARCHAR(80) NOT NULL,
+  PRIMARY KEY (`IdDeclarationType`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `LaunchDeclarations`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `LaunchDeclarations` (
+  `IdLaunch` INT NOT NULL,
+  `IdDeclarationType` INT NOT NULL,
+  `Quantity` INT NOT NULL,
+  PRIMARY KEY (`IdLaunch`, `IdDeclarationType`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `ProcessVigilanceWarning`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `ProcessVigilanceWarning` (
+  `IdWarning` INT NOT NULL,
+  `FK_OffendingParameter` INT NOT NULL,
+  `FK_Validator` INT NULL,
+  `Validation` TIMESTAMP NULL,
+  PRIMARY KEY (`IdWarning`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `WarningModifiedValues`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `WarningModifiedValues` (
+  `IdWarning` INT NOT NULL,
+  `IdModifiedParameter` INT NOT NULL,
+  PRIMARY KEY (`IdWarning`, `IdModifiedParameter`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `ReworkBatch`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `ReworkBatch` (
+  `IdReworkSession` INT NOT NULL,
+  `FK_PsaShift` INT NOT NULL,
+  `FK_Line` INT NOT NULL,
+  `FK_Reference` INT NOT NULL,
+  `BatchDate` DATE NOT NULL,
+  `ProductionDate` DATE NOT NULL,
+  `ReworkerRef` VARCHAR(25) NOT NULL,
+  `ReworkedParts` INT NOT NULL,
+  `NokParts` INT NOT NULL,
+  `BadSrcParts` INT NOT NULL,
+  `Time` INT NOT NULL,
+  `Comment` VARCHAR(600) NOT NULL,
+  PRIMARY KEY (`IdReworkSession`))
+ENGINE = InnoDB;
+
+GRANT SELECT, INSERT, TRIGGER ON TABLE `IEC_IND`.* TO 'server';
+GRANT SELECT, INSERT, TRIGGER, UPDATE, DELETE ON TABLE `IEC_IND`.* TO 'server';
+GRANT SELECT ON TABLE `IEC_IND`.* TO 'reporting';
+GRANT ALL ON `IEC_IND`.* TO 'root';
+
+SET SQL_MODE=@OLD_SQL_MODE;
+SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
+SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;

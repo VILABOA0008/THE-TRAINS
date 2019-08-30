@@ -506,6 +506,22 @@ CREATE TABLE IF NOT EXISTS `s`.`ProcessVigilanceWarning` (
     ON UPDATE RESTRICT)
 ENGINE = InnoDB;
 
+-- -----------------------------------------------------
+-- Table `LaunchDeclarations`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `LaunchDeclarations` ;
+
+CREATE TABLE IF NOT EXISTS `s`.`LaunchDeclarations` (
+  `IdLaunch` INT NOT NULL,
+  `IdDeclarationType` INT NOT NULL,
+  `Quantity` INT NOT NULL,
+    PRIMARY KEY (`IdLaunch`),
+  CONSTRAINT `fk_LaunchDeclarations_DeclarationType1`
+    FOREIGN KEY (`IdDeclarationType`)
+    REFERENCES `s`.`DeclarationType` (`IdDeclarationType`)
+    ON DELETE RESTRICT
+    ON UPDATE RESTRICT)
+ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
@@ -528,6 +544,8 @@ CREATE TABLE IF NOT EXISTS `s`.`WarningModifiedValues` (
     ON DELETE RESTRICT
     ON UPDATE RESTRICT)
 ENGINE = InnoDB;
+
+
 
 -- -----------------------------------------------------
 -- Table `totem`.`TOT_Configuration`

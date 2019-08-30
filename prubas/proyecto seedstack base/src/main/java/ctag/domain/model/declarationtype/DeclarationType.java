@@ -34,6 +34,7 @@ private static final String SEQUENCE = "SEQUENCE";
 private static final String VALUE = "Value";
 private static final String ID_DECLARATIONTYPE = " idDeclarationType ";
 private static final String FIELD_NAME = "Name";   
+private static final String MAPPED_BY_DECLARATION_TYPE = "declarationType";   
 private static final String GENERATOR = "DeclarationTypeGen";
 
   @TableGenerator(name = GENERATOR, table = SEQUENCE, pkColumnName = KEY_VAL, valueColumnName = VALUE, pkColumnValue = TABLE_NAME, allocationSize = 1)
@@ -49,6 +50,9 @@ private static final String GENERATOR = "DeclarationTypeGen";
     // Required by Hibernate
   }
 
+  @OneToMany(mappedBy = MAPPED_BY_DECLARATION_TYPE, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+  private Set<LaunchDeclarations> launchDeclarationss;
+
 
 
   @Override
@@ -61,6 +65,19 @@ private static final String GENERATOR = "DeclarationTypeGen";
   }
   public void setName(String name) {
     this.name = name;
+  }
+  public Set<LaunchDeclarations> getLaunchDeclarationss() {
+    if (launchDeclarationss == null) {
+      return Collections.<LaunchDeclarations>emptySet();
+    }
+    return Collections.unmodifiableSet(launchDeclarationss);
+  }
+
+  public void addLaunchDeclarations(LaunchDeclarations launchDeclarations) {
+    if (launchDeclarationss == null) {
+      this.launchDeclarationss = new HashSet<>();
+    }
+    this.launchDeclarationss.add(launchDeclarations);
   }
 
 

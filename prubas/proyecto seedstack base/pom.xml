@@ -107,6 +107,11 @@
             <artifactId>seed-web-security</artifactId>
         </dependency>
         <dependency>
+    <groupId>mysql</groupId>
+    <artifactId>mysql-connector-java</artifactId>
+    <version>x.y.z</version>
+</dependency>
+        <dependency>
             <groupId>org.seedstack.seed</groupId>
             <artifactId>seed-rest-jersey2</artifactId>
         </dependency>

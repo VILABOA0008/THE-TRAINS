@@ -46,7 +46,7 @@ public class ConverToPojo {
         q += " ";
         if (metodos.word(q, 1).equalsIgnoreCase("FOREIGN")) {
           
-
+          System.err.println(tipos.get(i));
           if (mtm.get(i).equals(false)) {
           //MTO OTM MTO OTM MTO OTM MTO OTM MTO OTM 
             aux = metodos.word(q, 3);
