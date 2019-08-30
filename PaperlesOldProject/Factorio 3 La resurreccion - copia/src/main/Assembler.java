@@ -6,7 +6,71 @@ import textos.Agregadospeques;
 
 public class Assembler {
 
-  public static String createAssembler(
+//  public static String createAssembler(
+//      String agg,
+//      ArrayList<String> fieldsType,
+//      ArrayList<String> fieldsVar,
+//      ArrayList<String> fkmoVarFinal) {
+//    String a = "";
+//    String b = "", c = "";
+//    agg = metodos.Capital(agg);
+//
+//    a += Agregadospeques.AssemblerPackage(agg);
+//    a += Agregadospeques.CreateAssemblerImport();
+//
+//    for (int i = 0; i < fieldsType.size(); i++) {
+//      String f = metodos.Capital(fieldsVar.get(i));
+//
+//      b += "targetDto.set" + f + "(sourceAggregate.get" + f + "());\n";
+//    }
+//    for (int i = 0; i < fkmoVarFinal.size(); i++) {
+//      String f = metodos.Capital(fkmoVarFinal.get(i));
+//      b += "targetDto.setId" + f + "(sourceAggregate.getId" + f + "().getId());\n";
+//    }
+//
+//    for (int i = 0; i < fieldsType.size(); i++) {
+//      String f = metodos.Capital(fieldsVar.get(i));
+//
+//      c += "targetAggregate.set" + f + "(sourceDto.get" + f + "());\n";
+//    }
+//    for (int i = 0; i < fkmoVarFinal.size(); i++) {
+//      String f = metodos.Capital(fkmoVarFinal.get(i));
+//      c += "targetAggregate.setId" + f + "(new " + f + "Id(sourceDto.getId" + f + "()));\n";
+//    }
+//
+//    a +=
+//        "public class "
+//            + agg
+//            + "CreateAssembler extends BaseAssembler<"
+//            + agg
+//            + ", "
+//            + agg
+//            + "CreateDto> {\n"
+//            + "\n"
+//            + "  @Override\n"
+//            + "  public void mergeAggregateIntoDto("
+//            + agg
+//            + " sourceAggregate, "
+//            + agg
+//            + "CreateDto targetDto) {\n"
+//            + b
+//            + "  }\n"
+//            + "\n"
+//            + "  @Override\n"
+//            + "  public void mergeDtoIntoAggregate("
+//            + agg
+//            + "CreateDto sourceDto,"
+//            + agg
+//            + " targetAggregate) {\n"
+//            + c
+//            + "\n"
+//            + "  }\n"
+//            + "\n"
+//            + "}";
+//
+//    return a;
+//  }
+  public static String createAssemblerOld(
       String agg,
       ArrayList<String> fieldsType,
       ArrayList<String> fieldsVar,
@@ -14,63 +78,69 @@ public class Assembler {
     String a = "";
     String b = "", c = "";
     agg = metodos.Capital(agg);
-
+    
     a += Agregadospeques.AssemblerPackage(agg);
     a += Agregadospeques.CreateAssemblerImport();
-
+    
+      b+="\n     targetDto.setId"+agg+"(sourceAggregate.getEntityId().getId()); \n";
     for (int i = 0; i < fieldsType.size(); i++) {
       String f = metodos.Capital(fieldsVar.get(i));
-
+      
       b += "targetDto.set" + f + "(sourceAggregate.get" + f + "());\n";
     }
     for (int i = 0; i < fkmoVarFinal.size(); i++) {
       String f = metodos.Capital(fkmoVarFinal.get(i));
       b += "targetDto.setId" + f + "(sourceAggregate.getId" + f + "().getId());\n";
     }
-
+    
     for (int i = 0; i < fieldsType.size(); i++) {
       String f = metodos.Capital(fieldsVar.get(i));
-
+      
       c += "targetAggregate.set" + f + "(sourceDto.get" + f + "());\n";
     }
     for (int i = 0; i < fkmoVarFinal.size(); i++) {
       String f = metodos.Capital(fkmoVarFinal.get(i));
       c += "targetAggregate.setId" + f + "(new " + f + "Id(sourceDto.getId" + f + "()));\n";
     }
-
+    
     a +=
         "public class "
             + agg
-            + "CreateAssembler extends BaseAssembler<"
+            + "Assembler extends BaseAssembler<"
             + agg
             + ", "
             + agg
-            + "CreateDto> {\n"
+            + "Representation> {\n"
             + "\n"
             + "  @Override\n"
-            + "  public void mergeAggregateIntoDto("
+            + "  public void doAssembleDtoFromAggregate(final "
             + agg
-            + " sourceAggregate, "
+            + "Representation targetDto,"
             + agg
-            + "CreateDto targetDto) {\n"
+            + " sourceAggregate){\n"
             + b
             + "  }\n"
             + "\n"
             + "  @Override\n"
-            + "  public void mergeDtoIntoAggregate("
+            + "  public void doMergeAggregateWithDto(final "
             + agg
-            + "CreateDto sourceDto,"
+            + " targetAggregate, final "
             + agg
-            + " targetAggregate) {\n"
+            + "Representation sourceDto){\n"
             + c
             + "\n"
             + "  }\n"
             + "\n"
             + "}";
-
+    
     return a;
   }
 
+  
+  
+  ////////////////////
+  ///////////////////////
+  ////////////////////////
   public static String Assembler(
       String agg,
       ArrayList<String> fieldsType,

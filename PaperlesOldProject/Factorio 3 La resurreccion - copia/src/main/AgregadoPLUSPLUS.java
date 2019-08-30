@@ -163,31 +163,47 @@ if(tipo.get(c)!=3) {
         AgregadoId.id(agg));}
 
     if(readOnly.get(c)==false) {
+      
+      
+      Escribir.escribir(
+          url+"rest\\"+agg+"\\"
+              + agg
+              + "Assembler.java",
+          Assembler.createAssemblerOld(agg, tipos.get(c), vars.get(c), fkmoVarFinal));
+      
+      
+      System.out.println(new File(url+"rest\\"+agg.toLowerCase()).mkdir() ); 
+      Escribir.escribir(
+          url+"rest\\"+agg+"\\"
+              + agg
+              + "Representation.java",
+          Dto.createDtoOld(agg, tipos.get(c), vars.get(c), fkmoVarFinal));
+      
     // DTOS
 
-    System.out.println(new File(url+"dtos\\dto\\"+agg.toLowerCase()).mkdir() ); 
-    Escribir.escribir(
-        url+"dtos\\dto\\"+agg+"\\"
-            + agg
-            + "CreateDto.java",
-        Dto.createDto(agg, tipos.get(c), vars.get(c), fkmoVarFinal));
-    Escribir.escribir(
-        url+"dtos\\dto\\"+agg+"\\"
-            + agg
-            + "Dto.java",
-        Dto.Dto(agg));
+//    System.out.println(new File(url+"dtos\\dto\\"+agg.toLowerCase()).mkdir() ); 
+//    Escribir.escribir(
+//        url+"dtos\\dto\\"+agg+"\\"
+//            + agg
+//            + "CreateDto.java",
+//        Dto.createDto(agg, tipos.get(c), vars.get(c), fkmoVarFinal));
+//    Escribir.escribir(
+//        url+"dtos\\dto\\"+agg+"\\"
+//            + agg
+//            + "Dto.java",
+//        Dto.Dto(agg));
     // ASSEMBLERS
-    System.out.println(new File(url+"dtos\\assembler\\"+agg.toLowerCase()).mkdir()); 
-    Escribir.escribir(
-        url+"dtos\\assembler\\"+agg+"\\"
-            + agg
-            + "CreateAssembler.java",
-        Assembler.createAssembler(agg, tipos.get(c), vars.get(c), fkmoVarFinal));
-    Escribir.escribir(
-        url+"dtos\\assembler\\"+agg+"\\"
-            + agg
-            + "Assembler.java",
-        Assembler.Assembler(agg, tipos.get(c), vars.get(c), fkmoVarFinal));
+//    System.out.println(new File(url+"dtos\\assembler\\"+agg.toLowerCase()).mkdir()); 
+//    Escribir.escribir(
+//        url+"dtos\\assembler\\"+agg+"\\"
+//            + agg
+//            + "CreateAssembler.java",
+//        Assembler.createAssemblero(agg, tipos.get(c), vars.get(c), fkmoVarFinal));
+//    Escribir.escribir(
+//        url+"dtos\\assembler\\"+agg+"\\"
+//            + agg
+//            + "Assembler.java",
+//        Assembler.Assembler(agg, tipos.get(c), vars.get(c), fkmoVarFinal));
     // FACTORY
     System.out.println(new File(url+"domain\\model\\"+agg.toLowerCase()).mkdir() ); 
     Escribir.escribir(
