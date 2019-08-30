@@ -8,7 +8,7 @@ import java.util.Map;
 import java.util.Scanner;
 
 import bd.Bdd;
-import bd.leer;
+import bd.Leer;
 
 public class Main {
 
@@ -91,17 +91,11 @@ public class Main {
         
       }
           
-    
-    /*
-    for (int i = 1; i < tablas.size() + 1; i++) {
-      if (Mtm.get(i) != null) {
-        System.out.println("\n\nTABLA" ); 
-        for (String q : Mtm.get(i)) {
-           System.out.print(q+"   " );
-        }      }    }
-    System.out.println("\n" ); 
-    */
-      leer.leer();
+      Map<Integer, ArrayList<String>> fksTest = new HashMap<>();//NOMBRE DE TODAS LAS FKS
+      ArrayList<String>tablasTest=new ArrayList<>();//NOMBRE D ELAS TABLAS
+      Leer leer=new Leer(tablasTest,fksTest);
+      leer.start();
+      System.err.println(tablasTest.size());
       System.exit(1);
     AgregadoPLUSPLUS.test(vars,tipos,tablas,fks,mtm,otm,mto,Mtm,tipo);
     

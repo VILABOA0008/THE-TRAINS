@@ -24,7 +24,7 @@ public class AgregadoPLUSPLUS {
       Map<Integer, String[]> Mtm,
       Map<Integer,Integer>tipo)
       throws IOException {
-Scanner s=new Scanner(System.in)  ;
+    Scanner s=new Scanner(System.in);
 
     ArrayList<String> aggs = new ArrayList<>();
    
