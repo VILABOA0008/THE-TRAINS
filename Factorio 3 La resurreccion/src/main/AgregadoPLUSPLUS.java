@@ -16,9 +16,6 @@ public class AgregadoPLUSPLUS {
   public static void test(
       Map<Integer, ArrayList<String>> vars,
       Map<Integer, ArrayList<String>> tipos,
-      Map<Integer, ArrayList<String>> fields,
-      Map<Integer, ArrayList<String>> foreign,
-      ArrayList<String> arrayprimary,
       ArrayList<String> tablas,
       Map<Integer, ArrayList<String>> fks,
       Map<Integer, Boolean> mtm,

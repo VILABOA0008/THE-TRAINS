@@ -28,7 +28,7 @@ public class Bdd {
     // pass the path to the file as a parameter
     FileReader fr =
         new FileReader(
-            "C:\\Users\\pabcos\\Documents\\Factorio 3 La resurreccion\\src\\bd\\bd_totem.txt");
+            "C:\\Users\\pabcos\\Documents\\trains\\Factorio 3 La resurreccion\\src\\bd\\bd_totem.txt");
 
     String a = "", b = "", c = "", d = "";
     int i;

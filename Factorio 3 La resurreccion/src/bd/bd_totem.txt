@@ -15,14 +15,32 @@ CREATE SCHEMA IF NOT EXISTS `totem` DEFAULT CHARACTER SET utf8 ;
 USE `totem` ;
 
 -- -----------------------------------------------------
+-- Table `totem`.`Line`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `totem`.`Line` (
+  `IdLine` INT NOT NULL,
+  `Name` VARCHAR(55) NOT NULL,
+  `Active` BIT NOT NULL,
+  PRIMARY KEY (`IdLine`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
 -- Table `totem`.`TOT_Page`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `totem`.`TOT_Page` (
   `IdPage` INT NOT NULL,
+  `FK_Line` INT NOT NULL,
   `Name` VARCHAR(50) NOT NULL,
   `Order` INT NOT NULL,
   `Active` BIT NOT NULL,
-  PRIMARY KEY (`IdPage`))
+  PRIMARY KEY (`IdPage`),
+  INDEX `fk_TOT_Page_Lines1_idx` (`FK_Line` ASC),
+  CONSTRAINT `fk_TOT_Page_Lines1`
+    FOREIGN KEY (`FK_Line`)
+    REFERENCES `totem`.`Line` (`IdLine`)
+    ON DELETE RESTRICT
+    ON UPDATE RESTRICT)
 ENGINE = InnoDB;
 
 
@@ -33,11 +51,13 @@ CREATE TABLE IF NOT EXISTS `totem`.`TOT_Button` (
   `IdButton` INT NOT NULL,
   `FK_Page` INT NOT NULL,
   `Name` VARCHAR(255) NOT NULL,
+  `ShortName` VARCHAR(55) NOT NULL,
   `X` INT NOT NULL,
   `Y` INT NOT NULL,
   `W` INT NOT NULL,
   `H` INT NOT NULL,
   `Active` BIT NOT NULL,
+  `Order` INT NOT NULL,
   PRIMARY KEY (`IdButton`),
   INDEX `fk_TOT_Button_TOT_Page1_idx` (`FK_Page` ASC),
   CONSTRAINT `fk_TOT_Button_TOT_Page1`
@@ -140,30 +160,6 @@ CREATE TABLE IF NOT EXISTS `totem`.`TOT_Configuration` (
 ENGINE = InnoDB;
 
 
--- -----------------------------------------------------
--- Table `totem`.`TOT_SecondaryDocument`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `totem`.`TOT_SecondaryDocument` (
-  `IdParentDoc` INT NOT NULL,
-  `IdDoc` INT NOT NULL,
-  PRIMARY KEY (`IdParentDoc`, `IdDoc`),
-  INDEX `fk_TOT_SecondaryDocument_TOT_Document2_idx` (`IdDoc` ASC),
-  CONSTRAINT `fk_TOT_SecondaryDocument_TOT_Document1`
-    FOREIGN KEY (`IdParentDoc`)
-    REFERENCES `totem`.`TOT_Document` (`IdDoc`)
-    ON DELETE RESTRICT
-    ON UPDATE RESTRICT,
-  CONSTRAINT `fk_TOT_SecondaryDocument_TOT_Document2`
-    FOREIGN KEY (`IdDoc`)
-    REFERENCES `totem`.`TOT_Document` (`IdDoc`)
-    ON DELETE RESTRICT
-    ON UPDATE RESTRICT)
-ENGINE = InnoDB;
-
-
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
-
-
-
