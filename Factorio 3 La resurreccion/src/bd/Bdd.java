@@ -157,7 +157,7 @@ public class Bdd {
       if(a.contains("`,")) {
       
         if(fields>2) {
-          System.out.println(ctabla +"   "+arrayfields); 
+//          System.out.println(ctabla +"   "+arrayfields); 
           tipo.put(ctabla, 1);
           mtm.put(ctabla, false);
           String aux1,aux2;
@@ -167,7 +167,7 @@ public class Bdd {
           aux2=metodos.removeLast(aux2);metodos.removeLast(aux2);aux2=metodos.removeLast(aux2);
           aux2=metodos.comillas(aux2);
           aux=aux1+" "+aux2+" ";
-          System.out.println(aux ); 
+//          System.out.println(aux ); 
         }else {
 
         mtm.put(ctabla, true) ;

@@ -6,6 +6,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 
 public class Leer {
@@ -17,12 +18,13 @@ public class Leer {
   Map<Integer, ArrayList<String>> types;
   Map<Integer, ArrayList<Integer>> mto;
   Map<Integer, ArrayList<Integer>> otm;
+  Map<Integer, String[]> Mtm ;
 
   // CONSTRUCTOR
   public Leer(ArrayList<String> tablas, Map<Integer, ArrayList<String>> fks,
       Map<Integer, Boolean> mtm, Map<Integer, ArrayList<String>> vars,
       Map<Integer, ArrayList<String>> types, Map<Integer, ArrayList<Integer>> otm,
-      Map<Integer, ArrayList<Integer>> mto) {
+      Map<Integer, ArrayList<Integer>> mto,    Map<Integer, String[]> Mtm ) {
     this.tablas = tablas;
     this.fks = fks;
     this.mtm = mtm;
@@ -30,6 +32,7 @@ public class Leer {
     this.types = types;
     this.otm = otm;
     this.mto = mto;
+    this.Mtm= Mtm;
 
   }
 
@@ -41,10 +44,39 @@ public class Leer {
     getMTM();
     getFKs();
     getFields();
+    toJavaSyntax();
 
   }
 
-  public void getFields() throws SQLException {
+  public void toJavaSyntax() throws SQLException {
+
+    Map<String, String> toVars = new HashMap<>();
+    toVars.put("INT", "Integer");
+    toVars.put("TINYINT", "Byte");
+    toVars.put("VARCHAR", "String");
+    toVars.put("BIT", "boolean");
+    toVars.put("FLOAT", "float");
+    toVars.put("TIMESTAMP", "LocalDateTime");
+    toVars.put("TIME", "LocalTime");
+    toVars.put("BINARY", "byte[]");
+    toVars.put("DATE", "LocalDate");
+    toVars.put("DECIMAL", "BigDecimal");
+    
+    for(int i=0;i<tablas.size();i++) {
+      ArrayList<String> vars=new ArrayList<>();
+      for(int j=0;j<types.get(i).size();j++) {
+        vars.add(toVars.get(types.get(i).get(j)));
+ 
+      
+      }      
+      types.put(i, vars);
+    }
+    
+
+    
+    
+  }
+    public void getFields() throws SQLException {
 
     int c = -1;
     for (String actualTable : tablas) {
@@ -81,8 +113,34 @@ public class Leer {
       ResultSet pkFind = databaseMetaData.getPrimaryKeys(null, null, actualTable);
       pkFind.last();
       if (pkFind.getRow() > 1) {
+        String[]manyToMany=new String[4];
         // TODO MTM
+        ResultSet fkFind = databaseMetaData.getImportedKeys(null, null, actualTable);
+//        ArrayList<String> var = new ArrayList<>();
+//        ArrayList<Integer> oneToMany = new ArrayList<>();
+//        ArrayList<Integer> manyToOne;
+        while (fkFind.next()) {
+//          var.add(fkFind.getString("FKCOLUMN_NAME"));
+          // oneToMany.add(e)
+          System.out.println(
+              actualTable+"tttt   "+
+              fkFind.getString("PKTABLE_NAME") + "---" + fkFind.getString("PKCOLUMN_NAME") + "==="
+                  + fkFind.getString("FKTABLE_NAME") + "---" + fkFind.getString("FKCOLUMN_NAME"));
+          
+          for (int i= 0; i < tablas.size(); i++) {
+            if (tablas.get(i).equalsIgnoreCase(fkFind.getString("PKTABLE_NAME"))) {
+              if(manyToMany[1]==null) {
+             manyToMany[1]=String.valueOf(i);   manyToMany[0]=fkFind.getString("FKCOLUMN_NAME");
+             }else {
+               manyToMany[3]=String.valueOf(i); manyToMany[2]=fkFind.getString("FKCOLUMN_NAME");
+             }
+              break;
+            
+          }
+        }
+        }
         mtm.put(c, true);
+        Mtm.put(c, manyToMany);
 
       } else {
         mtm.put(c, false);
@@ -104,10 +162,6 @@ public class Leer {
         while (fkFind.next()) {
           var.add(fkFind.getString("FKCOLUMN_NAME"));
           // oneToMany.add(e)
-          System.out.println(
-              actualTable+"tttt   "+
-              fkFind.getString("PKTABLE_NAME") + "---" + fkFind.getString("PKCOLUMN_NAME") + "==="
-                  + fkFind.getString("FKTABLE_NAME") + "---" + fkFind.getString("FKCOLUMN_NAME"));
           for (i= 0; i < tablas.size(); i++) {
             if (tablas.get(i).equalsIgnoreCase(fkFind.getString("PKTABLE_NAME"))) {
               oneToMany.add(i);break;
