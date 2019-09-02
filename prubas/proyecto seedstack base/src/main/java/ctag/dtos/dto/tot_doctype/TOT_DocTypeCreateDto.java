@@ -1,16 +1,16 @@
 package ctag.dtos.dto.tot_doctype;
 
 
-import ctag.domain.model.aggregate.modelospruebas.TOT_DocType;
+import ctag.domain.model.aggregate.modelospruebas.Tot_doctype;
 import org.seedstack.business.assembler.DtoOf; 
 import org.seedstack.business.assembler.FactoryArgument;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
-@DtoOf(TOT_DocType.class)
-@ApiModel(value = " TOT_DocType ")
-public class TOT_DocTypeCreateDto {
+@DtoOf(Tot_doctype.class)
+@ApiModel(value = " Tot_doctype ")
+public class Tot_doctypeCreateDto {
 
 private String name;
 

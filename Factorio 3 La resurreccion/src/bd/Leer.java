@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import main.metodos;
+
 public class Leer {
   Map<Integer, Boolean> mtm;
   ArrayList<String> tablas;
@@ -88,7 +90,10 @@ public class Leer {
       while (columns.next()) {
         String columnName = columns.getString("COLUMN_NAME");
         String datatype = columns.getString("TYPE_NAME");
-
+        if(columnName.contains("FK")) {
+          columnName=columnName.replace("FK_", "");
+        }
+        columnName=metodos.despital(columnName);
         if (!mtm.get(c)
             && (fks.get(c) == null || (fks.get(c) != null && !fks.get(c).contains(columnName)))) {
           dataVars.add(columnName);

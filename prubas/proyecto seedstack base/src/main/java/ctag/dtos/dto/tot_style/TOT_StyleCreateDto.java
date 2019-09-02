@@ -1,16 +1,16 @@
 package ctag.dtos.dto.tot_style;
 
 
-import ctag.domain.model.aggregate.modelospruebas.TOT_Style;
+import ctag.domain.model.aggregate.modelospruebas.Tot_style;
 import org.seedstack.business.assembler.DtoOf; 
 import org.seedstack.business.assembler.FactoryArgument;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
-@DtoOf(TOT_Style.class)
-@ApiModel(value = " TOT_Style ")
-public class TOT_StyleCreateDto {
+@DtoOf(Tot_style.class)
+@ApiModel(value = " Tot_style ")
+public class Tot_styleCreateDto {
 
 private String name;
 private String styleClass;

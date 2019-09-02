@@ -2,9 +2,9 @@ package ctag.domain.model.tot_style;
 
 import org.seedstack.business.domain.Factory;
 
-public interface TOT_StyleFactory extends Factory<TOT_Style> {
+public interface Tot_styleFactory extends Factory<Tot_style> {
   
- TOT_Style createTOT_Style(String name,String styleClass);
+ Tot_style createTot_style(String name,String styleClass);
 
 
 }

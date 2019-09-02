@@ -6,22 +6,22 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModel;
 
-@ApiModel(value = " TOT_Style  ")public class TOT_StyleDto extends TOT_StyleCreateDto {
+@ApiModel(value = " Tot_style  ")public class Tot_styleDto extends Tot_styleCreateDto {
 
-  private Integer idTOT_Style;
+  private Integer idTot_style;
 
   @JsonIgnore
 @AggregateId
-  private TOT_StyleId getId() {
-    return new TOT_StyleId(idTOT_Style);
+  private Tot_styleId getId() {
+    return new Tot_styleId(idTot_style);
   }
 
-  @JsonProperty("idTOT_Style")
-  public Integer getIdTOT_Style() {
-    return idTOT_Style;
+  @JsonProperty("idTot_style")
+  public Integer getIdTot_style() {
+    return idTot_style;
   }
 
-  public void setIdTOT_Style(Integer idTOT_Style) {
-    this.idTOT_Style = idTOT_Style;
+  public void setIdTot_style(Integer idTot_style) {
+    this.idTot_style = idTot_style;
   }
 }

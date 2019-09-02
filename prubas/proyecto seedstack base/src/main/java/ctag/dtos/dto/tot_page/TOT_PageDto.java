@@ -6,22 +6,22 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModel;
 
-@ApiModel(value = " TOT_Page  ")public class TOT_PageDto extends TOT_PageCreateDto {
+@ApiModel(value = " Tot_page  ")public class Tot_pageDto extends Tot_pageCreateDto {
 
-  private Integer idTOT_Page;
+  private Integer idTot_page;
 
   @JsonIgnore
 @AggregateId
-  private TOT_PageId getId() {
-    return new TOT_PageId(idTOT_Page);
+  private Tot_pageId getId() {
+    return new Tot_pageId(idTot_page);
   }
 
-  @JsonProperty("idTOT_Page")
-  public Integer getIdTOT_Page() {
-    return idTOT_Page;
+  @JsonProperty("idTot_page")
+  public Integer getIdTot_page() {
+    return idTot_page;
   }
 
-  public void setIdTOT_Page(Integer idTOT_Page) {
-    this.idTOT_Page = idTOT_Page;
+  public void setIdTot_page(Integer idTot_page) {
+    this.idTot_page = idTot_page;
   }
 }

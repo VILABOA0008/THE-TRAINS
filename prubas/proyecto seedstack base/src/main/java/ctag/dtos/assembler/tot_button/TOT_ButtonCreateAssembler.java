@@ -1,31 +1,33 @@
   package ctag.dtos.assembler.tot_button;
 
 import org.seedstack.business.assembler.BaseAssembler;
-public class TOT_ButtonCreateAssembler extends BaseAssembler<TOT_Button, TOT_ButtonCreateDto> {
+public class Tot_buttonCreateAssembler extends BaseAssembler<Tot_button, Tot_buttonCreateDto> {
 
   @Override
-  public void mergeAggregateIntoDto(TOT_Button sourceAggregate, TOT_ButtonCreateDto targetDto) {
-targetDto.setName(sourceAggregate.getName());
+  public void mergeAggregateIntoDto(Tot_button sourceAggregate, Tot_buttonCreateDto targetDto) {
+targetDto.setPage(sourceAggregate.getPage());
 targetDto.setShortName(sourceAggregate.getShortName());
+targetDto.setOrder(sourceAggregate.getOrder());
+targetDto.setName(sourceAggregate.getName());
 targetDto.setX(sourceAggregate.getX());
 targetDto.setY(sourceAggregate.getY());
 targetDto.setW(sourceAggregate.getW());
 targetDto.setH(sourceAggregate.getH());
 targetDto.setActive(sourceAggregate.getActive());
-targetDto.setOrder(sourceAggregate.getOrder());
 targetDto.setIdTOT_Page(sourceAggregate.getIdTOT_Page().getId());
   }
 
   @Override
-  public void mergeDtoIntoAggregate(TOT_ButtonCreateDto sourceDto,TOT_Button targetAggregate) {
-targetAggregate.setName(sourceDto.getName());
+  public void mergeDtoIntoAggregate(Tot_buttonCreateDto sourceDto,Tot_button targetAggregate) {
+targetAggregate.setPage(sourceDto.getPage());
 targetAggregate.setShortName(sourceDto.getShortName());
+targetAggregate.setOrder(sourceDto.getOrder());
+targetAggregate.setName(sourceDto.getName());
 targetAggregate.setX(sourceDto.getX());
 targetAggregate.setY(sourceDto.getY());
 targetAggregate.setW(sourceDto.getW());
 targetAggregate.setH(sourceDto.getH());
 targetAggregate.setActive(sourceDto.getActive());
-targetAggregate.setOrder(sourceDto.getOrder());
 targetAggregate.setIdTOT_Page(new TOT_PageId(sourceDto.getIdTOT_Page()));
 
   }

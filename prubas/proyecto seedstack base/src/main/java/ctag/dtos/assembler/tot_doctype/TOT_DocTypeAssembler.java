@@ -4,24 +4,24 @@ import javax.inject.Inject;
 import org.seedstack.business.assembler.Assembler;
 import org.seedstack.business.assembler.BaseAssembler;
 
-public class TOT_DocTypeAssembler extends BaseAssembler<TOT_DocType, TOT_DocTypeDto> {
+public class Tot_doctypeAssembler extends BaseAssembler<Tot_doctype, Tot_doctypeDto> {
 
-  private final Assembler<TOT_DocType, TOT_DocTypeCreateDto> assembler;
+  private final Assembler<Tot_doctype, Tot_doctypeCreateDto> assembler;
 
   @Inject
-  public TOT_DocTypeAssembler(
-      Assembler<TOT_DocType, TOT_DocTypeCreateDto> assembler) {
+  public Tot_doctypeAssembler(
+      Assembler<Tot_doctype, Tot_doctypeCreateDto> assembler) {
     this.assembler = assembler;
   }
 
   @Override
-  public void mergeAggregateIntoDto(TOT_DocType sourceAggregate, TOT_DocTypeDto targetDto) {
+  public void mergeAggregateIntoDto(Tot_doctype sourceAggregate, Tot_doctypeDto targetDto) {
     assembler.mergeAggregateIntoDto(sourceAggregate, targetDto);
-    targetDto.setIdTOT_DocType(sourceAggregate.getId().getId());
+    targetDto.setIdTot_doctype(sourceAggregate.getId().getId());
   }
 
   @Override
-  public void mergeDtoIntoAggregate(TOT_DocTypeDto sourceDto, TOT_DocType targetAggregate) {
+  public void mergeDtoIntoAggregate(Tot_doctypeDto sourceDto, Tot_doctype targetAggregate) {
     assembler.mergeDtoIntoAggregate(sourceDto, targetAggregate);
 
   }

@@ -2,9 +2,9 @@ package ctag.domain.model.tot_button;
 
 import org.seedstack.business.domain.Factory;
 
-public interface TOT_ButtonFactory extends Factory<TOT_Button> {
+public interface Tot_buttonFactory extends Factory<Tot_button> {
   
- TOT_Button createTOT_Button(String name,String shortName,Integer x,Integer y,Integer w,Integer h,boolean active,Integer order,Integer idTOT_Page);
+ Tot_button createTot_button(Integer page,String shortName,Integer order,String name,Integer x,Integer y,Integer w,Integer h,boolean active,Integer idTOT_Page);
 
 
 }

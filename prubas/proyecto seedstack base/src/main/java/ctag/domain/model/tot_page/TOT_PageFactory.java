@@ -2,9 +2,9 @@ package ctag.domain.model.tot_page;
 
 import org.seedstack.business.domain.Factory;
 
-public interface TOT_PageFactory extends Factory<TOT_Page> {
+public interface Tot_pageFactory extends Factory<Tot_page> {
   
- TOT_Page createTOT_Page(String name,Integer order,boolean active,Integer idLine);
+ Tot_page createTot_page(Integer line,String name,Integer order,boolean active,Integer rows,Integer idLine);
 
 
 }

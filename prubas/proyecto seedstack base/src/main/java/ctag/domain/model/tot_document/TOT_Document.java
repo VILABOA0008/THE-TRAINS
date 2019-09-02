@@ -23,22 +23,24 @@ import javax.persistence.TableGenerator;
 import org.seedstack.business.domain.BaseAggregateRoot;
 
 @Entity
-@Table(name = TOT_Document.TABLE_NAME)
-@IdClass(TOT_DocumentId.class)
-public class TOT_Document extends BaseAggregateRoot<TOT_DocumentId> {
+@Table(name = Tot_document.TABLE_NAME)
+@IdClass(Tot_documentId.class)
+public class Tot_document extends BaseAggregateRoot<Tot_documentId> {
    
 public static final String TABLE_NAME = "TOT_Document";
 private static final String ID = "id"; 
 private static final String KEY_VAL = "KeyVal";
 private static final String SEQUENCE = "SEQUENCE";
 private static final String VALUE = "Value";
-private static final String ID_TOT_DOCUMENT = " idTOT_Document ";
+private static final String ID_TOT_DOCUMENT = " idTot_document ";
+private static final String FIELD_DOC_TYPE = "Doc_Type";
 private static final String FIELD_NAME = "Name";
-private static final String FIELD_LINK = "Link";   
+private static final String FIELD_LINK = "Link";
+private static final String FIELD_POSITION = "Position";   
 public static final String FK_DOCTYPE = "FK_DocType";   
 private static final String TABLE_TOT_DOCUMENT_TOT_BUTTON = "TOT_ButtonDoc";   
 private static final String ID_TOT_BUTTON = "FK_Button";   
-private static final String GENERATOR = "TOT_DocumentGen";
+private static final String GENERATOR = "Tot_documentGen";
 
   @TableGenerator(name = GENERATOR, table = SEQUENCE, pkColumnName = KEY_VAL, valueColumnName = VALUE, pkColumnValue = TABLE_NAME, allocationSize = 1)
   @Id
@@ -46,13 +48,19 @@ private static final String GENERATOR = "TOT_DocumentGen";
   @Column(name = ID_TOT_DOCUMENT, nullable = false, unique = true)
   private Integer id;
 
+  @Column(name = FIELD_DOC_TYPE,unique = false,  nullable = false)
+  private Integer docType;
+
   @Column(name = FIELD_NAME,unique = false,  nullable = false)
   private String name;
 
   @Column(name = FIELD_LINK,unique = false,  nullable = false)
   private String link;
 
-  TOT_Document() {
+  @Column(name = FIELD_POSITION,unique = false,  nullable = false)
+  private Integer position;
+
+  Tot_document() {
     // Required by Hibernate
   }
 
@@ -75,21 +83,33 @@ private static final String GENERATOR = "TOT_DocumentGen";
 
 
   @Override
-  public TOT_DocumentId getId() {
-    return new TOT_DocumentId(id);
+  public Tot_documentId getId() {
+    return new Tot_documentId(id);
   }
 
+  public Integer getDocType() {
+    return docType;
+  }
   public String getName() {
     return name;
   }
   public String getLink() {
     return link;
   }
+  public Integer getPosition() {
+    return position;
+  }
+  public void setDocType(Integer docType) {
+    this.docType = docType;
+  }
   public void setName(String name) {
     this.name = name;
   }
   public void setLink(String link) {
     this.link = link;
+  }
+  public void setPosition(Integer position) {
+    this.position = position;
   }
    public TOT_DocType getTOT_DocType() {
     return tOT_DocType;

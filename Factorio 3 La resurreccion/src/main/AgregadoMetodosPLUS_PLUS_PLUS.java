@@ -103,7 +103,7 @@ a += "\n  @ManyToOne(fetch = FetchType.LAZY)\n" +
       "Page", "Button", "DocType", "Document", "null", "Style", "null", "Configuration", "null"
     };
     System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
-    int c = 1;
+    int c = 0;
     String agg;
     String[] arraymtm = new String[6];
 
@@ -134,12 +134,12 @@ a += "\n  @ManyToOne(fetch = FetchType.LAZY)\n" +
 
           System.out.println(
               "1   Agregado   "
-                  + aggs.get(Integer.valueOf(Mtm.get(c)[1]) - 1)
+                  + tablas.get(Integer.valueOf(Mtm.get(c)[1]) - 0)
                   + "  con  "
                   + Mtm.get(c)[2]);
           System.out.println(
               "2   Agregado   "
-                  + aggs.get(Integer.valueOf(Mtm.get(c)[3]) - 1)
+                  + tablas.get(Integer.valueOf(Mtm.get(c)[3]) - 0)
                   + "  con  "
                   + Mtm.get(c)[0]);
 
@@ -157,11 +157,11 @@ a += "\n  @ManyToOne(fetch = FetchType.LAZY)\n" +
         if (op == 1) {
 
           aux = Mtm.get(c)[1];
-          aggpadre = aggs.get(Integer.valueOf(aux) - 1);
+          aggpadre = tablas.get(Integer.valueOf(aux) - 0);
           tabla = i;
           fk1 = Mtm.get(c)[0];
           fk2 = Mtm.get(c)[2];
-          agghijo = aggs.get(Integer.valueOf(Mtm.get(c)[3]) - 1);
+          agghijo = tablas.get(Integer.valueOf(Mtm.get(c)[3]) - 0);
           arraymtm[0] = aux;
           arraymtm[1] = aggpadre;
           arraymtm[2] = tabla;
@@ -173,11 +173,11 @@ a += "\n  @ManyToOne(fetch = FetchType.LAZY)\n" +
           //   aux=Integer.valueOf(Mtm.get(c)[3]);
 
           aux = Mtm.get(c)[3];
-          aggpadre = aggs.get(Integer.valueOf(aux) - 1);
+          aggpadre = tablas.get(Integer.valueOf(aux) - 0);
           tabla = i;
           fk1 = Mtm.get(c)[2];
           fk2 = Mtm.get(c)[0];
-          agghijo = aggs.get(Integer.valueOf(Mtm.get(c)[1]) - 1);
+          agghijo = tablas.get(Integer.valueOf(Mtm.get(c)[1]) - 0);
           arraymtm[0] = aux;
           arraymtm[1] = aggpadre;
           arraymtm[2] = tabla.toString();
@@ -272,7 +272,7 @@ a += "\n  @ManyToOne(fetch = FetchType.LAZY)\n" +
         }
         //System.out.println("Escribe la variable");
 
-        mappedByV = metodos.despital(aggs.get(otm.get(c) - 1));
+        mappedByV = metodos.despital(aggs.get(otm.get(c) - 0));
 
         mapedByV.add(mappedByV);
       }
@@ -332,7 +332,7 @@ a += "\n  @ManyToOne(fetch = FetchType.LAZY)\n" +
       clase = agg + "s";
 
       //      System.out.println("mappedby ");
-      map = metodos.despital(aggs.get(mapped.get(c) - 1));
+      map = metodos.despital(aggs.get(mapped.get(c) - 0));
       if(a.contains(map.toUpperCase())) {mtmVar.add(map);a += Agregadospeques.finalManytoManyMapped((clase+cc), (map+cc));clase+=cc;cc++;}else {
       mtmVar.add(map);
 
@@ -362,7 +362,7 @@ a += "\n  @ManyToOne(fetch = FetchType.LAZY)\n" +
       String fk;
       //  System.out.println("Nombre");
 
-      fk = metodos.despital(aggs.get(mto.get(c) - 1));
+      fk = metodos.despital(aggs.get(mto.get(c) - 0));
 
       //      System.out.println("\n\nfk  " + fks.get(c));
       a += Agregadospeques.finalFk(fks.get(c));

@@ -2,9 +2,9 @@ package ctag.domain.model.tot_document;
 
 import org.seedstack.business.domain.Factory;
 
-public interface TOT_DocumentFactory extends Factory<TOT_Document> {
+public interface Tot_documentFactory extends Factory<Tot_document> {
   
- TOT_Document createTOT_Document(String name,String link,Integer idTOT_DocType);
+ Tot_document createTot_document(Integer docType,String name,String link,Integer position,Integer idTOT_DocType);
 
 
 }

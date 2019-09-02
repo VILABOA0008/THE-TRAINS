@@ -99,8 +99,8 @@ public class Main {
     Leer leer = new Leer(tablasTest, fksTest, mtmTest, varsTest, tiposTest,otmTest,mtoTest,MtmTest);
     leer.start();
     System.err.println(tablasTest.size());
-    System.exit(1);
-    AgregadoPLUSPLUS.test(vars, tipos, tablas, fks, mtm, otm, mto, Mtm, tipo);
+    tipo.put(0, 0);
+    AgregadoPLUSPLUS.test(varsTest, tiposTest, tablasTest, fksTest, mtmTest, mtoTest, otmTest, MtmTest, tipo);
 
     // TABLAS
     // [Line, TOT_Page, TOT_Button, TOT_DocType, TOT_Document, TOT_ButtonDoc, TOT_Style,

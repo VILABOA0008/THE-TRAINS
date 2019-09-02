@@ -23,28 +23,33 @@ import javax.persistence.TableGenerator;
 import org.seedstack.business.domain.BaseAggregateRoot;
 
 @Entity
-@Table(name = TOT_Page.TABLE_NAME)
-@IdClass(TOT_PageId.class)
-public class TOT_Page extends BaseAggregateRoot<TOT_PageId> {
+@Table(name = Tot_page.TABLE_NAME)
+@IdClass(Tot_pageId.class)
+public class Tot_page extends BaseAggregateRoot<Tot_pageId> {
    
 public static final String TABLE_NAME = "TOT_Page";
 private static final String ID = "id"; 
 private static final String KEY_VAL = "KeyVal";
 private static final String SEQUENCE = "SEQUENCE";
 private static final String VALUE = "Value";
-private static final String ID_TOT_PAGE = " idTOT_Page ";
+private static final String ID_TOT_PAGE = " idTot_page ";
+private static final String FIELD_LINE = "Line";
 private static final String FIELD_NAME = "Name";
 private static final String FIELD_ORDER = "Order";
-private static final String FIELD_ACTIVE = "Active";   
+private static final String FIELD_ACTIVE = "Active";
+private static final String FIELD_ROWS = "Rows";   
 public static final String FK_LINE = "FK_Line";   
-private static final String MAPPED_BY_T_O_T___PAGE = "tOT_Page";   
-private static final String GENERATOR = "TOT_PageGen";
+private static final String MAPPED_BY_TOT__PAGE = "tot_page";   
+private static final String GENERATOR = "Tot_pageGen";
 
   @TableGenerator(name = GENERATOR, table = SEQUENCE, pkColumnName = KEY_VAL, valueColumnName = VALUE, pkColumnValue = TABLE_NAME, allocationSize = 1)
   @Id
   @GeneratedValue(strategy = GenerationType.TABLE, generator = GENERATOR)
   @Column(name = ID_TOT_PAGE, nullable = false, unique = true)
   private Integer id;
+
+  @Column(name = FIELD_LINE,unique = false,  nullable = false)
+  private Integer line;
 
   @Column(name = FIELD_NAME,unique = false,  nullable = false)
   private String name;
@@ -55,7 +60,10 @@ private static final String GENERATOR = "TOT_PageGen";
   @Column(name = FIELD_ACTIVE,unique = false,  nullable = false)
   private boolean active;
 
-  TOT_Page() {
+  @Column(name = FIELD_ROWS,unique = false,  nullable = false)
+  private Integer rows;
+
+  Tot_page() {
     // Required by Hibernate
   }
 
@@ -68,19 +76,19 @@ private static final String GENERATOR = "TOT_PageGen";
   private LineId  idLine;
 
 
-  @OneToMany(mappedBy = MAPPED_BY_T_O_T___PAGE, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-  private Set<Line> lines;
-
-  @OneToMany(mappedBy = MAPPED_BY_T_O_T___PAGE, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+  @OneToMany(mappedBy = MAPPED_BY_TOT__PAGE, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
   private Set<TOT_Button> tOT_Buttons;
 
 
 
   @Override
-  public TOT_PageId getId() {
-    return new TOT_PageId(id);
+  public Tot_pageId getId() {
+    return new Tot_pageId(id);
   }
 
+  public Integer getLine() {
+    return line;
+  }
   public String getName() {
     return name;
   }
@@ -89,6 +97,12 @@ private static final String GENERATOR = "TOT_PageGen";
   }
   public boolean getActive() {
     return active;
+  }
+  public Integer getRows() {
+    return rows;
+  }
+  public void setLine(Integer line) {
+    this.line = line;
   }
   public void setName(String name) {
     this.name = name;
@@ -99,18 +113,8 @@ private static final String GENERATOR = "TOT_PageGen";
   public void setActive(boolean active) {
     this.active = active;
   }
-  public Set<Line> getLines() {
-    if (lines == null) {
-      return Collections.<Line>emptySet();
-    }
-    return Collections.unmodifiableSet(lines);
-  }
-
-  public void addLine(Line line) {
-    if (lines == null) {
-      this.lines = new HashSet<>();
-    }
-    this.lines.add(line);
+  public void setRows(Integer rows) {
+    this.rows = rows;
   }
   public Set<TOT_Button> getTOT_Buttons() {
     if (tOT_Buttons == null) {

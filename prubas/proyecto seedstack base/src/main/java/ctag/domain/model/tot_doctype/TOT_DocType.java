@@ -23,19 +23,19 @@ import javax.persistence.TableGenerator;
 import org.seedstack.business.domain.BaseAggregateRoot;
 
 @Entity
-@Table(name = TOT_DocType.TABLE_NAME)
-@IdClass(TOT_DocTypeId.class)
-public class TOT_DocType extends BaseAggregateRoot<TOT_DocTypeId> {
+@Table(name = Tot_doctype.TABLE_NAME)
+@IdClass(Tot_doctypeId.class)
+public class Tot_doctype extends BaseAggregateRoot<Tot_doctypeId> {
    
 public static final String TABLE_NAME = "TOT_DocType";
 private static final String ID = "id"; 
 private static final String KEY_VAL = "KeyVal";
 private static final String SEQUENCE = "SEQUENCE";
 private static final String VALUE = "Value";
-private static final String ID_TOT_DOCTYPE = " idTOT_DocType ";
+private static final String ID_TOT_DOCTYPE = " idTot_doctype ";
 private static final String FIELD_NAME = "Name";   
-private static final String MAPPED_BY_T_O_T___DOC_TYPE = "tOT_DocType";   
-private static final String GENERATOR = "TOT_DocTypeGen";
+private static final String MAPPED_BY_TOT__DOCTYPE = "tot_doctype";   
+private static final String GENERATOR = "Tot_doctypeGen";
 
   @TableGenerator(name = GENERATOR, table = SEQUENCE, pkColumnName = KEY_VAL, valueColumnName = VALUE, pkColumnValue = TABLE_NAME, allocationSize = 1)
   @Id
@@ -46,18 +46,18 @@ private static final String GENERATOR = "TOT_DocTypeGen";
   @Column(name = FIELD_NAME,unique = false,  nullable = false)
   private String name;
 
-  TOT_DocType() {
+  Tot_doctype() {
     // Required by Hibernate
   }
 
-  @OneToMany(mappedBy = MAPPED_BY_T_O_T___DOC_TYPE, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+  @OneToMany(mappedBy = MAPPED_BY_TOT__DOCTYPE, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
   private Set<TOT_Document> tOT_Documents;
 
 
 
   @Override
-  public TOT_DocTypeId getId() {
-    return new TOT_DocTypeId(id);
+  public Tot_doctypeId getId() {
+    return new Tot_doctypeId(id);
   }
 
   public String getName() {

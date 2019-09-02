@@ -23,21 +23,21 @@ import javax.persistence.TableGenerator;
 import org.seedstack.business.domain.BaseAggregateRoot;
 
 @Entity
-@Table(name = TOT_Style.TABLE_NAME)
-@IdClass(TOT_StyleId.class)
-public class TOT_Style extends BaseAggregateRoot<TOT_StyleId> {
+@Table(name = Tot_style.TABLE_NAME)
+@IdClass(Tot_styleId.class)
+public class Tot_style extends BaseAggregateRoot<Tot_styleId> {
    
 public static final String TABLE_NAME = "TOT_Style";
 private static final String ID = "id"; 
 private static final String KEY_VAL = "KeyVal";
 private static final String SEQUENCE = "SEQUENCE";
 private static final String VALUE = "Value";
-private static final String ID_TOT_STYLE = " idTOT_Style ";
+private static final String ID_TOT_STYLE = " idTot_style ";
 private static final String FIELD_NAME = "Name";
 private static final String FIELD_STYLE_CLASS = "Style_Class";   
 private static final String TABLE_TOT_STYLE_TOT_BUTTON = "TOT_ButtonStyle";   
 private static final String ID_TOT_BUTTON = "IdButton";   
-private static final String GENERATOR = "TOT_StyleGen";
+private static final String GENERATOR = "Tot_styleGen";
 
   @TableGenerator(name = GENERATOR, table = SEQUENCE, pkColumnName = KEY_VAL, valueColumnName = VALUE, pkColumnValue = TABLE_NAME, allocationSize = 1)
   @Id
@@ -51,7 +51,7 @@ private static final String GENERATOR = "TOT_StyleGen";
   @Column(name = FIELD_STYLE_CLASS,unique = false,  nullable = false)
   private String styleClass;
 
-  TOT_Style() {
+  Tot_style() {
     // Required by Hibernate
   }
  
@@ -65,8 +65,8 @@ private static final String GENERATOR = "TOT_StyleGen";
 
 
   @Override
-  public TOT_StyleId getId() {
-    return new TOT_StyleId(id);
+  public Tot_styleId getId() {
+    return new Tot_styleId(id);
   }
 
   public String getName() {

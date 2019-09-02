@@ -4,24 +4,24 @@ import javax.inject.Inject;
 import org.seedstack.business.assembler.Assembler;
 import org.seedstack.business.assembler.BaseAssembler;
 
-public class TOT_ButtonAssembler extends BaseAssembler<TOT_Button, TOT_ButtonDto> {
+public class Tot_buttonAssembler extends BaseAssembler<Tot_button, Tot_buttonDto> {
 
-  private final Assembler<TOT_Button, TOT_ButtonCreateDto> assembler;
+  private final Assembler<Tot_button, Tot_buttonCreateDto> assembler;
 
   @Inject
-  public TOT_ButtonAssembler(
-      Assembler<TOT_Button, TOT_ButtonCreateDto> assembler) {
+  public Tot_buttonAssembler(
+      Assembler<Tot_button, Tot_buttonCreateDto> assembler) {
     this.assembler = assembler;
   }
 
   @Override
-  public void mergeAggregateIntoDto(TOT_Button sourceAggregate, TOT_ButtonDto targetDto) {
+  public void mergeAggregateIntoDto(Tot_button sourceAggregate, Tot_buttonDto targetDto) {
     assembler.mergeAggregateIntoDto(sourceAggregate, targetDto);
-    targetDto.setIdTOT_Button(sourceAggregate.getId().getId());
+    targetDto.setIdTot_button(sourceAggregate.getId().getId());
   }
 
   @Override
-  public void mergeDtoIntoAggregate(TOT_ButtonDto sourceDto, TOT_Button targetAggregate) {
+  public void mergeDtoIntoAggregate(Tot_buttonDto sourceDto, Tot_button targetAggregate) {
     assembler.mergeDtoIntoAggregate(sourceDto, targetAggregate);
 
   }

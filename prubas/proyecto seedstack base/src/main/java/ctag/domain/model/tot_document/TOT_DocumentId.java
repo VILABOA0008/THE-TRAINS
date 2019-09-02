@@ -3,16 +3,16 @@ package ctag.domain.model.tot_document;
 import javax.persistence.Embeddable;
 import org.seedstack.business.domain.BaseValueObject;
 @Embeddable
-public class TOT_DocumentId extends BaseValueObject {
+public class Tot_documentId extends BaseValueObject {
 
 
   private static final long serialVersionUID = 1;
   private Integer id;
 
-  public TOT_DocumentId() {
+  public Tot_documentId() {
   }
 
-  public TOT_DocumentId(Integer id) {
+  public Tot_documentId(Integer id) {
      this.id = id;
   }
 

@@ -4,24 +4,24 @@ import javax.inject.Inject;
 import org.seedstack.business.assembler.Assembler;
 import org.seedstack.business.assembler.BaseAssembler;
 
-public class TOT_StyleAssembler extends BaseAssembler<TOT_Style, TOT_StyleDto> {
+public class Tot_styleAssembler extends BaseAssembler<Tot_style, Tot_styleDto> {
 
-  private final Assembler<TOT_Style, TOT_StyleCreateDto> assembler;
+  private final Assembler<Tot_style, Tot_styleCreateDto> assembler;
 
   @Inject
-  public TOT_StyleAssembler(
-      Assembler<TOT_Style, TOT_StyleCreateDto> assembler) {
+  public Tot_styleAssembler(
+      Assembler<Tot_style, Tot_styleCreateDto> assembler) {
     this.assembler = assembler;
   }
 
   @Override
-  public void mergeAggregateIntoDto(TOT_Style sourceAggregate, TOT_StyleDto targetDto) {
+  public void mergeAggregateIntoDto(Tot_style sourceAggregate, Tot_styleDto targetDto) {
     assembler.mergeAggregateIntoDto(sourceAggregate, targetDto);
-    targetDto.setIdTOT_Style(sourceAggregate.getId().getId());
+    targetDto.setIdTot_style(sourceAggregate.getId().getId());
   }
 
   @Override
-  public void mergeDtoIntoAggregate(TOT_StyleDto sourceDto, TOT_Style targetAggregate) {
+  public void mergeDtoIntoAggregate(Tot_styleDto sourceDto, Tot_style targetAggregate) {
     assembler.mergeDtoIntoAggregate(sourceDto, targetAggregate);
 
   }

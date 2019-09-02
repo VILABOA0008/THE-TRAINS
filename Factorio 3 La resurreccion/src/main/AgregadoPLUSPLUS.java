@@ -41,9 +41,9 @@ public class AgregadoPLUSPLUS {
     int c ;
     
     AgregadoMetodosPLUS_PLUS_PLUS.NombreAggregado(aggs, tablas, mtm,Mtm,MTM,MTMapped,readOnly,tipo);
-
+aggs=tablas;
     
-    for(int i=1;i<mtm.size();i++) {
+    for(int i=0;i<mtm.size();i++) {
       if(mtm.get(i)==false||tipo.get(i)==4) {
         if(tipo.get(i)==4) {
           System.out.println("hooalsdsadsad" ); 
@@ -62,9 +62,8 @@ public class AgregadoPLUSPLUS {
         ArrayList<String> fieldsFinal = new ArrayList<>();
         ag="";
    c=i;
-    tabla = tablas.get(c - 1);
-
-    agg = aggs.get(c - 1);
+    tabla = tablas.get(c );
+    agg = metodos.Capital(tablas.get(c).toLowerCase());
     importagg=Agregadospeques.importAgg(agg);
     ag += Agregadospeques.paqueteAgg(agg);
 

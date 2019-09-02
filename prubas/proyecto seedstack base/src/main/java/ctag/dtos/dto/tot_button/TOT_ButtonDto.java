@@ -6,22 +6,22 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModel;
 
-@ApiModel(value = " TOT_Button  ")public class TOT_ButtonDto extends TOT_ButtonCreateDto {
+@ApiModel(value = " Tot_button  ")public class Tot_buttonDto extends Tot_buttonCreateDto {
 
-  private Integer idTOT_Button;
+  private Integer idTot_button;
 
   @JsonIgnore
 @AggregateId
-  private TOT_ButtonId getId() {
-    return new TOT_ButtonId(idTOT_Button);
+  private Tot_buttonId getId() {
+    return new Tot_buttonId(idTot_button);
   }
 
-  @JsonProperty("idTOT_Button")
-  public Integer getIdTOT_Button() {
-    return idTOT_Button;
+  @JsonProperty("idTot_button")
+  public Integer getIdTot_button() {
+    return idTot_button;
   }
 
-  public void setIdTOT_Button(Integer idTOT_Button) {
-    this.idTOT_Button = idTOT_Button;
+  public void setIdTot_button(Integer idTot_button) {
+    this.idTot_button = idTot_button;
   }
 }

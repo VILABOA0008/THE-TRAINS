@@ -4,24 +4,24 @@ import javax.inject.Inject;
 import org.seedstack.business.assembler.Assembler;
 import org.seedstack.business.assembler.BaseAssembler;
 
-public class TOT_PageAssembler extends BaseAssembler<TOT_Page, TOT_PageDto> {
+public class Tot_pageAssembler extends BaseAssembler<Tot_page, Tot_pageDto> {
 
-  private final Assembler<TOT_Page, TOT_PageCreateDto> assembler;
+  private final Assembler<Tot_page, Tot_pageCreateDto> assembler;
 
   @Inject
-  public TOT_PageAssembler(
-      Assembler<TOT_Page, TOT_PageCreateDto> assembler) {
+  public Tot_pageAssembler(
+      Assembler<Tot_page, Tot_pageCreateDto> assembler) {
     this.assembler = assembler;
   }
 
   @Override
-  public void mergeAggregateIntoDto(TOT_Page sourceAggregate, TOT_PageDto targetDto) {
+  public void mergeAggregateIntoDto(Tot_page sourceAggregate, Tot_pageDto targetDto) {
     assembler.mergeAggregateIntoDto(sourceAggregate, targetDto);
-    targetDto.setIdTOT_Page(sourceAggregate.getId().getId());
+    targetDto.setIdTot_page(sourceAggregate.getId().getId());
   }
 
   @Override
-  public void mergeDtoIntoAggregate(TOT_PageDto sourceDto, TOT_Page targetAggregate) {
+  public void mergeDtoIntoAggregate(Tot_pageDto sourceDto, Tot_page targetAggregate) {
     assembler.mergeDtoIntoAggregate(sourceDto, targetAggregate);
 
   }
