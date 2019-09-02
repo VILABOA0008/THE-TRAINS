@@ -86,7 +86,8 @@ public class Main {
       }
 
     }
-
+    Map<Integer, ArrayList<Integer>> mtoTest= new HashMap<>();
+    Map<Integer, ArrayList<Integer>> otmTest = new HashMap<>();
     Map<Integer, ArrayList<String>> varsTest = new HashMap<>();// nombre de las variables de los
                                                                // fields
     Map<Integer, ArrayList<String>> tiposTest = new HashMap<>();// tipo de las variables de los
@@ -94,7 +95,7 @@ public class Main {
     Map<Integer, Boolean> mtmTest = new HashMap<>();// SI LA TABLA ES MTM O NO
     Map<Integer, ArrayList<String>> fksTest = new HashMap<>();// NOMBRE DE TODAS LAS FKS
     ArrayList<String> tablasTest = new ArrayList<>();// NOMBRE D ELAS TABLAS
-    Leer leer = new Leer(tablasTest, fksTest, mtmTest, varsTest, tiposTest);
+    Leer leer = new Leer(tablasTest, fksTest, mtmTest, varsTest, tiposTest,otmTest,mtoTest);
     leer.start();
     System.err.println(tablasTest.size());
     System.exit(1);

@@ -15,16 +15,21 @@ public class Leer {
   DatabaseMetaData databaseMetaData;
   Map<Integer, ArrayList<String>> vars;
   Map<Integer, ArrayList<String>> types;
+  Map<Integer, ArrayList<Integer>> mto;
+  Map<Integer, ArrayList<Integer>> otm;
 
   // CONSTRUCTOR
   public Leer(ArrayList<String> tablas, Map<Integer, ArrayList<String>> fks,
       Map<Integer, Boolean> mtm, Map<Integer, ArrayList<String>> vars,
-      Map<Integer, ArrayList<String>> types) {
+      Map<Integer, ArrayList<String>> types, Map<Integer, ArrayList<Integer>> otm,
+      Map<Integer, ArrayList<Integer>> mto) {
     this.tablas = tablas;
     this.fks = fks;
     this.mtm = mtm;
     this.vars = vars;
     this.types = types;
+    this.otm = otm;
+    this.mto = mto;
 
   }
 
@@ -56,12 +61,12 @@ public class Leer {
             && (fks.get(c) == null || (fks.get(c) != null && !fks.get(c).contains(columnName)))) {
           dataVars.add(columnName);
           dataTypes.add(datatype);
-          
+
           System.err.println(columnName + "  " + dataTypes.size() + "   ");
 
         }
       }
-System.err.println(vars.size());
+      System.err.println(vars.size());
       vars.put(c, dataVars);
       types.put(c, dataTypes);
     }
@@ -86,18 +91,39 @@ System.err.println(vars.size());
   }
 
   public void getFKs() throws SQLException {
-
+    System.err.println(tablas + "\n\n");
     int c = -1;
     for (String actualTable : tablas) {
       c++;
       if (!mtm.get(c)) {
         ResultSet fkFind = databaseMetaData.getImportedKeys(null, null, actualTable);
         ArrayList<String> var = new ArrayList<>();
+        ArrayList<Integer> oneToMany = new ArrayList<>();
+        ArrayList<Integer> manyToOne;
+        int i=-3;
         while (fkFind.next()) {
           var.add(fkFind.getString("FKCOLUMN_NAME"));
+          // oneToMany.add(e)
+          System.out.println(
+              actualTable+"tttt   "+
+              fkFind.getString("PKTABLE_NAME") + "---" + fkFind.getString("PKCOLUMN_NAME") + "==="
+                  + fkFind.getString("FKTABLE_NAME") + "---" + fkFind.getString("FKCOLUMN_NAME"));
+          for (i= 0; i < tablas.size(); i++) {
+            if (tablas.get(i).equalsIgnoreCase(fkFind.getString("PKTABLE_NAME"))) {
+              oneToMany.add(i);break;
+            }
+          }
         }
+System.err.println(c+"   "+i);
         if (!var.isEmpty()) {
           fks.put(c, var);
+          otm.put(c, oneToMany);
+          manyToOne = mto.get(i);
+          if(manyToOne==null) {
+            manyToOne=new ArrayList<>();
+          }
+          manyToOne.add(c);
+          mto.put(i, manyToOne);
         }
       }
     }
