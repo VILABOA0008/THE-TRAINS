@@ -125,8 +125,6 @@ public class Leer {
         ResultSet fkFind = databaseMetaData.getImportedKeys(null, null, actualTable);
         fkFind.last();
         pkFind.last();
-        System.err.println("fks  " + fkFind.getRow() + "     pks  " + pkFind.getRow()
-            + "     total  " + pfkcolumns.getRow());
 
         if (pfkcolumns.getRow() == fkFind.getRow()) {
           System.err.println(actualTable + "asq");
@@ -139,8 +137,8 @@ public class Leer {
 
         while (fkFind.next()) {
           cc++;
-          if (actualTable.equalsIgnoreCase("CataloguedEvent")) {
-              System.err.println("");
+          if (actualTable.equalsIgnoreCase("ControlPlanVersion")) {
+              System.err.print("");
           }
           // TODO MAS DE UNA PK
           if (cc == 4) {
@@ -186,6 +184,9 @@ public class Leer {
         ArrayList<String> var = new ArrayList<>();
         ArrayList<Integer> oneToMany = new ArrayList<>();
         ArrayList<Integer> manyToOne;
+        if (actualTable.equalsIgnoreCase("ControlPlanVersion")) {
+          System.err.println("");
+      }
         int i = -3;
         while (fkFind.next()) {
           var.add(fkFind.getString("FKCOLUMN_NAME"));

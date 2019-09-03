@@ -38,7 +38,8 @@ private static final String FIELD_PLANT = "Plant";
 private static final String FIELD_GROUP = "Group";   
 public static final String FK_LINETYPE = "FK_LineType";   
 private static final String MAPPED_BY_LINE = "line";   
-private static final String MAPPED_BY_DESIGN = "lines";   
+private static final String TABLE_LINE_DESIGN = "LineDesign";   
+private static final String ID_DESIGN = "IdDesign";   
 private static final String GENERATOR = "LineGen";
 
   @TableGenerator(name = GENERATOR, table = SEQUENCE, pkColumnName = KEY_VAL, valueColumnName = VALUE, pkColumnValue = TABLE_NAME, allocationSize = 1)
@@ -62,17 +63,21 @@ private static final String GENERATOR = "LineGen";
 
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = FK_LINETYPE, nullable = false, insertable = false, updatable = false)
-  private LineType lineType;
+  private LineType fK_LineType;
 
   @EmbeddedId
   @AttributeOverride(name = ID  , column = @Column(name = FK_LINETYPE, nullable = true))
-  private LineTypeId  idLineType;
+  private LineTypeId  idFK_LineType;
 
 
   @OneToMany(mappedBy = MAPPED_BY_LINE, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
   private Set<LineBOMS> lineBOMSs;
-  
-@ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY, mappedBy =  MAPPED_BY_DESIGN)
+ 
+ @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+  @JoinTable(
+      name = TABLE_LINE_DESIGN,
+      joinColumns = {@JoinColumn(name = ID_LINE, nullable = false, updatable = false)},
+      inverseJoinColumns = {@JoinColumn(name = ID_DESIGN, nullable = false, updatable = false)})
   private Set<Design> designs;
 
 
@@ -113,14 +118,14 @@ private static final String GENERATOR = "LineGen";
     }
     this.lineBOMSs.add(lineBOMS);
   }
-   public LineType getLineType() {
-    return lineType;
+   public LineType getFK_LineType() {
+    return fK_LineType;
   }
-  public LineTypeId getIdLineType() {
-    return idLineType;
+  public LineTypeId getIdFK_LineType() {
+    return idFK_LineType;
   }
-  public void setIdLineType(LineTypeId idLineType) {
-    this.idLineType = idLineType;
+  public void setIdFK_LineType(LineTypeId idFK_LineType) {
+    this.idFK_LineType = idFK_LineType;
   }
 
 

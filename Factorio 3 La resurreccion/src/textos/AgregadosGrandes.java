@@ -30,7 +30,7 @@ public class AgregadosGrandes {
     return a;
   }
 
-  public static String manyToOne(String FIELD_FK, String var,Integer tipo) {
+  public static String manyToOne(String fk,String FIELD_FK, String var) {
 
     
     String a;
@@ -38,11 +38,11 @@ public class AgregadosGrandes {
     a = "\n  @ManyToOne(fetch = FetchType.LAZY)\n" +
         "  @JoinColumn(name = " + FIELD_FK
         + ", nullable = false, insertable = false, updatable = false)\n" +
-        "  private " + metodos.Capital(var) + " " + var + ";\n\n"
+        "  private " + metodos.Capital(var) + " " + metodos.despital(fk) + ";\n\n"
         + "  @EmbeddedId\n" +
         "  @AttributeOverride(name = ID  , column = @Column(name = "
         + FIELD_FK + ", nullable = true))\n" +
-        "  private " + metodos.Capital(var) + "Id  id" + metodos.Capital(var) + ";\n\n"
+        "  private " + metodos.Capital(var) + "Id  id" + fk + ";\n\n"
         + "";
 
 
@@ -87,22 +87,25 @@ public class AgregadosGrandes {
   return a;
   }
 
-  public static String getSetEntities(ArrayList<String> fkmoVarFinal,Integer tipo) {
+  public static String getSetEntities(ArrayList<String> fk,ArrayList<String> fkmoVarFinal,Integer tipo) {
     String a="";
-    
+    int c=-1;
     for(String i:fkmoVarFinal) {
+      c++;
       String descap=i;
       String cap=metodos.Capital(i);
+      String fkdecap=metodos.despital(fk.get(c));
+      String fkcap=fk.get(c);
       if(tipo!=3) {
         
-        a+= "   public "+cap+" get"+cap+"() {\n" + 
-            "    return "+descap+";\n" + 
+        a+= "   public "+cap+" get"+fkcap+"() {\n" + 
+            "    return "+fkdecap+";\n" + 
             "  }\n";
-    a+= "  public "+cap+"Id getId"+cap+"() {\n" + 
-        "    return id"+cap+";\n" + 
+    a+= "  public "+cap+"Id getId"+fkcap+"() {\n" + 
+        "    return id"+fkcap+";\n" + 
         "  }\n"
-        + "  public void setId"+cap+"("+cap+"Id id"+cap+") {\n" + 
-        "    this.id"+cap+" = id"+cap+";\n" + 
+        + "  public void setId"+fkcap+"("+cap+"Id id"+fkcap+") {\n" + 
+        "    this.id"+fkcap+" = id"+fkcap+";\n" + 
         "  }\n";
     }else {
       

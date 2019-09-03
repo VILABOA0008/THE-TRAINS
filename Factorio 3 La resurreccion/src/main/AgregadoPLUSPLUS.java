@@ -121,9 +121,8 @@ tipos.put(c, aa);}
     ag += Agregadospeques.constructorEmpty(agg);
     if (fks.get(c) != null) {
       if(tipo.get(c)!=3) {
-      ag += AgregadoMetodosPLUS_PLUS_PLUS.ManyToOne(fks.get(c), fkmoVarFinal,tipo.get(c));}else {
+      ag += AgregadoMetodosPLUS_PLUS_PLUS.ManyToOne(fks.get(c), fkmoVarFinal);}else {
         System.out.println(tabla+"   ta"); 
-//        ag+=AgregadoMetodosPLUS_PLUS_PLUS.ManyToOneEspecial(agg, fks.get(c), fkmoVarFinal, url);
     
     }}
 
@@ -142,7 +141,7 @@ tipos.put(c, aa);}
     ag += Agregadospeques.getBasics(tipos.get(c), vars.get(c));
     ag += Agregadospeques.setBasics(tipos.get(c), vars.get(c));
     ag += AgregadosGrandes.setAddSets(mapedByV);
-    ag += AgregadosGrandes.getSetEntities(fkmoVarFinal,tipo.get(c));
+    ag += AgregadosGrandes.getSetEntities(fks.get(c),fkmoVarFinal,tipo.get(c));
 
     ag += Agregadospeques.acabalo();
 
