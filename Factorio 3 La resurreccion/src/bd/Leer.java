@@ -69,6 +69,8 @@ public class Leer {
     toVars.put("Hash", "Integer");
     toVars.put("CHAR", "char");
     toVars.put("BLOB", "Blob");
+    toVars.put("DOUBLE", "Double");
+    toVars.put("DATETIME", "LocalDateTime");
 
     for (int i = 0; i < tablas.size(); i++) {
       ArrayList<String> vars = new ArrayList<>();
@@ -159,7 +161,6 @@ public class Leer {
         } else {
           // TODO BASE ENTITIEES (2Pk, 2Fk +Fields  )
           //Factory
-          System.err.println(actualTable+"    tablas");
           tableType.put(c, 3);
           mtm.put(c, false);
         }
@@ -190,7 +191,6 @@ public class Leer {
           }
           
           if(tableType.get(c)==3&&(fk.contains("id")||fk.contains("Id"))) {
-              System.err.println("dsdsddfk"+actualTable+"   "+fk);
               fk = fk.replace("id", "");fk = fk.replace("Id", "");
           }
           

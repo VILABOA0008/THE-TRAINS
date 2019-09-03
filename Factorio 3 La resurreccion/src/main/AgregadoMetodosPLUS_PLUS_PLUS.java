@@ -87,7 +87,7 @@ a += "\n  @ManyToOne(fetch = FetchType.LAZY)\n" +
       Map<Integer, String[]> Mtm,
       Map<Integer, ArrayList<String[]>> MTM,
       Map<Integer, ArrayList<Integer>> MTMapped,
-      Map<Integer, Boolean> readOnly,Map<Integer,Integer>tipo) {
+      Map<Integer,Integer>tipo) {
     String[] aggss = {
       "Page", "Button", "DocType", "Document", "null", "Style", "null", "Configuration", "null"
     };
@@ -107,12 +107,6 @@ a += "\n  @ManyToOne(fetch = FetchType.LAZY)\n" +
         agg = i;
         //        agg = aggss[c - 1];
 
-        if(tipo.get(c)==3||tipo.get(c)==4) {
-          readOnly.put(c, true);
-        }else {
-        
-          readOnly.put(c, false);
-        }
         aggs.add(metodos.Capital(agg));
       } else {
         
@@ -208,7 +202,6 @@ a += "\n  @ManyToOne(fetch = FetchType.LAZY)\n" +
         }
 
         aggs.add(null);
-        readOnly.put(c, false);
       }
       c++;
     }

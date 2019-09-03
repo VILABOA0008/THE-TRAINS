@@ -40,7 +40,7 @@ public class Factory {
   }
 
   public static String factoryImpl(String agg, ArrayList<String> fieldsType,
-      ArrayList<String> fieldsVar, ArrayList<String> fks,String importagg) {
+      ArrayList<String> fieldsVar, ArrayList<String> fks,ArrayList<String> fksmo,String importagg) {
 
     agg = metodos.Capital(agg);
     String a="";
@@ -69,7 +69,7 @@ public class Factory {
     for (int i = 0; i < fks.size(); i++) {
 
       c += "\n  tmp" + agg + ".setId"+ metodos.Capital(fks.get(i)) +"(new "
-          + metodos.Capital(fks.get(i)) + "Id(id"
+          + metodos.Capital(fksmo.get(i)) + "Id(id"
           + metodos.Capital(fks.get(i)) + "));";
     }}
 

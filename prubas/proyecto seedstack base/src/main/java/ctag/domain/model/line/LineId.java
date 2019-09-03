@@ -1,6 +1,7 @@
 package ctag.domain.model.line;
 
 import javax.persistence.Embeddable;
+
 import org.seedstack.business.domain.BaseValueObject;
 @Embeddable
 public class LineId extends BaseValueObject {
