@@ -1,6 +1,8 @@
   package ctag.dtos.assembler.design;
 
 import org.seedstack.business.assembler.BaseAssembler;
+
+import ctag.domain.model.design.Design;
 public class DesignAssembler extends BaseAssembler<Design, DesignRepresentation> {
 
   @Override

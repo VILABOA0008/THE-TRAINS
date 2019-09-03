@@ -1,6 +1,8 @@
   package ctag.dtos.assembler.part;
 
 import org.seedstack.business.assembler.BaseAssembler;
+
+import ctag.domain.model.design.DesignId;
 public class PartAssembler extends BaseAssembler<Part, PartRepresentation> {
 
   @Override

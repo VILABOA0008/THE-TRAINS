@@ -6,13 +6,17 @@ public class LineCreateAssembler extends BaseAssembler<Line, LineCreateDto> {
   @Override
   public void mergeAggregateIntoDto(Line sourceAggregate, LineCreateDto targetDto) {
 targetDto.setName(sourceAggregate.getName());
-targetDto.setActive(sourceAggregate.getActive());
+targetDto.setPlant(sourceAggregate.getPlant());
+targetDto.setGroup(sourceAggregate.getGroup());
+targetDto.setIdLineType(sourceAggregate.getIdLineType().getId());
   }
 
   @Override
   public void mergeDtoIntoAggregate(LineCreateDto sourceDto,Line targetAggregate) {
 targetAggregate.setName(sourceDto.getName());
-targetAggregate.setActive(sourceDto.getActive());
+targetAggregate.setPlant(sourceDto.getPlant());
+targetAggregate.setGroup(sourceDto.getGroup());
+targetAggregate.setIdLineType(new LineTypeId(sourceDto.getIdLineType()));
 
   }
 

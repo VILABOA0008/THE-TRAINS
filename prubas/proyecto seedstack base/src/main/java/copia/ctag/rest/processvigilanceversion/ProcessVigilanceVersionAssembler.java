@@ -1,6 +1,8 @@
   package ctag.dtos.assembler.processvigilanceversion;
 
 import org.seedstack.business.assembler.BaseAssembler;
+
+import ctag.domain.model.account.AccountId;
 public class ProcessVigilanceVersionAssembler extends BaseAssembler<ProcessVigilanceVersion, ProcessVigilanceVersionRepresentation> {
 
   @Override

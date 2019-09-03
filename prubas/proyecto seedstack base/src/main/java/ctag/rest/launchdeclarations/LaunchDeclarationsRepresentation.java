@@ -1,12 +1,9 @@
 package ctag.dtos.dto.launchdeclarations;
 
 
+import org.seedstack.business.assembler.DtoOf;
+
 import ctag.domain.model.aggregate.modelospruebas.LaunchDeclarations;
-import org.seedstack.business.assembler.DtoOf; 
-import org.seedstack.business.assembler.FactoryArgument;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 
 @DtoOf(LaunchDeclarations.class)
 public class LaunchDeclarationsRepresentation {

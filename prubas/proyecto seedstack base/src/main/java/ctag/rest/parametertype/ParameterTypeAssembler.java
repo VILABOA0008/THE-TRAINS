@@ -1,5 +1,6 @@
   package ctag.dtos.assembler.parametertype;
 
+import org.hibernate.usertype.DynamicParameterizedType.ParameterType;
 import org.seedstack.business.assembler.BaseAssembler;
 public class ParameterTypeAssembler extends BaseAssembler<ParameterType, ParameterTypeRepresentation> {
 

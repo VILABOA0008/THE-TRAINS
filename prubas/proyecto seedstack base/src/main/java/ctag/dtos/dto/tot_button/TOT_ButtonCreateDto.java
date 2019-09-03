@@ -12,7 +12,6 @@ import io.swagger.annotations.ApiModelProperty;
 @ApiModel(value = " Tot_button ")
 public class Tot_buttonCreateDto {
 
-private Integer page;
 private String shortName;
 private Integer order;
 private String name;
@@ -24,68 +23,59 @@ private boolean active;
 private Integer idTOT_Page;
 
 
-  @JsonProperty(value = "page")
-  @ApiModelProperty(value = "page")
-  @FactoryArgument(index = 0)
-  public Integer getPage() {
-    return page;  }
-
   @JsonProperty(value = "shortName")
   @ApiModelProperty(value = "shortName")
-  @FactoryArgument(index = 1)
+  @FactoryArgument(index = 0)
   public String getShortName() {
     return shortName;  }
 
   @JsonProperty(value = "order")
   @ApiModelProperty(value = "order")
-  @FactoryArgument(index = 2)
+  @FactoryArgument(index = 1)
   public Integer getOrder() {
     return order;  }
 
   @JsonProperty(value = "name")
   @ApiModelProperty(value = "name")
-  @FactoryArgument(index = 3)
+  @FactoryArgument(index = 2)
   public String getName() {
     return name;  }
 
   @JsonProperty(value = "x")
   @ApiModelProperty(value = "x")
-  @FactoryArgument(index = 4)
+  @FactoryArgument(index = 3)
   public Integer getX() {
     return x;  }
 
   @JsonProperty(value = "y")
   @ApiModelProperty(value = "y")
-  @FactoryArgument(index = 5)
+  @FactoryArgument(index = 4)
   public Integer getY() {
     return y;  }
 
   @JsonProperty(value = "w")
   @ApiModelProperty(value = "w")
-  @FactoryArgument(index = 6)
+  @FactoryArgument(index = 5)
   public Integer getW() {
     return w;  }
 
   @JsonProperty(value = "h")
   @ApiModelProperty(value = "h")
-  @FactoryArgument(index = 7)
+  @FactoryArgument(index = 6)
   public Integer getH() {
     return h;  }
 
   @JsonProperty(value = "active")
   @ApiModelProperty(value = "active")
-  @FactoryArgument(index = 8)
+  @FactoryArgument(index = 7)
   public boolean getActive() {
     return active;  }
 
   @JsonProperty(value = "idTOT_Page")
   @ApiModelProperty(value = "idTOT_Page") 
-  @FactoryArgument(index = 9)
+  @FactoryArgument(index = 8)
   public Integer getIdTOT_Page() {
     return idTOT_Page;  }
-
-  public void setPage(Integer  page) {
-    this.page = page;  }
 
   public void setShortName(String  shortName) {
     this.shortName = shortName;  }

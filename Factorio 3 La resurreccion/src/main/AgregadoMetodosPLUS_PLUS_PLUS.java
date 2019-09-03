@@ -134,12 +134,12 @@ a += "\n  @ManyToOne(fetch = FetchType.LAZY)\n" +
 
           System.out.println(
               "1   Agregado   "
-                  + tablas.get(Integer.valueOf(Mtm.get(c)[1]) - 0)
+                  + tablas.get(Integer.valueOf(Mtm.get(c)[1]) )
                   + "  con  "
                   + Mtm.get(c)[2]);
           System.out.println(
               "2   Agregado   "
-                  + tablas.get(Integer.valueOf(Mtm.get(c)[3]) - 0)
+                  + tablas.get(Integer.valueOf(Mtm.get(c)[3]) )
                   + "  con  "
                   + Mtm.get(c)[0]);
 

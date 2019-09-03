@@ -1,6 +1,8 @@
   package ctag.dtos.assembler.processlaunch;
 
 import org.seedstack.business.assembler.BaseAssembler;
+
+import ctag.domain.model.account.AccountId;
 public class ProcessLaunchAssembler extends BaseAssembler<ProcessLaunch, ProcessLaunchRepresentation> {
 
   @Override

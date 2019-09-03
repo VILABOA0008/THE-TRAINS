@@ -63,7 +63,7 @@ aggs=tablas;
         ag="";
    c=i;
     tabla = tablas.get(c );
-    agg = metodos.Capital(tablas.get(c).toLowerCase());
+    agg = metodos.Capital(tablas.get(c));
     importagg=Agregadospeques.importAgg(agg);
     ag += Agregadospeques.paqueteAgg(agg);
 
@@ -83,6 +83,7 @@ aggs=tablas;
     if(tipo.get(c)!=4) {
 ArrayList<String>a=vars.get(c);
 ArrayList<String>aa=tipos.get(c);
+System.err.println(tabla);
 a.remove(0);aa.remove(0);
 System.out.println(a+"   compartative{");
 vars.put(c, a);
@@ -121,8 +122,8 @@ tipos.put(c, aa);}
     if (fks.get(c) != null) {
       if(tipo.get(c)!=3) {
       ag += AgregadoMetodosPLUS_PLUS_PLUS.ManyToOne(fks.get(c), fkmoVarFinal,tipo.get(c));}else {
-        System.out.println( ); 
-        ag+=AgregadoMetodosPLUS_PLUS_PLUS.ManyToOneEspecial(agg, fks.get(c), fkmoVarFinal, url);
+        System.out.println(tabla+"   ta"); 
+//        ag+=AgregadoMetodosPLUS_PLUS_PLUS.ManyToOneEspecial(agg, fks.get(c), fkmoVarFinal, url);
     
     }}
 

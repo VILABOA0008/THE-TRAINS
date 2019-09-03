@@ -1,12 +1,9 @@
 package ctag.dtos.dto.coillaunch;
 
 
+import org.seedstack.business.assembler.DtoOf;
+
 import ctag.domain.model.aggregate.modelospruebas.CoilLaunch;
-import org.seedstack.business.assembler.DtoOf; 
-import org.seedstack.business.assembler.FactoryArgument;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 
 @DtoOf(CoilLaunch.class)
 public class CoilLaunchRepresentation {

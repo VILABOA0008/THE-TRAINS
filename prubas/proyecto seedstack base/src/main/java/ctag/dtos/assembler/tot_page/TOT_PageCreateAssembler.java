@@ -5,7 +5,6 @@ public class Tot_pageCreateAssembler extends BaseAssembler<Tot_page, Tot_pageCre
 
   @Override
   public void mergeAggregateIntoDto(Tot_page sourceAggregate, Tot_pageCreateDto targetDto) {
-targetDto.setLine(sourceAggregate.getLine());
 targetDto.setName(sourceAggregate.getName());
 targetDto.setOrder(sourceAggregate.getOrder());
 targetDto.setActive(sourceAggregate.getActive());
@@ -15,7 +14,6 @@ targetDto.setIdLine(sourceAggregate.getIdLine().getId());
 
   @Override
   public void mergeDtoIntoAggregate(Tot_pageCreateDto sourceDto,Tot_page targetAggregate) {
-targetAggregate.setLine(sourceDto.getLine());
 targetAggregate.setName(sourceDto.getName());
 targetAggregate.setOrder(sourceDto.getOrder());
 targetAggregate.setActive(sourceDto.getActive());

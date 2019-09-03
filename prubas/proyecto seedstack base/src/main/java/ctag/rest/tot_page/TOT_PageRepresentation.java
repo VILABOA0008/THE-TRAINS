@@ -1,12 +1,9 @@
 package ctag.dtos.dto.tot_page;
 
 
+import org.seedstack.business.assembler.DtoOf;
+
 import ctag.domain.model.aggregate.modelospruebas.TOT_Page;
-import org.seedstack.business.assembler.DtoOf; 
-import org.seedstack.business.assembler.FactoryArgument;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 
 @DtoOf(TOT_Page.class)
 public class TOT_PageRepresentation {

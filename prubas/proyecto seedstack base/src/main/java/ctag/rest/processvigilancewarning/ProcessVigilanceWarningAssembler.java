@@ -1,6 +1,8 @@
   package ctag.dtos.assembler.processvigilancewarning;
 
 import org.seedstack.business.assembler.BaseAssembler;
+
+import ctag.domain.model.account.AccountId;
 public class ProcessVigilanceWarningAssembler extends BaseAssembler<ProcessVigilanceWarning, ProcessVigilanceWarningRepresentation> {
 
   @Override

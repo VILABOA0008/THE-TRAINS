@@ -1,6 +1,9 @@
   package ctag.dtos.assembler.reworkbatch;
 
 import org.seedstack.business.assembler.BaseAssembler;
+
+import ctag.domain.model.line.LineId;
+import ctag.domain.model.part.PartId;
 public class ReworkBatchAssembler extends BaseAssembler<ReworkBatch, ReworkBatchRepresentation> {
 
   @Override

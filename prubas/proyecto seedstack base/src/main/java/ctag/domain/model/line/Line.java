@@ -34,8 +34,11 @@ private static final String SEQUENCE = "SEQUENCE";
 private static final String VALUE = "Value";
 private static final String ID_LINE = " idLine ";
 private static final String FIELD_NAME = "Name";
-private static final String FIELD_ACTIVE = "Active";   
+private static final String FIELD_PLANT = "Plant";
+private static final String FIELD_GROUP = "Group";   
+public static final String FK_LINETYPE = "FK_LineType";   
 private static final String MAPPED_BY_LINE = "line";   
+private static final String MAPPED_BY_DESIGN = "lines";   
 private static final String GENERATOR = "LineGen";
 
   @TableGenerator(name = GENERATOR, table = SEQUENCE, pkColumnName = KEY_VAL, valueColumnName = VALUE, pkColumnValue = TABLE_NAME, allocationSize = 1)
@@ -47,15 +50,30 @@ private static final String GENERATOR = "LineGen";
   @Column(name = FIELD_NAME,unique = false,  nullable = false)
   private String name;
 
-  @Column(name = FIELD_ACTIVE,unique = false,  nullable = false)
-  private boolean active;
+  @Column(name = FIELD_PLANT,unique = false,  nullable = false)
+  private Integer plant;
+
+  @Column(name = FIELD_GROUP,unique = false,  nullable = false)
+  private Integer group;
 
   Line() {
     // Required by Hibernate
   }
 
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = FK_LINETYPE, nullable = false, insertable = false, updatable = false)
+  private LineType lineType;
+
+  @EmbeddedId
+  @AttributeOverride(name = ID  , column = @Column(name = FK_LINETYPE, nullable = true))
+  private LineTypeId  idLineType;
+
+
   @OneToMany(mappedBy = MAPPED_BY_LINE, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-  private Set<TOT_Page> tOT_Pages;
+  private Set<LineBOMS> lineBOMSs;
+  
+@ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY, mappedBy =  MAPPED_BY_DESIGN)
+  private Set<Design> designs;
 
 
 
@@ -67,27 +85,42 @@ private static final String GENERATOR = "LineGen";
   public String getName() {
     return name;
   }
-  public boolean getActive() {
-    return active;
+  public Integer getPlant() {
+    return plant;
+  }
+  public Integer getGroup() {
+    return group;
   }
   public void setName(String name) {
     this.name = name;
   }
-  public void setActive(boolean active) {
-    this.active = active;
+  public void setPlant(Integer plant) {
+    this.plant = plant;
   }
-  public Set<TOT_Page> getTOT_Pages() {
-    if (tOT_Pages == null) {
-      return Collections.<TOT_Page>emptySet();
+  public void setGroup(Integer group) {
+    this.group = group;
+  }
+  public Set<LineBOMS> getLineBOMSs() {
+    if (lineBOMSs == null) {
+      return Collections.<LineBOMS>emptySet();
     }
-    return Collections.unmodifiableSet(tOT_Pages);
+    return Collections.unmodifiableSet(lineBOMSs);
   }
 
-  public void addTOT_Page(TOT_Page tOT_Page) {
-    if (tOT_Pages == null) {
-      this.tOT_Pages = new HashSet<>();
+  public void addLineBOMS(LineBOMS lineBOMS) {
+    if (lineBOMSs == null) {
+      this.lineBOMSs = new HashSet<>();
     }
-    this.tOT_Pages.add(tOT_Page);
+    this.lineBOMSs.add(lineBOMS);
+  }
+   public LineType getLineType() {
+    return lineType;
+  }
+  public LineTypeId getIdLineType() {
+    return idLineType;
+  }
+  public void setIdLineType(LineTypeId idLineType) {
+    this.idLineType = idLineType;
   }
 
 

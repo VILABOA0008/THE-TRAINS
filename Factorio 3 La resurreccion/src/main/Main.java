@@ -27,81 +27,37 @@ public class Main {
     ArrayList<String> arrayprimary = new ArrayList<>();// TODOS LOS IDS LOS QUE SON 2 SEPARADOS POR
                                                        // UN ESPACIO
     ArrayList<String> tablas = new ArrayList<>();// NOMBRE D ELAS TABLAS
-    Bdd.bdd(fields, foreign, arrayprimary, tablas, mtm, tipo);
-    System.err.println("sdad");
-    ConverToPojo.pojo(vars, tipos, fields, foreign, arrayprimary, tablas, fks, mtm, otm, mto, Mtm);
-    Scanner s = new Scanner(System.in);
+//    Bdd.bdd(fields, foreign, arrayprimary, tablas, mtm, tipo);
+//    System.err.println("sdad");
+//    ConverToPojo.pojo(vars, tipos, fields, foreign, arrayprimary, tablas, fks, mtm, otm, mto, Mtm);
 
-    /*
-     * int cd=0; while(1>cd) { System.out.println("escrbe" ); String a=s.nextLine();
-     * metodos.mayusq(a);
-     * 
-     * }
-     */
-
-    System.out.println("\n\n\nMAIN");
-    int c = 0;
-    // for(String i:arrayprimary) {
-    // c++;
-    // System.out.println(i+" "+c );
-    //
-    // }
-
-    for (int i = 1; i < tablas.size() + 1; i++) {
-      // poner tipo=3 para base entities
-      if (tipo.get(i) == 1) {
-        tipo.put(i, 3);
-        System.out.println("\n" + tablas.get(i - 1) + "            " + "   cosas  "
-            + arrayprimary.get(i - 1) + "");
-        String word;
-        System.out.println("vars antes   " + vars.get(i));
-        c = 0;
-        do {
-          word = null;
-          word = metodos.word(arrayprimary.get(i - 1), c + 1);
-          if (word != null) {
-            for (int j = 0; j < vars.get(i).size(); j++) {
-              word = metodos.despital(word);
-              System.out.println("here   " + vars.get(i).get(j) + "   " + word);
-              if (vars.get(i).get(j).equalsIgnoreCase(word)) {
-                vars.get(i).remove(j);
-                tipos.get(i).remove(j);
-              }
-            }
-          }
-          c++;
-        } while (word != null);
-        System.out.println("vars despues   " + vars.get(i));
-      }
-
-    }
-
-    // Si hay mas de una pk perooooo no es mtm
-    for (int i = 1; i < tablas.size(); i++) {
-      if (mtm.get(i) == true) {
-        System.out.println(tablas.get(i - 1));
-        if (Mtm.get(i) == null) {
-          tipo.put(i, 4);
-        }
-      }
-
-    }
+    
+    
     Map<Integer, String[]> MtmTest = new HashMap<>();
     Map<Integer, ArrayList<Integer>> mtoTest= new HashMap<>();
     Map<Integer, ArrayList<Integer>> otmTest = new HashMap<>();
-    Map<Integer, ArrayList<String>> varsTest = new HashMap<>();// nombre de las variables de los
-                                                               // fields
-    Map<Integer, ArrayList<String>> tiposTest = new HashMap<>();// tipo de las variables de los
-                                                                // fields
-    Map<Integer, Boolean> mtmTest = new HashMap<>();// SI LA TABLA ES MTM O NO
-    Map<Integer, ArrayList<String>> fksTest = new HashMap<>();// NOMBRE DE TODAS LAS FKS
-    ArrayList<String> tablasTest = new ArrayList<>();// NOMBRE D ELAS TABLAS
-    Leer leer = new Leer(tablasTest, fksTest, mtmTest, varsTest, tiposTest,otmTest,mtoTest,MtmTest);
+ // nombre de las variables de los fields
+    Map<Integer, ArrayList<String>> varsTest = new HashMap<>();
+    // tipo de las variables de los fields
+    Map<Integer, ArrayList<String>> tiposTest = new HashMap<>();
+ // SI LA TABLA ES MTM O NO
+    Map<Integer, Boolean> mtmTest = new HashMap<>();
+ // NOMBRE DE TODAS LAS FKS
+    Map<Integer, ArrayList<String>> fksTest = new HashMap<>();
+ // NOMBRE D ELAS TABLAS
+    ArrayList<String> tablasTest = new ArrayList<>();
+ // Tipos de tabla mtm base entity...
+    Map<Integer, Integer> tableType = new HashMap<>();
+    Leer leer = new Leer(tablasTest, fksTest, mtmTest, varsTest, tiposTest,otmTest,mtoTest,MtmTest,tableType);
     leer.start();
-    System.err.println(tablasTest.size());
-    tipo.put(0, 0);
-    AgregadoPLUSPLUS.test(varsTest, tiposTest, tablasTest, fksTest, mtmTest, mtoTest, otmTest, MtmTest, tipo);
+    AgregadoPLUSPLUS.test(varsTest, tiposTest, tablasTest, fksTest, mtmTest, mtoTest, otmTest, MtmTest, tableType);
 
+    
+    
+    
+    
+    
+    
     // TABLAS
     // [Line, TOT_Page, TOT_Button, TOT_DocType, TOT_Document, TOT_ButtonDoc, TOT_Style,
     // TOT_ButtonStyle, TOT_Configuration]

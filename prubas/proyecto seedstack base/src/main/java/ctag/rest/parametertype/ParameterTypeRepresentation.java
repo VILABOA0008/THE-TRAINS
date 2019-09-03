@@ -1,12 +1,8 @@
 package ctag.dtos.dto.parametertype;
 
 
-import ctag.domain.model.aggregate.modelospruebas.ParameterType;
-import org.seedstack.business.assembler.DtoOf; 
-import org.seedstack.business.assembler.FactoryArgument;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import org.hibernate.usertype.DynamicParameterizedType.ParameterType;
+import org.seedstack.business.assembler.DtoOf;
 
 @DtoOf(ParameterType.class)
 public class ParameterTypeRepresentation {

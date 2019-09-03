@@ -102,7 +102,7 @@ public class Bdd {
         a += ((char) i);
       }
   
-      System.err.println(a);
+//      System.err.println(a);
       return a;
     }
     return null;

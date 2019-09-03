@@ -1,12 +1,11 @@
 package ctag.dtos.dto.processvigilancewarning;
 
 
+import java.time.LocalDateTime;
+
+import org.seedstack.business.assembler.DtoOf;
+
 import ctag.domain.model.aggregate.modelospruebas.ProcessVigilanceWarning;
-import org.seedstack.business.assembler.DtoOf; 
-import org.seedstack.business.assembler.FactoryArgument;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 
 @DtoOf(ProcessVigilanceWarning.class)
 public class ProcessVigilanceWarningRepresentation {

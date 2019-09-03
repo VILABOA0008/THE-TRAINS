@@ -1,12 +1,7 @@
 package ctag.dtos.dto.account;
 
 
-import ctag.domain.model.aggregate.modelospruebas.Account;
-import org.seedstack.business.assembler.DtoOf; 
-import org.seedstack.business.assembler.FactoryArgument;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import org.seedstack.business.assembler.DtoOf;
 
 @DtoOf(Account.class)
 public class AccountRepresentation {

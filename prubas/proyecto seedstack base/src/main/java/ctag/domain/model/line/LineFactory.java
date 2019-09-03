@@ -4,7 +4,7 @@ import org.seedstack.business.domain.Factory;
 
 public interface LineFactory extends Factory<Line> {
   
- Line createLine(String name,boolean active);
+ Line createLine(String name,Integer plant,Integer group,Integer idLineType);
 
 
 }

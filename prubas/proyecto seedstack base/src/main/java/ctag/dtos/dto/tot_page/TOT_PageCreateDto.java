@@ -12,7 +12,6 @@ import io.swagger.annotations.ApiModelProperty;
 @ApiModel(value = " Tot_page ")
 public class Tot_pageCreateDto {
 
-private Integer line;
 private String name;
 private Integer order;
 private boolean active;
@@ -20,44 +19,35 @@ private Integer rows;
 private Integer idLine;
 
 
-  @JsonProperty(value = "line")
-  @ApiModelProperty(value = "line")
-  @FactoryArgument(index = 0)
-  public Integer getLine() {
-    return line;  }
-
   @JsonProperty(value = "name")
   @ApiModelProperty(value = "name")
-  @FactoryArgument(index = 1)
+  @FactoryArgument(index = 0)
   public String getName() {
     return name;  }
 
   @JsonProperty(value = "order")
   @ApiModelProperty(value = "order")
-  @FactoryArgument(index = 2)
+  @FactoryArgument(index = 1)
   public Integer getOrder() {
     return order;  }
 
   @JsonProperty(value = "active")
   @ApiModelProperty(value = "active")
-  @FactoryArgument(index = 3)
+  @FactoryArgument(index = 2)
   public boolean getActive() {
     return active;  }
 
   @JsonProperty(value = "rows")
   @ApiModelProperty(value = "rows")
-  @FactoryArgument(index = 4)
+  @FactoryArgument(index = 3)
   public Integer getRows() {
     return rows;  }
 
   @JsonProperty(value = "idLine")
   @ApiModelProperty(value = "idLine") 
-  @FactoryArgument(index = 5)
+  @FactoryArgument(index = 4)
   public Integer getIdLine() {
     return idLine;  }
-
-  public void setLine(Integer  line) {
-    this.line = line;  }
 
   public void setName(String  name) {
     this.name = name;  }

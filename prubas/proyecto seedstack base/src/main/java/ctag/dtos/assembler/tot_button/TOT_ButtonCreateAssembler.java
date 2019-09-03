@@ -5,7 +5,6 @@ public class Tot_buttonCreateAssembler extends BaseAssembler<Tot_button, Tot_but
 
   @Override
   public void mergeAggregateIntoDto(Tot_button sourceAggregate, Tot_buttonCreateDto targetDto) {
-targetDto.setPage(sourceAggregate.getPage());
 targetDto.setShortName(sourceAggregate.getShortName());
 targetDto.setOrder(sourceAggregate.getOrder());
 targetDto.setName(sourceAggregate.getName());
@@ -19,7 +18,6 @@ targetDto.setIdTOT_Page(sourceAggregate.getIdTOT_Page().getId());
 
   @Override
   public void mergeDtoIntoAggregate(Tot_buttonCreateDto sourceDto,Tot_button targetAggregate) {
-targetAggregate.setPage(sourceDto.getPage());
 targetAggregate.setShortName(sourceDto.getShortName());
 targetAggregate.setOrder(sourceDto.getOrder());
 targetAggregate.setName(sourceDto.getName());

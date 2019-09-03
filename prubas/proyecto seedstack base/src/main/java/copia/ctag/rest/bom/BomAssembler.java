@@ -1,6 +1,9 @@
   package ctag.dtos.assembler.bom;
 
 import org.seedstack.business.assembler.BaseAssembler;
+
+import ctag.domain.model.bom.Bom;
+import ctag.domain.model.design.DesignId;
 public class BomAssembler extends BaseAssembler<Bom, BomRepresentation> {
 
   @Override

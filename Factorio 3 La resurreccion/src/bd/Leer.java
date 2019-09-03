@@ -20,13 +20,15 @@ public class Leer {
   Map<Integer, ArrayList<String>> types;
   Map<Integer, ArrayList<Integer>> mto;
   Map<Integer, ArrayList<Integer>> otm;
-  Map<Integer, String[]> Mtm ;
+  Map<Integer, String[]> Mtm;
+  Map<Integer, Integer> tableType;
 
   // CONSTRUCTOR
   public Leer(ArrayList<String> tablas, Map<Integer, ArrayList<String>> fks,
       Map<Integer, Boolean> mtm, Map<Integer, ArrayList<String>> vars,
       Map<Integer, ArrayList<String>> types, Map<Integer, ArrayList<Integer>> otm,
-      Map<Integer, ArrayList<Integer>> mto,    Map<Integer, String[]> Mtm ) {
+      Map<Integer, ArrayList<Integer>> mto, Map<Integer, String[]> Mtm,
+      Map<Integer, Integer> tableType) {
     this.tablas = tablas;
     this.fks = fks;
     this.mtm = mtm;
@@ -34,7 +36,8 @@ public class Leer {
     this.types = types;
     this.otm = otm;
     this.mto = mto;
-    this.Mtm= Mtm;
+    this.Mtm = Mtm;
+    this.tableType = tableType;
 
   }
 
@@ -63,47 +66,44 @@ public class Leer {
     toVars.put("BINARY", "byte[]");
     toVars.put("DATE", "LocalDate");
     toVars.put("DECIMAL", "BigDecimal");
-    
-    for(int i=0;i<tablas.size();i++) {
-      ArrayList<String> vars=new ArrayList<>();
-      for(int j=0;j<types.get(i).size();j++) {
+    toVars.put("Hash", "Integer");
+    toVars.put("CHAR", "char");
+    toVars.put("BLOB", "Blob");
+
+    for (int i = 0; i < tablas.size(); i++) {
+      ArrayList<String> vars = new ArrayList<>();
+      for (int j = 0; j < types.get(i).size(); j++) {
         vars.add(toVars.get(types.get(i).get(j)));
- 
-      
-      }      
+
+      }
       types.put(i, vars);
     }
-    
 
-    
-    
   }
-    public void getFields() throws SQLException {
+
+  public void getFields() throws SQLException {
 
     int c = -1;
     for (String actualTable : tablas) {
       c++;
-      System.err.println("\n\n");
       ArrayList<String> dataVars = new ArrayList<>();
       ArrayList<String> dataTypes = new ArrayList<>();
       ResultSet columns = databaseMetaData.getColumns(null, null, actualTable, null);
       while (columns.next()) {
-        String columnName = columns.getString("COLUMN_NAME");
+        String column = columns.getString("COLUMN_NAME");
+        String formatedColumn = columns.getString("COLUMN_NAME");
         String datatype = columns.getString("TYPE_NAME");
-        if(columnName.contains("FK")) {
-          columnName=columnName.replace("FK_", "");
+        if (formatedColumn.contains("FK")) {
+          formatedColumn = formatedColumn.replace("FK_", "");
         }
-        columnName=metodos.despital(columnName);
+        formatedColumn = metodos.despital(formatedColumn);
         if (!mtm.get(c)
-            && (fks.get(c) == null || (fks.get(c) != null && !fks.get(c).contains(columnName)))) {
-          dataVars.add(columnName);
+            && (fks.get(c) == null || (fks.get(c) != null && !fks.get(c).contains(column)))) {
+          dataVars.add(formatedColumn);
           dataTypes.add(datatype);
-
-          System.err.println(columnName + "  " + dataTypes.size() + "   ");
 
         }
       }
-      System.err.println(vars.size());
       vars.put(c, dataVars);
       types.put(c, dataTypes);
     }
@@ -111,50 +111,73 @@ public class Leer {
 
   // Por ahora si tiene más de un Pk La voy a poner aquí
   public void getMTM() throws SQLException {
-
+    int tipo = 0;
     int c = -1;
     for (String actualTable : tablas) {
+      int cc = -1;
       c++;
       ResultSet pkFind = databaseMetaData.getPrimaryKeys(null, null, actualTable);
+      ResultSet pfkcolumns = databaseMetaData.getColumns(null, null, actualTable, null);
+      pfkcolumns.last();
       pkFind.last();
       if (pkFind.getRow() > 1) {
-        String[]manyToMany=new String[4];
-        // TODO MTM
+        String[] manyToMany = new String[4];
         ResultSet fkFind = databaseMetaData.getImportedKeys(null, null, actualTable);
-//        ArrayList<String> var = new ArrayList<>();
-//        ArrayList<Integer> oneToMany = new ArrayList<>();
-//        ArrayList<Integer> manyToOne;
+        fkFind.last();
+        pkFind.last();
+        System.err.println("fks  " + fkFind.getRow() + "     pks  " + pkFind.getRow()
+            + "     total  " + pfkcolumns.getRow());
+
+        if (pfkcolumns.getRow() == fkFind.getRow()) {
+          System.err.println(actualTable + "asq");
+          tipo = 1;
+        } else {
+          tipo = 3;
+        }
+        fkFind.beforeFirst();
+        pkFind.first();
+
         while (fkFind.next()) {
-//          var.add(fkFind.getString("FKCOLUMN_NAME"));
-          // oneToMany.add(e)
-          System.out.println(
-              actualTable+"tttt   "+
-              fkFind.getString("PKTABLE_NAME") + "---" + fkFind.getString("PKCOLUMN_NAME") + "==="
-                  + fkFind.getString("FKTABLE_NAME") + "---" + fkFind.getString("FKCOLUMN_NAME"));
-          
-          for (int i= 0; i < tablas.size(); i++) {
+          cc++;
+          if (actualTable.equalsIgnoreCase("CataloguedEvent")) {
+              System.err.println("");
+          }
+          // TODO MAS DE UNA PK
+          if (cc == 4) {
+            break;
+          }
+          for (int i = 0; i < tablas.size(); i++) {
             if (tablas.get(i).equalsIgnoreCase(fkFind.getString("PKTABLE_NAME"))) {
-              if(manyToMany[1]==null) {
-             manyToMany[1]=String.valueOf(i);   manyToMany[0]=fkFind.getString("FKCOLUMN_NAME");
-             }else {
-               manyToMany[3]=String.valueOf(i); manyToMany[2]=fkFind.getString("FKCOLUMN_NAME");
-             }
+              manyToMany[cc] = fkFind.getString("FKCOLUMN_NAME");
+              manyToMany[cc + 1] = String.valueOf(i);
+              cc++;
               break;
-            
+
+            }
           }
         }
+        if (tipo == 1) {
+          // MTM
+          tableType.put(c, 1);
+          mtm.put(c, true);
+          Mtm.put(c, manyToMany);
+          System.err.println(Mtm.get(c));
+        } else {
+          // TODO BASE ENTITIEES (2Pk, 2Fk +Fields  )
+          //Factory
+          tableType.put(c, 4);
+          mtm.put(c, false);
         }
-        mtm.put(c, true);
-        Mtm.put(c, manyToMany);
 
+        // NORMAL TABLES
       } else {
+        tableType.put(c, 0);
         mtm.put(c, false);
       }
     }
   }
 
   public void getFKs() throws SQLException {
-    System.err.println(tablas + "\n\n");
     int c = -1;
     for (String actualTable : tablas) {
       c++;
@@ -163,23 +186,23 @@ public class Leer {
         ArrayList<String> var = new ArrayList<>();
         ArrayList<Integer> oneToMany = new ArrayList<>();
         ArrayList<Integer> manyToOne;
-        int i=-3;
+        int i = -3;
         while (fkFind.next()) {
           var.add(fkFind.getString("FKCOLUMN_NAME"));
           // oneToMany.add(e)
-          for (i= 0; i < tablas.size(); i++) {
+          for (i = 0; i < tablas.size(); i++) {
             if (tablas.get(i).equalsIgnoreCase(fkFind.getString("PKTABLE_NAME"))) {
-              oneToMany.add(i);break;
+              oneToMany.add(i);
+              break;
             }
           }
         }
-System.err.println(c+"   "+i);
         if (!var.isEmpty()) {
           fks.put(c, var);
           otm.put(c, oneToMany);
           manyToOne = mto.get(i);
-          if(manyToOne==null) {
-            manyToOne=new ArrayList<>();
+          if (manyToOne == null) {
+            manyToOne = new ArrayList<>();
           }
           manyToOne.add(c);
           mto.put(i, manyToOne);
@@ -191,7 +214,8 @@ System.err.println(c+"   "+i);
   public Connection connect() throws SQLException {
 
     Connection con = null;
-    String url = "jdbc:mysql://localhost:3306/totem";
+    // String url = "jdbc:mysql://localhost:3306/totem";
+    String url = "jdbc:mysql://localhost:3306/IEC_IND";
     String user = "root";
     String password = "";
 
