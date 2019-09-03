@@ -17,7 +17,6 @@ a+=Agregadospeques.importsId();
         "public class " + id + " extends BaseValueObject {\n" +
         "\n" +
         "\n" +
-        "  private static final long serialVersionUID = 1;\n" +
         "  private Integer id;\n" +
         "\n" +
         "  public " + id + "() {\n" +

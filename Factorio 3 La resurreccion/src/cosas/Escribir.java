@@ -19,7 +19,7 @@ public class Escribir {
         aWriter.write(texto);   
         aWriter.flush();      
         aWriter.close();
-        System.out.println("bien" ); 
+//        System.out.println("bien" ); 
         }
       catch(IOException e){      
        System.out.println("Ruta Erronea Cambiela Plis.");

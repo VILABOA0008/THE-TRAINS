@@ -30,9 +30,8 @@ public class Main {
   
 //  leer.leer();
 //  System.exit(1);
-    Bdd.bdd(fields,foreign,arrayprimary,tablas,mtm,tipo);
-    System.err.println("sdad");
-    ConverToPojo.pojo(vars,tipos,fields, foreign, arrayprimary,tablas,fks,mtm,otm,mto,Mtm);
+//    Bdd.bdd(fields,foreign,arrayprimary,tablas,mtm,tipo);
+//    ConverToPojo.pojo(vars,tipos,fields, foreign, arrayprimary,tablas,fks,mtm,otm,mto,Mtm);
     Scanner s=new Scanner(System.in);
 /*   int cd=0;
     while(1>cd) {

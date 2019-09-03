@@ -44,11 +44,7 @@ Scanner s=new Scanner(System.in)  ;
 
     
     for(int i=1;i<mtm.size();i++) {
-      if(mtm.get(i)==false||tipo.get(i)==4) {
-        if(tipo.get(i)==4) {
-          System.out.println("hooalsdsadsad" ); 
-          
-        }
+      if(!mtm.get(i)) {
         ArrayList<String> mtmVar = new ArrayList<>();
         // MANY TO MANY
         ArrayList<String> mtmappedVar = new ArrayList<>();
@@ -75,19 +71,15 @@ Scanner s=new Scanner(System.in)  ;
     ag += Agregadospeques.finalTable(tabla);
 
     ag += Agregadospeques.ID();
-      if(tipo.get(c)!=3||tipo.get(c)!=4) {
-    ag+=Agregadospeques.tableStatic();}
 
     ag += Agregadospeques.finalId(agg);
     
     //eliminar id field
-    if(tipo.get(c)!=4) {
-ArrayList<String>a=vars.get(c);
-ArrayList<String>aa=tipos.get(c);
-a.remove(0);aa.remove(0);
-System.out.println(a+"   compartative{");
-vars.put(c, a);
-tipos.put(c, aa);}
+ArrayList<String>variables=vars.get(c);
+ArrayList<String>types=tipos.get(c);
+variables.remove(0);types.remove(0);
+vars.put(c, variables);
+tipos.put(c, types);
 
     ag += AgregadoMetodosPLUS_PLUS_PLUS.Fields(tipos.get(c), fieldsFinal, vars.get(c));
     if (fks.get(c) != null) {
@@ -115,7 +107,6 @@ tipos.put(c, aa);}
     ag += Agregadospeques.finalGenerator(agg);
     ag += AgregadosGrandes.tableGenerator(agg);
     }
-    System.out.println("\n\n \n\n\n");
     String url="C:\\Users\\pabcos\\Documents\\trains\\prubas\\proyecto seedstack base\\src\\main\\java\\ctag\\";
     ag += AgregadoMetodosPLUS_PLUS_PLUS.VariablesBasicas(fieldsFinal, tipos.get(c), vars.get(c));
     ag += Agregadospeques.constructorEmpty(agg);
@@ -136,7 +127,6 @@ tipos.put(c, aa);}
        ag += Agregadospeques.manyToManyMappedBy(agg, mtmappedVar);
 
     ag += "\n\n\n";
-System.err.println(tipo.get(c)+tabla);
     if(tipo.get(c)!=3) {
       
     ag += Agregadospeques.getId(agg);}

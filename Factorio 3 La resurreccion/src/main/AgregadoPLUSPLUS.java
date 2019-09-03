@@ -47,7 +47,6 @@ public class AgregadoPLUSPLUS {
     for (int i = 0; i < mtm.size(); i++) {
       if (mtm.get(i) == false || tipo.get(i) == 4) {
         if (tipo.get(i) == 4) {
-          System.out.println("hooalsdsadsad");
 
         }
         ArrayList<String> mtmVar = new ArrayList<>();
@@ -75,23 +74,17 @@ public class AgregadoPLUSPLUS {
         ag += Agregadospeques.finalTable(tabla);
 
         ag += Agregadospeques.ID();
-        if (tipo.get(c) != 3 || tipo.get(c) != 4) {
-          ag += Agregadospeques.tableStatic();
-        }
-
+          ag += Agregadospeques.tableStatic();//TODO SE PUEDE ELIMINAR
         ag += Agregadospeques.finalId(agg);
 
         // eliminar id field
-        if (tipo.get(c) != 4) {
-          ArrayList<String> a = vars.get(c);
-          ArrayList<String> aa = tipos.get(c);
-          System.err.println(tabla);
-          a.remove(0);
-          aa.remove(0);
-          System.out.println(a + "   compartative{");
-          vars.put(c, a);
-          tipos.put(c, aa);
-        }
+          ArrayList<String> varss = vars.get(c);
+          ArrayList<String> tiposs = tipos.get(c);
+          varss.remove(0);
+          tiposs.remove(0);
+          vars.put(c, varss);
+          tipos.put(c, tiposs);
+        
 
         ag += AgregadoMetodosPLUS_PLUS_PLUS.Fields(tipos.get(c), fieldsFinal, vars.get(c));
         if (fks.get(c) != null) {
@@ -113,23 +106,16 @@ public class AgregadoPLUSPLUS {
               aggs);
 
         }
-
-        if (tipo.get(c) != 3) {
+          if(tipo.get(c)!=3) {
           ag += Agregadospeques.finalGenerator(agg);
           ag += AgregadosGrandes.tableGenerator(agg);
-        }
-        System.out.println("\n\n \n\n\n");
+          }
         String url = "C:\\Users\\pabcos\\Documents\\trains\\prubas\\proyecto seedstack base\\src\\main\\java\\ctag\\";
         ag += AgregadoMetodosPLUS_PLUS_PLUS.VariablesBasicas(fieldsFinal, tipos.get(c),
             vars.get(c));
         ag += Agregadospeques.constructorEmpty(agg);
         if (fks.get(c) != null) {
-          if (tipo.get(c) != 3) {
-            ag += AgregadoMetodosPLUS_PLUS_PLUS.ManyToOne(fks.get(c), fkmoVarFinal);
-          } else {
-            System.out.println(tabla + "   ta");
-
-          }
+            ag += AgregadoMetodosPLUS_PLUS_PLUS.ManyToOne(fks.get(c), fkmoVarFinal,tipo.get(c));
         }
 
         if (!mapedByV.isEmpty()) {
@@ -144,7 +130,10 @@ public class AgregadoPLUSPLUS {
 
         if (tipo.get(c) != 3) {
           ag += Agregadospeques.getId(agg);
+        }else {
+        ag += Agregadospeques.getIdBaseEntity(agg,fks.get(c));
         }
+        
         ag += Agregadospeques.getBasics(tipos.get(c), vars.get(c));
         ag += Agregadospeques.setBasics(tipos.get(c), vars.get(c));
         ag += AgregadosGrandes.setAddSets(mapedByV);
@@ -153,7 +142,7 @@ public class AgregadoPLUSPLUS {
         ag += Agregadospeques.acabalo();
 
         agg = metodos.Capital(agg);
-        System.out.println(new File(url + "domain\\model\\" + agg.toLowerCase()).mkdir());
+//        System.out.println(new File(url + "domain\\model\\" + agg.toLowerCase()).mkdir());
         Escribir.escribir(
             url + "domain\\model\\" + agg + "\\"
                 + agg
@@ -165,12 +154,21 @@ public class AgregadoPLUSPLUS {
                   + agg
                   + "Id.java",
               AgregadoId.id(agg));
+        }else {
+          Escribir.escribir(
+              url + "domain\\model\\" + agg + "\\"
+                  + agg
+                  + "Id.java",
+              AgregadoId.BaseEntityId(agg,mto.get(c)));
+            System.err.println(tabla+"\n");
+          
+          
         }
 
         if (readOnly.get(c) == false) {
           // DTOS
 
-          System.out.println(new File(url + "dtos\\dto\\" + agg.toLowerCase()).mkdir());
+//          System.out.println(new File(url + "dtos\\dto\\" + agg.toLowerCase()).mkdir());
           Escribir.escribir(
               url + "dtos\\dto\\" + agg + "\\"
                   + agg
@@ -182,7 +180,7 @@ public class AgregadoPLUSPLUS {
                   + "Dto.java",
               Dto.Dto(agg));
           // ASSEMBLERS
-          System.out.println(new File(url + "dtos\\assembler\\" + agg.toLowerCase()).mkdir());
+//          System.out.println(new File(url + "dtos\\assembler\\" + agg.toLowerCase()).mkdir());
           Escribir.escribir(
               url + "dtos\\assembler\\" + agg + "\\"
                   + agg
@@ -194,8 +192,8 @@ public class AgregadoPLUSPLUS {
                   + "Assembler.java",
               Assembler.Assembler(agg));
           // FACTORY
-          System.out
-              .println(new File(url + "application\\factoryimpl\\" + agg.toLowerCase()).mkdir());
+//          System.out
+//              .println(new File(url + "application\\factoryimpl\\" + agg.toLowerCase()).mkdir());
           Escribir.escribir(
               url + "domain\\model\\" + agg + "\\"
                   + agg
@@ -207,7 +205,6 @@ public class AgregadoPLUSPLUS {
                   + "FactoryImpl.java",
               Factory.factoryImpl(agg, tipos.get(c), vars.get(c), fks.get(c), importagg));
         }
-        System.out.println(c + "    iiii");
       }
 
     }

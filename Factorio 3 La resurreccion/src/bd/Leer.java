@@ -126,7 +126,6 @@ public class Leer {
         pkFind.last();
 
         if (pfkcolumns.getRow() == fkFind.getRow()) {
-          System.err.println(actualTable + "asq");
           tipo = 1;
         } else {
           tipo = 3;
@@ -137,7 +136,6 @@ public class Leer {
         while (fkFind.next()) {
           cc++;
           if (actualTable.equalsIgnoreCase("ControlPlanVersion")) {
-              System.err.print("");
           }
           // TODO MAS DE UNA PK
           if (cc == 4) {
@@ -158,11 +156,11 @@ public class Leer {
           tableType.put(c, 1);
           mtm.put(c, true);
           Mtm.put(c, manyToMany);
-          System.err.println(Mtm.get(c));
         } else {
           // TODO BASE ENTITIEES (2Pk, 2Fk +Fields  )
           //Factory
-          tableType.put(c, 4);
+          System.err.println(actualTable+"    tablas");
+          tableType.put(c, 3);
           mtm.put(c, false);
         }
 
@@ -190,6 +188,12 @@ public class Leer {
           if (fk.contains("FK")) {
             fk = fk.replace("FK_", "");
           }
+          
+          if(tableType.get(c)==3&&(fk.contains("id")||fk.contains("Id"))) {
+              System.err.println("dsdsddfk"+actualTable+"   "+fk);
+              fk = fk.replace("id", "");fk = fk.replace("Id", "");
+          }
+          
           var.add(fk);
           
           // oneToMany.add(e)

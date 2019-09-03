@@ -69,12 +69,12 @@ a += "\n  @ManyToOne(fetch = FetchType.LAZY)\n" +
     
     
   }
-  public static String ManyToOne(ArrayList<String> fks, ArrayList<String> fkmoVarFinal) {
+  public static String ManyToOne(ArrayList<String> fks, ArrayList<String> fkmoVarFinal,int tipo) {
 
     String a = "";
 
     for (int i = 0; i < fks.size(); i++) {
-      a += AgregadosGrandes.manyToOne(fks.get(i),fks.get(i).toUpperCase(), fkmoVarFinal.get(i));
+      a += AgregadosGrandes.manyToOne(fks.get(i),fks.get(i).toUpperCase(), fkmoVarFinal.get(i),tipo);
     }
     return a;
   }

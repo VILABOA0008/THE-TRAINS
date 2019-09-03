@@ -1,10 +1,54 @@
 package main;
 
+
+import java.util.ArrayList;
+
 import textos.Agregadospeques;
 
 public class AgregadoId {
 
-  public static String id(String agg) {
+  public static String BaseEntityId(String agg,ArrayList<Integer>aggs) {
+
+    System.err.println(aggs+"  xq");
+
+    String id = metodos.Capital(agg) + "Id";
+
+    String a=Agregadospeques.paqueteAgg(agg);
+
+    
+a+=Agregadospeques.importsId();
+    
+    a=     a +="@Embeddable\n" +
+        "public class " + id + " extends BaseValueObject {\n" +
+        "\n" +
+        "\n" +
+        "  private static final long serialVersionUID = 1;\n" +
+        "  private Integer parameterId;\n" + 
+        "  private Integer lineTypeId;\n" + 
+        "\n" + 
+        "  public LineTypeParameterId() {\n" + 
+        "  }\n" + 
+        "\n" + 
+        "  public "+id+"(Integer idParameter, Integer idLineType) {\n" + 
+        "    this.parameterId = idParameter;\n" + 
+        "    this.lineTypeId = idLineType;\n" + 
+        "  }\n" + 
+        "\n" + 
+        "  public LineTypeId getLineTypeId() {\n" + 
+        "    return new LineTypeId(lineTypeId);\n" + 
+        "  }\n" + 
+        "\n" + 
+        "  public ParameterId getParameterId() {\n" + 
+        "    return new ParameterId(parameterId);\n" + 
+        "  }\n" + 
+        "\n" + 
+        "}";
+    
+    return a;
+    
+  }
+    
+    public static String id(String agg) {
 
     String id = metodos.Capital(agg) + "Id";
 

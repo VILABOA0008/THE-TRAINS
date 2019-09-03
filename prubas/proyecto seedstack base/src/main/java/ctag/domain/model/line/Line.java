@@ -67,7 +67,7 @@ private static final String GENERATOR = "LineGen";
 
   @EmbeddedId
   @AttributeOverride(name = ID  , column = @Column(name = LINETYPE, nullable = true))
-  private LineTypeId  idLineType;
+  private LineTypeId  lineTypeId;
 
 
   @OneToMany(mappedBy = MAPPED_BY_LINE, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
@@ -122,10 +122,10 @@ private static final String GENERATOR = "LineGen";
     return lineType;
   }
   public LineTypeId getIdLineType() {
-    return idLineType;
+    return lineTypeId;
   }
-  public void setIdLineType(LineTypeId idLineType) {
-    this.idLineType = idLineType;
+  public void setIdLineType(LineTypeId lineTypeId) {
+    this.lineTypeId = lineTypeId;
   }
 
 
