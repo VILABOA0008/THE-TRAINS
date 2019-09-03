@@ -3,7 +3,7 @@ package ctag.dtos.dto.declarationtype;
 
 import org.seedstack.business.assembler.DtoOf;
 
-import ctag.domain.model.aggregate.modelospruebas.DeclarationType;
+import ctag.domain.model.declarationtype.DeclarationType;
 
 @DtoOf(DeclarationType.class)
 public class DeclarationTypeRepresentation {

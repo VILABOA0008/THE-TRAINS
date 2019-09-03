@@ -7,7 +7,7 @@ import textos.Agregadospeques;
 public class Factory {
 
   public static String factory(String agg, ArrayList<String> fieldsType,
-      ArrayList<String> fieldsVar, ArrayList<String> fkmoVarFinal) {
+      ArrayList<String> fieldsVar, ArrayList<String> fks) {
     String a="";
     agg = metodos.Capital(agg);
     
@@ -20,11 +20,11 @@ public class Factory {
       }
       b += fieldsType.get(i) + " " + fieldsVar.get(i);
     }
-
-    for (int i = 0; i < fkmoVarFinal.size(); i++) {
+      if(fks!=null) {
+    for (int i = 0; i < fks.size(); i++) {
       b += ",";
-      b += "Integer" + " id" + metodos.Capital(fkmoVarFinal.get(i));
-    }
+      b += "Integer" + " id" + metodos.Capital(fks.get(i));
+    }}
 
     a += "import org.seedstack.business.domain.Factory;\n" +
         "\n" +
@@ -40,7 +40,7 @@ public class Factory {
   }
 
   public static String factoryImpl(String agg, ArrayList<String> fieldsType,
-      ArrayList<String> fieldsVar, ArrayList<String> fkmoVarFinal,String importagg) {
+      ArrayList<String> fieldsVar, ArrayList<String> fks,String importagg) {
 
     agg = metodos.Capital(agg);
     String a="";
@@ -54,24 +54,24 @@ public class Factory {
       }
       b += fieldsType.get(i) + " " + fieldsVar.get(i);
     }
-
-    for (int i = 0; i < fkmoVarFinal.size(); i++) {
+    if(fks!=null) {
+    for (int i = 0; i < fks.size(); i++) {
       b += ",";
-      b += "Integer" + " id" + metodos.Capital(fkmoVarFinal.get(i));
-    }
+      b += "Integer" + " id" + metodos.Capital(fks.get(i));
+    }}
 
     for (int i = 0; i < fieldsType.size(); i++) {
 
       c += "\n  tmp" + agg + ".set" + metodos.Capital(fieldsVar.get(i)) + "(" + fieldsVar.get(i)
           + ");";
     }
+    if(fks!=null) {
+    for (int i = 0; i < fks.size(); i++) {
 
-    for (int i = 0; i < fkmoVarFinal.size(); i++) {
-
-      c += "\n  tmp" + agg + ".setId"+ metodos.Capital(fkmoVarFinal.get(i)) +"(new "
-          + metodos.Capital(fkmoVarFinal.get(i)) + "Id(id"
-          + metodos.Capital(fkmoVarFinal.get(i)) + "));";
-    }
+      c += "\n  tmp" + agg + ".setId"+ metodos.Capital(fks.get(i)) +"(new "
+          + metodos.Capital(fks.get(i)) + "Id(id"
+          + metodos.Capital(fks.get(i)) + "));";
+    }}
 
      a += "\n" +
         "import org.seedstack.business.domain.BaseFactory; \n" +

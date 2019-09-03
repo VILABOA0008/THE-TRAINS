@@ -3,7 +3,7 @@ package ctag.dtos.dto.launchdeclarations;
 
 import org.seedstack.business.assembler.DtoOf;
 
-import ctag.domain.model.aggregate.modelospruebas.LaunchDeclarations;
+import ctag.domain.model.launchdeclarations.LaunchDeclarations;
 
 @DtoOf(LaunchDeclarations.class)
 public class LaunchDeclarationsRepresentation {

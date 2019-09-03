@@ -1,6 +1,8 @@
   package ctag.dtos.assembler.psashift;
 
 import org.seedstack.business.assembler.BaseAssembler;
+
+import ctag.domain.model.psashift.PsaShift;
 public class PsaShiftAssembler extends BaseAssembler<PsaShift, PsaShiftRepresentation> {
 
   @Override

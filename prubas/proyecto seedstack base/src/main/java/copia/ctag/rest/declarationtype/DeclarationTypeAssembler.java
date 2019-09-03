@@ -1,6 +1,8 @@
   package ctag.dtos.assembler.declarationtype;
 
 import org.seedstack.business.assembler.BaseAssembler;
+
+import ctag.domain.model.declarationtype.DeclarationType;
 public class DeclarationTypeAssembler extends BaseAssembler<DeclarationType, DeclarationTypeRepresentation> {
 
   @Override

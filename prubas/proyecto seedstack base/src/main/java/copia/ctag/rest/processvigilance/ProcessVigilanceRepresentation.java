@@ -3,7 +3,7 @@ package ctag.dtos.dto.processvigilance;
 
 import org.seedstack.business.assembler.DtoOf;
 
-import ctag.domain.model.aggregate.modelospruebas.ProcessVigilance;
+import ctag.domain.model.processvigilance.ProcessVigilance;
 
 @DtoOf(ProcessVigilance.class)
 public class ProcessVigilanceRepresentation {

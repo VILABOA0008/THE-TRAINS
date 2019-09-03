@@ -1,6 +1,10 @@
   package ctag.dtos.assembler.launchmodifiedparameter;
 
 import org.seedstack.business.assembler.BaseAssembler;
+
+import ctag.domain.model.launchmodifiedparameter.LaunchModifiedParameter;
+import ctag.domain.model.processlaunch.ProcessLaunchId;
+import ctag.domain.model.processvigilanceversionparameter.ProcessVigilanceVersionParameterId;
 public class LaunchModifiedParameterAssembler extends BaseAssembler<LaunchModifiedParameter, LaunchModifiedParameterRepresentation> {
 
   @Override

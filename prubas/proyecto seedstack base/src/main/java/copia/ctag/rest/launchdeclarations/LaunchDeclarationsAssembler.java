@@ -1,6 +1,9 @@
   package ctag.dtos.assembler.launchdeclarations;
 
 import org.seedstack.business.assembler.BaseAssembler;
+
+import ctag.domain.model.declarationtype.DeclarationTypeId;
+import ctag.domain.model.launchdeclarations.LaunchDeclarations;
 public class LaunchDeclarationsAssembler extends BaseAssembler<LaunchDeclarations, LaunchDeclarationsRepresentation> {
 
   @Override

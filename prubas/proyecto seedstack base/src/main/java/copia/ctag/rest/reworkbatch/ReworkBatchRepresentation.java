@@ -5,7 +5,7 @@ import java.time.LocalDate;
 
 import org.seedstack.business.assembler.DtoOf;
 
-import ctag.domain.model.aggregate.modelospruebas.ReworkBatch;
+import ctag.domain.model.reworkbatch.ReworkBatch;
 
 @DtoOf(ReworkBatch.class)
 public class ReworkBatchRepresentation {

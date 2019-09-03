@@ -7,13 +7,12 @@ import textos.Agregadospeques;
 public class Dto {
 
   public static String createDto(String agg, ArrayList<String> fieldsType,
-      ArrayList<String> fieldsVar, ArrayList<String> fkmoVarFinal) {
+      ArrayList<String> fieldsVar, ArrayList<String> fks) {
     String a = "";
     agg = metodos.Capital(agg);
-    
-    a+=Agregadospeques.DtoPackage(agg);    
-    a+=Agregadospeques.CreateDtoImport(agg);
-    
+
+    a += Agregadospeques.DtoPackage(agg);
+    a += Agregadospeques.CreateDtoImport(agg);
 
     a += "\n@DtoOf(" + agg + ".class)\n" +
         "@ApiModel(value = \" " + agg + " \")\n" +
@@ -22,8 +21,10 @@ public class Dto {
     for (int i = 0; i < fieldsType.size(); i++) {
       a += "private " + fieldsType.get(i) + " " + fieldsVar.get(i) + ";\n";
     }
-    for (int i = 0; i < fkmoVarFinal.size(); i++) {
-      a += "private Integer" + " id" + metodos.Capital(fkmoVarFinal.get(i) + ";\n");
+    if (fks != null) {
+      for (int i = 0; i < fks.size(); i++) {
+        a += "private Integer" + " id" + metodos.Capital(fks.get(i) + ";\n");
+      }
     }
 
     a += "\n\n";
@@ -36,16 +37,17 @@ public class Dto {
           "    return " + fieldsVar.get(i) + ";" +
           "  }\n\n";
     }
-    for (int i = 0; i < fkmoVarFinal.size(); i++) {
-
-      String cap = metodos.Capital(fkmoVarFinal.get(i));
+    
+    if (fks != null) {
+    for (int i = 0; i < fks.size(); i++) {
+      String cap = metodos.Capital(fks.get(i));
       a += "  @JsonProperty(value = \"id" + cap + "\")\n" +
           "  @ApiModelProperty(value = \"id" + cap + "\") \n"
           + "  @FactoryArgument(index = " + (fieldsType.size() + i) + ")\n" +
           "  public Integer getId" + cap + "() {\n" +
           "    return id" + cap + ";" +
           "  }\n\n";
-    }
+    }}
 
     for (int i = 0; i < fieldsType.size(); i++) {
       a += "  public void set" + metodos.Capital(fieldsVar.get(i)) + "(" + fieldsType.get(i) + "  "
@@ -53,26 +55,27 @@ public class Dto {
           "    this." + fieldsVar.get(i) + " = " + fieldsVar.get(i) + ";" +
           "  }\n\n";
     }
-    for (int i = 0; i < fkmoVarFinal.size(); i++) {
-      String cap = metodos.Capital(fkmoVarFinal.get(i));
+    
+    if (fks != null) {
+    for (int i = 0; i < fks.size(); i++) {
+      String cap = metodos.Capital(fks.get(i));
       a += "  public void setId" + metodos.Capital(cap) + "(Integer  id" + cap + ") {\n" +
           "    this.id" + cap + " = id" + cap + ";" +
           "  }\n\n";
-    }
+    }}
     a += "\n}";
 
     return a;
   }
 
   public static String Dto(String agg) {
-    String a="";
+    String a = "";
     agg = metodos.Capital(agg);
 
-    a+=Agregadospeques.DtoPackage(agg);
-    a+=Agregadospeques.DtoImport();
+    a += Agregadospeques.DtoPackage(agg);
+    a += Agregadospeques.DtoImport();
 
-    
-    a += "\n\n@ApiModel(value = \" "+agg+"  \")"+
+    a += "\n\n@ApiModel(value = \" " + agg + "  \")" +
         "public class " + agg + "Dto extends " + agg + "CreateDto {\n" +
         "\n" +
         "  private Integer id" + agg + ";\n" +

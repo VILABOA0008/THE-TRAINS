@@ -3,7 +3,7 @@ package ctag.dtos.dto.partstate;
 
 import org.seedstack.business.assembler.DtoOf;
 
-import ctag.domain.model.aggregate.modelospruebas.PartState;
+import ctag.domain.model.partstate.PartState;
 
 @DtoOf(PartState.class)
 public class PartStateRepresentation {

@@ -36,7 +36,7 @@ private static final String ID_LINE = " idLine ";
 private static final String FIELD_NAME = "Name";
 private static final String FIELD_PLANT = "Plant";
 private static final String FIELD_GROUP = "Group";   
-public static final String FK_LINETYPE = "FK_LineType";   
+public static final String LINETYPE = "LineType";   
 private static final String MAPPED_BY_LINE = "line";   
 private static final String TABLE_LINE_DESIGN = "LineDesign";   
 private static final String ID_DESIGN = "IdDesign";   
@@ -62,12 +62,12 @@ private static final String GENERATOR = "LineGen";
   }
 
   @ManyToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = FK_LINETYPE, nullable = false, insertable = false, updatable = false)
-  private LineType fK_LineType;
+  @JoinColumn(name = LINETYPE, nullable = false, insertable = false, updatable = false)
+  private LineType lineType;
 
   @EmbeddedId
-  @AttributeOverride(name = ID  , column = @Column(name = FK_LINETYPE, nullable = true))
-  private LineTypeId  idFK_LineType;
+  @AttributeOverride(name = ID  , column = @Column(name = LINETYPE, nullable = true))
+  private LineTypeId  idLineType;
 
 
   @OneToMany(mappedBy = MAPPED_BY_LINE, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
@@ -118,14 +118,14 @@ private static final String GENERATOR = "LineGen";
     }
     this.lineBOMSs.add(lineBOMS);
   }
-   public LineType getFK_LineType() {
-    return fK_LineType;
+   public LineType getLineType() {
+    return lineType;
   }
-  public LineTypeId getIdFK_LineType() {
-    return idFK_LineType;
+  public LineTypeId getIdLineType() {
+    return idLineType;
   }
-  public void setIdFK_LineType(LineTypeId idFK_LineType) {
-    this.idFK_LineType = idFK_LineType;
+  public void setIdLineType(LineTypeId idLineType) {
+    this.idLineType = idLineType;
   }
 
 

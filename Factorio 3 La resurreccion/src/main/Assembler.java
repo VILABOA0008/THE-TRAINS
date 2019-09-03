@@ -10,7 +10,7 @@ public class Assembler {
       String agg,
       ArrayList<String> fieldsType,
       ArrayList<String> fieldsVar,
-      ArrayList<String> fkmoVarFinal) {
+      ArrayList<String> fks,ArrayList<String> fkmo) {
     String a = "";
     String b = "", c = "";
     agg = metodos.Capital(agg);
@@ -23,20 +23,24 @@ public class Assembler {
 
       b += "targetDto.set" + f + "(sourceAggregate.get" + f + "());\n";
     }
-    for (int i = 0; i < fkmoVarFinal.size(); i++) {
-      String f = metodos.Capital(fkmoVarFinal.get(i));
+    if(fks!=null) {
+    for (int i = 0; i < fks.size(); i++) {
+      String f = metodos.Capital(fks.get(i));
       b += "targetDto.setId" + f + "(sourceAggregate.getId" + f + "().getId());\n";
-    }
+    }}
 
     for (int i = 0; i < fieldsType.size(); i++) {
       String f = metodos.Capital(fieldsVar.get(i));
 
       c += "targetAggregate.set" + f + "(sourceDto.get" + f + "());\n";
     }
-    for (int i = 0; i < fkmoVarFinal.size(); i++) {
-      String f = metodos.Capital(fkmoVarFinal.get(i));
-      c += "targetAggregate.setId" + f + "(new " + f + "Id(sourceDto.getId" + f + "()));\n";
-    }
+    
+    if(fks!=null) {
+    for (int i = 0; i < fks.size(); i++) {
+      String f = metodos.Capital(fks.get(i));
+      String fkmovar=metodos.Capital(fkmo.get(i));
+      c += "targetAggregate.setId" + f + "(new " + fkmovar + "Id(sourceDto.getId" + f + "()));\n";
+    }}
 
     a +=
         "public class "
@@ -72,10 +76,7 @@ public class Assembler {
   }
 
   public static String Assembler(
-      String agg,
-      ArrayList<String> fieldsType,
-      ArrayList<String> fieldsVar,
-      ArrayList<String> fkmoVarFinal) {
+      String agg) {
     String a = "";
     agg = metodos.Capital(agg);
 

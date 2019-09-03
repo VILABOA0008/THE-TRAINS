@@ -1,6 +1,8 @@
   package ctag.dtos.assembler.parameter;
 
 import org.seedstack.business.assembler.BaseAssembler;
+
+import ctag.domain.model.parametertype.ParameterTypeId;
 public class ParameterAssembler extends BaseAssembler<Parameter, ParameterRepresentation> {
 
   @Override

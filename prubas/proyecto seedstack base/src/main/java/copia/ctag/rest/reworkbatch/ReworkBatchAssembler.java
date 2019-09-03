@@ -4,6 +4,8 @@ import org.seedstack.business.assembler.BaseAssembler;
 
 import ctag.domain.model.line.LineId;
 import ctag.domain.model.part.PartId;
+import ctag.domain.model.psashift.PsaShiftId;
+import ctag.domain.model.reworkbatch.ReworkBatch;
 public class ReworkBatchAssembler extends BaseAssembler<ReworkBatch, ReworkBatchRepresentation> {
 
   @Override

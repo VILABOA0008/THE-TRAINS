@@ -3,6 +3,7 @@
 import org.seedstack.business.assembler.BaseAssembler;
 
 import ctag.domain.model.design.DesignId;
+import ctag.domain.model.partstate.PartStateId;
 public class PartAssembler extends BaseAssembler<Part, PartRepresentation> {
 
   @Override

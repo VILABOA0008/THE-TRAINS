@@ -1,6 +1,8 @@
   package ctag.dtos.assembler.processvigilancestate;
 
 import org.seedstack.business.assembler.BaseAssembler;
+
+import ctag.domain.model.processvigilancestate.ProcessVigilanceState;
 public class ProcessVigilanceStateAssembler extends BaseAssembler<ProcessVigilanceState, ProcessVigilanceStateRepresentation> {
 
   @Override

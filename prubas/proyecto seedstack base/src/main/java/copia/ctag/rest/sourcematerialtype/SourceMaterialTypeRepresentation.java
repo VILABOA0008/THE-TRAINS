@@ -3,7 +3,7 @@ package ctag.dtos.dto.sourcematerialtype;
 
 import org.seedstack.business.assembler.DtoOf;
 
-import ctag.domain.model.aggregate.modelospruebas.SourceMaterialType;
+import ctag.domain.model.sourcematerialtype.SourceMaterialType;
 
 @DtoOf(SourceMaterialType.class)
 public class SourceMaterialTypeRepresentation {

@@ -90,15 +90,14 @@ public class Leer {
       ArrayList<String> dataTypes = new ArrayList<>();
       ResultSet columns = databaseMetaData.getColumns(null, null, actualTable, null);
       while (columns.next()) {
-        String column = columns.getString("COLUMN_NAME");
         String formatedColumn = columns.getString("COLUMN_NAME");
         String datatype = columns.getString("TYPE_NAME");
         if (formatedColumn.contains("FK")) {
           formatedColumn = formatedColumn.replace("FK_", "");
         }
-        formatedColumn = metodos.despital(formatedColumn);
         if (!mtm.get(c)
-            && (fks.get(c) == null || (fks.get(c) != null && !fks.get(c).contains(column)))) {
+            && (fks.get(c) == null || (fks.get(c) != null && !fks.get(c).contains(formatedColumn)))) {
+        formatedColumn = metodos.despital(formatedColumn);
           dataVars.add(formatedColumn);
           dataTypes.add(datatype);
 
@@ -184,12 +183,15 @@ public class Leer {
         ArrayList<String> var = new ArrayList<>();
         ArrayList<Integer> oneToMany = new ArrayList<>();
         ArrayList<Integer> manyToOne;
-        if (actualTable.equalsIgnoreCase("ControlPlanVersion")) {
-          System.err.println("");
-      }
         int i = -3;
         while (fkFind.next()) {
-          var.add(fkFind.getString("FKCOLUMN_NAME"));
+          String fk=fkFind.getString("FKCOLUMN_NAME");
+          
+          if (fk.contains("FK")) {
+            fk = fk.replace("FK_", "");
+          }
+          var.add(fk);
+          
           // oneToMany.add(e)
           for (i = 0; i < tablas.size(); i++) {
             if (tablas.get(i).equalsIgnoreCase(fkFind.getString("PKTABLE_NAME"))) {

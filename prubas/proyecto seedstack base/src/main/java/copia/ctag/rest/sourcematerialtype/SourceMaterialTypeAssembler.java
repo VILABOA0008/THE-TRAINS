@@ -1,6 +1,8 @@
   package ctag.dtos.assembler.sourcematerialtype;
 
 import org.seedstack.business.assembler.BaseAssembler;
+
+import ctag.domain.model.sourcematerialtype.SourceMaterialType;
 public class SourceMaterialTypeAssembler extends BaseAssembler<SourceMaterialType, SourceMaterialTypeRepresentation> {
 
   @Override

@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 
 import org.seedstack.business.assembler.DtoOf;
 
-import ctag.domain.model.aggregate.modelospruebas.ProcessLaunch;
+import ctag.domain.model.processlaunch.ProcessLaunch;
 
 @DtoOf(ProcessLaunch.class)
 public class ProcessLaunchRepresentation {

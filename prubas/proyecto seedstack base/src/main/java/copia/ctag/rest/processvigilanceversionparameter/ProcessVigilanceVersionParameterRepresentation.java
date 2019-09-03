@@ -3,7 +3,7 @@ package ctag.dtos.dto.processvigilanceversionparameter;
 
 import org.seedstack.business.assembler.DtoOf;
 
-import ctag.domain.model.aggregate.modelospruebas.ProcessVigilanceVersionParameter;
+import ctag.domain.model.processvigilanceversionparameter.ProcessVigilanceVersionParameter;
 
 @DtoOf(ProcessVigilanceVersionParameter.class)
 public class ProcessVigilanceVersionParameterRepresentation {

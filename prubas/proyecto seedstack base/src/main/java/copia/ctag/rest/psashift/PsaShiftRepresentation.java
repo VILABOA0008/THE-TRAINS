@@ -3,7 +3,7 @@ package ctag.dtos.dto.psashift;
 
 import org.seedstack.business.assembler.DtoOf;
 
-import ctag.domain.model.aggregate.modelospruebas.PsaShift;
+import ctag.domain.model.psashift.PsaShift;
 
 @DtoOf(PsaShift.class)
 public class PsaShiftRepresentation {

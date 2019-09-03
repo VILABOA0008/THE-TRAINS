@@ -3,6 +3,9 @@
 import org.seedstack.business.assembler.BaseAssembler;
 
 import ctag.domain.model.account.AccountId;
+import ctag.domain.model.processlaunch.ProcessLaunch;
+import ctag.domain.model.processvigilanceversion.ProcessVigilanceVersionId;
+import ctag.domain.model.psashift.PsaShiftId;
 public class ProcessLaunchAssembler extends BaseAssembler<ProcessLaunch, ProcessLaunchRepresentation> {
 
   @Override

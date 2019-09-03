@@ -1,6 +1,9 @@
   package ctag.dtos.assembler.coillaunch;
 
 import org.seedstack.business.assembler.BaseAssembler;
+
+import ctag.domain.model.coillaunch.CoilLaunch;
+import ctag.domain.model.processlaunch.ProcessLaunchId;
 public class CoilLaunchAssembler extends BaseAssembler<CoilLaunch, CoilLaunchRepresentation> {
 
   @Override

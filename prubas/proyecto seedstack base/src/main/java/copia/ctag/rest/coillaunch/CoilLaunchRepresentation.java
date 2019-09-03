@@ -3,7 +3,7 @@ package ctag.dtos.dto.coillaunch;
 
 import org.seedstack.business.assembler.DtoOf;
 
-import ctag.domain.model.aggregate.modelospruebas.CoilLaunch;
+import ctag.domain.model.coillaunch.CoilLaunch;
 
 @DtoOf(CoilLaunch.class)
 public class CoilLaunchRepresentation {

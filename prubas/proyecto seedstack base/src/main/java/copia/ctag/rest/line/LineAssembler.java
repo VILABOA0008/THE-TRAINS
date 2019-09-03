@@ -1,6 +1,8 @@
   package ctag.dtos.assembler.line;
 
 import org.seedstack.business.assembler.BaseAssembler;
+
+import ctag.domain.model.linetype.LineTypeId;
 public class LineAssembler extends BaseAssembler<Line, LineRepresentation> {
 
   @Override

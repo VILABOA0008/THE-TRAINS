@@ -3,6 +3,8 @@
 import org.seedstack.business.assembler.BaseAssembler;
 
 import ctag.domain.model.account.AccountId;
+import ctag.domain.model.processvigilanceversionparameter.ProcessVigilanceVersionParameterId;
+import ctag.domain.model.processvigilancewarning.ProcessVigilanceWarning;
 public class ProcessVigilanceWarningAssembler extends BaseAssembler<ProcessVigilanceWarning, ProcessVigilanceWarningRepresentation> {
 
   @Override

@@ -133,7 +133,8 @@ a += "\n  @ManyToOne(fetch = FetchType.LAZY)\n" +
                   + Mtm.get(c)[0]);
 
           try {
-            op = s.nextInt();
+            op = 1;
+//            op = s.nextInt();
           } catch (InputMismatchException e) {
             s.nextLine();
             System.out.println("Fallo tecnico Tuyo");

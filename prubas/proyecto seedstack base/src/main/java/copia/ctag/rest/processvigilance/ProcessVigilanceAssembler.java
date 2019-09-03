@@ -4,6 +4,9 @@ import org.seedstack.business.assembler.BaseAssembler;
 
 import ctag.domain.model.bom.BomId;
 import ctag.domain.model.line.LineId;
+import ctag.domain.model.processvigilance.ProcessVigilance;
+import ctag.domain.model.processvigilancestate.ProcessVigilanceStateId;
+import ctag.domain.model.sourcematerialtype.SourceMaterialTypeId;
 public class ProcessVigilanceAssembler extends BaseAssembler<ProcessVigilance, ProcessVigilanceRepresentation> {
 
   @Override

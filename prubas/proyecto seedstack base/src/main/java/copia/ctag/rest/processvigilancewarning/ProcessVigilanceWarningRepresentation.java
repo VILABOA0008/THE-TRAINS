@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 
 import org.seedstack.business.assembler.DtoOf;
 
-import ctag.domain.model.aggregate.modelospruebas.ProcessVigilanceWarning;
+import ctag.domain.model.processvigilancewarning.ProcessVigilanceWarning;
 
 @DtoOf(ProcessVigilanceWarning.class)
 public class ProcessVigilanceWarningRepresentation {

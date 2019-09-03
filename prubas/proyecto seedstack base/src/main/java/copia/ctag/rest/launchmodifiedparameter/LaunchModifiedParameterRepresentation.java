@@ -3,7 +3,7 @@ package ctag.dtos.dto.launchmodifiedparameter;
 
 import org.seedstack.business.assembler.DtoOf;
 
-import ctag.domain.model.aggregate.modelospruebas.LaunchModifiedParameter;
+import ctag.domain.model.launchmodifiedparameter.LaunchModifiedParameter;
 
 @DtoOf(LaunchModifiedParameter.class)
 public class LaunchModifiedParameterRepresentation {

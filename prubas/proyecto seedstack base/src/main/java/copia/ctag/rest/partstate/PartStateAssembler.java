@@ -1,6 +1,8 @@
   package ctag.dtos.assembler.partstate;
 
 import org.seedstack.business.assembler.BaseAssembler;
+
+import ctag.domain.model.partstate.PartState;
 public class PartStateAssembler extends BaseAssembler<PartState, PartStateRepresentation> {
 
   @Override
