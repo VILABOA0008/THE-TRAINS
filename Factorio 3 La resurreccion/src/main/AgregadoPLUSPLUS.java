@@ -44,10 +44,8 @@ public class AgregadoPLUSPLUS {
     aggs = tablas;
 
     for (int i = 0; i < mtm.size(); i++) {
-      if (mtm.get(i) == false || tipo.get(i) == 4) {
-        if (tipo.get(i) == 4) {
+      if (!mtm.get(i)) {
 
-        }
         ArrayList<String> mtmVar = new ArrayList<>();
         // MANY TO MANY
         ArrayList<String> mtmappedVar = new ArrayList<>();
@@ -121,8 +119,9 @@ public class AgregadoPLUSPLUS {
           ag += Agregadospeques.finalGenerator(agg);
           ag += AgregadosGrandes.tableGenerator(agg);
         }
-        new File("C:\\Users\\pabcos\\Documents\\trains\\prubas\\proyecto seedstack base\\src\\main\\java\\ctag").mkdir();
-        String url = "C:\\Users\\pabcos\\Documents\\trains\\prubas\\proyecto seedstack base\\src\\main\\java\\ctag\\";
+        String url="C:\\Users\\pabcos\\Documents\\trains\\prubas\\proyecto seedstack base\\src\\main\\java\\ctag";
+        new File(url).mkdir();
+        url +="\\";
         ag += AgregadoMetodosPLUS_PLUS_PLUS.VariablesBasicas(fieldsFinal, tipos.get(c),
             vars.get(c));
         ag += Agregadospeques.constructorEmpty(agg);

@@ -15,8 +15,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -24,7 +22,6 @@ import javax.persistence.TableGenerator;
 
 import org.seedstack.business.domain.BaseAggregateRoot;
 
-import ctag.domain.model.design.Design;
 import ctag.domain.model.lineboms.LineBOMS;
 import ctag.domain.model.linetype.LineType;
 import ctag.domain.model.linetype.LineTypeId;
@@ -45,8 +42,6 @@ private static final String FIELD_PLANT = "Plant";
 private static final String FIELD_GROUP = "Group";   
 public static final String LINETYPE = "LineType";   
 private static final String MAPPED_BY_LINE = "line";   
-private static final String TABLE_LINE_DESIGN = "LineDesign";   
-private static final String ID_DESIGN = "IdDesign";   
 private static final String GENERATOR = "LineGen";
 
   @TableGenerator(name = GENERATOR, table = SEQUENCE, pkColumnName = KEY_VAL, valueColumnName = VALUE, pkColumnValue = TABLE_NAME, allocationSize = 1)
@@ -79,13 +74,6 @@ private static final String GENERATOR = "LineGen";
 
   @OneToMany(mappedBy = MAPPED_BY_LINE, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
   private Set<LineBOMS> lineBOMSs;
- 
- @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-  @JoinTable(
-      name = TABLE_LINE_DESIGN,
-      joinColumns = {@JoinColumn(name = ID_LINE, nullable = false, updatable = false)},
-      inverseJoinColumns = {@JoinColumn(name = ID_DESIGN, nullable = false, updatable = false)})
-  private Set<Design> designs;
 
 
 

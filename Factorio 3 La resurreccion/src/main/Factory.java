@@ -22,7 +22,7 @@ public class Factory {
     }
       if(fks!=null) {
     for (int i = 0; i < fks.size(); i++) {
-      b += ",";
+     if(!b.isEmpty()){ b += ",";}
       b += "Integer" + " id" + metodos.Capital(fks.get(i));
     }}
 
@@ -56,7 +56,7 @@ public class Factory {
     }
     if(fks!=null) {
     for (int i = 0; i < fks.size(); i++) {
-      b += ",";
+      if(!b.isEmpty()){ b += ",";}
       b += "Integer" + " id" + metodos.Capital(fks.get(i));
     }}
 

@@ -164,7 +164,7 @@ a += "\n  @ManyToOne(fetch = FetchType.LAZY)\n" +
           agghijo = tablas.get(Integer.valueOf(Mtm.get(c)[1]) - 0);
           arraymtm[0] = aux;
           arraymtm[1] = aggpadre;
-          arraymtm[2] = tabla.toString();
+          arraymtm[2] = tabla;
           arraymtm[3] = fk1;
           arraymtm[4] = fk2;
           arraymtm[5] = agghijo;

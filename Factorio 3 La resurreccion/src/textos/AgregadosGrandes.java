@@ -119,7 +119,7 @@ public class AgregadosGrandes {
         a += "   public " + cap + "Id get" + fkcap + "Id() {\n" +
             "    return new " + cap + "Id(" + fkdecap + "Id);\n" +
             "  }\n"
-            + "  public void set" + fkcap + "Id(" + cap + "Id " + fkdecap + "Id) {\n" +
+            + "  public void setId" + fkcap + "(" + cap + "Id " + fkdecap + "Id) {\n" +
             "    this." + fkdecap + "Id = " + fkdecap + "Id.getId();\n" +
             "  }\n";
 

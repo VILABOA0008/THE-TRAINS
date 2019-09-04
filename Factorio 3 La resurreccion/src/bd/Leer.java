@@ -94,6 +94,7 @@ public class Leer {
       while (columns.next()) {
         String formatedColumn = columns.getString("COLUMN_NAME");
         String datatype = columns.getString("TYPE_NAME");
+
         if (formatedColumn.contains("FK")) {
           formatedColumn = formatedColumn.replace("FK_", "");
         }
@@ -121,6 +122,11 @@ public class Leer {
       ResultSet pfkcolumns = databaseMetaData.getColumns(null, null, actualTable, null);
       pfkcolumns.last();
       pkFind.last();
+      if(actualTable.equalsIgnoreCase("")) {
+        System.err.println();
+        pfkcolumns.last();
+        pkFind.last();
+      }
       if (pkFind.getRow() > 1) {
         String[] manyToMany = new String[4];
         ResultSet fkFind = databaseMetaData.getImportedKeys(null, null, actualTable);
@@ -139,7 +145,7 @@ public class Leer {
           cc++;
           if (actualTable.equalsIgnoreCase("ControlPlanVersion")) {
           }
-          // TODO MAS DE UNA PK
+          // TODO MAS DE 2 PK
           if (cc == 4) {
             break;
           }
@@ -188,6 +194,9 @@ public class Leer {
           
           if (fk.contains("FK")) {
             fk = fk.replace("FK_", "");
+          }
+          if(tableType.get(c)!=3&&(fk.substring(0,2).contains("id")||fk.substring(0,2).contains("Id"))) {
+            System.err.println("error  "+actualTable+"  empieza con id en vez de fk  "+fk);//error
           }
           
           if(tableType.get(c)==3&&(fk.contains("id")||fk.contains("Id"))) {
