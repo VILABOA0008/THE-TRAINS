@@ -88,10 +88,7 @@ a += "\n  @ManyToOne(fetch = FetchType.LAZY)\n" +
       Map<Integer, ArrayList<String[]>> MTM,
       Map<Integer, ArrayList<Integer>> MTMapped,
       Map<Integer,Integer>tipo) {
-    String[] aggss = {
-      "Page", "Button", "DocType", "Document", "null", "Style", "null", "Configuration", "null"
-    };
-    System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+
     int c = 0;
     String agg;
     String[] arraymtm = new String[6];
@@ -102,10 +99,7 @@ a += "\n  @ManyToOne(fetch = FetchType.LAZY)\n" +
 
       if (!mtm.get(c)||tipo.get(c)==4) {
 
-        System.out.println("\n " + c + "   Nombre del agregado de la tabla " + i);
-        //               agg=s.nextLine();
         agg = i;
-        //        agg = aggss[c - 1];
 
         aggs.add(metodos.Capital(agg));
       } else {

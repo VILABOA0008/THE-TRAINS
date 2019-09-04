@@ -77,7 +77,6 @@ public class AgregadoPLUSPLUS {
         // eliminar id field
         ArrayList<String> varss = vars.get(c);
         ArrayList<String> tiposs = tipos.get(c);
-        System.err.println(vars.get(c) + "   ta  " + tabla + "  " + fks.get(c) + "   v   " + varss);
         if (tipo.get(c) == 3 && !tabla.equalsIgnoreCase("LineBOMS")
             && !tabla.equalsIgnoreCase("ShiftReview")
             && !tabla.equalsIgnoreCase("PartVersionFile")) {
@@ -202,6 +201,33 @@ public class AgregadoPLUSPLUS {
                   + agg
                   + "Assembler.java",
               Assembler.Assembler(agg));
+          
+          
+          //OLDDDDDDDDDD
+          //OLDDDDDDDDDD
+          //OLDDDDDDDDDD
+          
+          new File(url + "rest").mkdir();
+          new File(url + "rest\\"+agg.toLowerCase()).mkdir();
+          Escribir.escribir(
+              url + "rest\\" + agg + "\\"
+                  + agg
+                  + "Finder.java",
+              Old.finder(agg));
+          
+          
+          new File(url + "application\\infrastructure").mkdir();
+          new File(url + "application\\infrastructure\\"+agg.toLowerCase()).mkdir();
+          Escribir.escribir(
+              url + "application\\infrastructure\\" + agg + "\\"
+                  + agg
+                  + "JpaFinder.java",
+              Old.jpaFinder(agg));
+          
+          //OLDDDDDDDDDD
+          //OLDDDDDDDDDD
+          //OLDDDDDDDDDD
+          
         }
         // FACTORY
         // System.out

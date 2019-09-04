@@ -8,7 +8,6 @@ public class AgregadoId {
 
   public static String BaseEntityId(String agg, ArrayList<Integer> aggs, ArrayList<String> tablas) {
 
-    System.err.println(aggs + "  xq");
 
     String id = metodos.Capital(agg) + "Id";
 
