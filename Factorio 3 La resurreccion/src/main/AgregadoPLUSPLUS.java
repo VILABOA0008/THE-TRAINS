@@ -206,23 +206,29 @@ public class AgregadoPLUSPLUS {
           //OLDDDDDDDDDD
           //OLDDDDDDDDDD
           //OLDDDDDDDDDD
-          
           new File(url + "rest").mkdir();
           new File(url + "rest\\"+agg.toLowerCase()).mkdir();
+//          Escribir.escribir(
+//              url + "rest\\" + agg + "\\"
+//                  + agg
+//                  + "Finder.java",
+//              Old.finder(agg));
+////          new File(url + "rest\\"+agg.toLowerCase()).mkdir();
           Escribir.escribir(
               url + "rest\\" + agg + "\\"
                   + agg
-                  + "Finder.java",
-              Old.finder(agg));
+                  + "Resource.java",
+                  Old.Resource(agg));
           
-          
-          new File(url + "application\\infrastructure").mkdir();
-          new File(url + "application\\infrastructure\\"+agg.toLowerCase()).mkdir();
-          Escribir.escribir(
-              url + "application\\infrastructure\\" + agg + "\\"
-                  + agg
-                  + "JpaFinder.java",
-              Old.jpaFinder(agg));
+//          
+//          
+//          new File(url + "application\\infrastructure").mkdir();
+//          new File(url + "application\\infrastructure\\"+agg.toLowerCase()).mkdir();
+//          Escribir.escribir(
+//              url + "application\\infrastructure\\" + agg + "\\"
+//                  + agg
+//                  + "JpaFinder.java",
+//              Old.jpaFinder(agg));
           
           //OLDDDDDDDDDD
           //OLDDDDDDDDDD

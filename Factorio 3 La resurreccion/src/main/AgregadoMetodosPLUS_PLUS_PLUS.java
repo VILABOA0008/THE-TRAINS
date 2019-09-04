@@ -176,15 +176,6 @@ a += "\n  @ManyToOne(fetch = FetchType.LAZY)\n" +
           MTM.put(Integer.valueOf(aux), auxadd);
         }
 
-        // Mapped By
-        /*
-        ArrayList<Integer>aa=MTMapped.get(auxmapped);
-        if(aa==null) {
-          aa=new ArrayList<>();
-        }
-        aa.add(Integer.valueOf(aux));
-
-        MTMapped.put(auxmapped, aa);*/
         ArrayList<Integer> aa = new ArrayList<>();
         if (MTMapped.get(Integer.valueOf(auxmapped)) == null) {
           aa.add(Integer.valueOf(aux));
