@@ -24,61 +24,69 @@ public class AgregadoMetodosPLUS_PLUS_PLUS {
     return a;
   }
 
-  public static String ManyToOneEspecial(String agg,ArrayList<String> fks, ArrayList<String> fkmoVarFinal,String url ) {
+  public static String ManyToOneEspecial(String agg, ArrayList<String> fks,
+      ArrayList<String> fkmoVarFinal, String url) {
 
-    
-    String var0=metodos.Capital(fkmoVarFinal.get(0)),var1=metodos.Capital(fkmoVarFinal.get(1));
-      
-String a="";       
+    String var0 = metodos.Capital(fkmoVarFinal.get(0)), var1 = metodos.Capital(fkmoVarFinal.get(1));
 
+    String a = "";
 
+    a += "\n  @ManyToOne(fetch = FetchType.LAZY)\n" +
+        "  @JoinColumn(name = " + fks.get(0).toUpperCase()
+        + ", nullable = false, insertable = false, updatable = false)\n" +
+        "  private " + var0 + " " + fkmoVarFinal.get(0) + ";\n";
 
-a += "\n  @ManyToOne(fetch = FetchType.LAZY)\n" +
-    "  @JoinColumn(name = " + fks.get(0).toUpperCase()+ ", nullable = false, insertable = false, updatable = false)\n" +
-    "  private " + var0+ " " + fkmoVarFinal.get(0) + ";\n";
+    a += "\n  @ManyToOne(fetch = FetchType.LAZY)\n" +
+        "  @JoinColumn(name = " + fks.get(1).toUpperCase()
+        + ", nullable = false, insertable = false, updatable = false)\n" +
+        "  private " + var1 + " " + fkmoVarFinal.get(1) + ";\n";
 
-a += "\n  @ManyToOne(fetch = FetchType.LAZY)\n" +
-    "  @JoinColumn(name = " + fks.get(1).toUpperCase()+ ", nullable = false, insertable = false, updatable = false)\n" +
-    "  private " + var1+ " " + fkmoVarFinal.get(1) + ";\n";
-
-    a +="  @EmbeddedId\n"
-        + "@AttributeOverrides( {" + 
-        "  @AttributeOverride(name = \" id"+var0+"  \", column = @Column(name = "+fks.get(0).toUpperCase()+")),\n" + 
-        "  @AttributeOverride(name = \" id"+var1+"\", column = @Column(name ="+fks.get(1).toUpperCase()+"))})\n" + 
-        "  private "+agg+"Id id;\n" + 
+    a += "  @EmbeddedId\n"
+        + "@AttributeOverrides( {" +
+        "  @AttributeOverride(name = \" id" + var0 + "  \", column = @Column(name = "
+        + fks.get(0).toUpperCase() + ")),\n" +
+        "  @AttributeOverride(name = \" id" + var1 + "\", column = @Column(name ="
+        + fks.get(1).toUpperCase() + "))})\n" +
+        "  private " + agg + "Id id;\n" +
         "\n"
         + "\n"
         + "\n"
-        + "\n" + 
-        "  "+agg+"("+var0+"Id id"+var0+", "+var1+"Id id"+var1+") {\n" + 
-        "    id = new "+agg+"Id(id"+var0+".getId(), id"+var1+".getId());\n" + 
+        + "\n" +
+        "  " + agg + "(" + var0 + "Id id" + var0 + ", " + var1 + "Id id" + var1 + ") {\n" +
+        "    id = new " + agg + "Id(id" + var0 + ".getId(), id" + var1 + ".getId());\n" +
         "  }"
-        + "\n" + 
-        "  @Override\n" + 
-        "  public "+agg+"Id getId() {\n" + 
-        "    return new "+agg+"Id(getId"+metodos.Capital(fkmoVarFinal.get(0))+"().getId(), getId"+metodos.Capital(fkmoVarFinal.get(1))+"().getId());\n" + 
+        + "\n" +
+        "  @Override\n" +
+        "  public " + agg + "Id getId() {\n" +
+        "    return new " + agg + "Id(getId" + metodos.Capital(fkmoVarFinal.get(0))
+        + "().getId(), getId" + metodos.Capital(fkmoVarFinal.get(1)) + "().getId());\n" +
         "  }";
-    
+
     Escribir.escribir(
-        url+"domain\\model\\"+agg+"\\"
+        url + "domain\\model\\" + agg + "\\"
             + agg
             + "Id.java",
-        AgregadoId.idMtm(agg,var0,var1));
+        AgregadoId.idMtm(agg, var0, var1));
     return a;
 
-    
-    
   }
+
   public static String ManyToOne(ArrayList<String> fks, ArrayList<String> fkmoVarFinal,int tipo) {
 
     String a = "";
 
     for (int i = 0; i < fks.size(); i++) {
-      a += AgregadosGrandes.manyToOne(fks.get(i),fks.get(i).toUpperCase(), fkmoVarFinal.get(i),tipo);
+      String withoutFK;
+      if (fks.get(i).contains("FK")) {
+        withoutFK=fks.get(i).replace("FK_", "");}else {
+          withoutFK=fks.get(i);
+        }
+      a += AgregadosGrandes.manyToOne(withoutFK,fks.get(i).toUpperCase(), fkmoVarFinal.get(i),tipo);
+    if (fks.get(i).contains("FK")) {
+      fks.set(i, withoutFK);}
     }
     return a;
   }
-
 
   public static void NombreAggregado(
       ArrayList<String> aggs,
@@ -87,42 +95,40 @@ a += "\n  @ManyToOne(fetch = FetchType.LAZY)\n" +
       Map<Integer, String[]> Mtm,
       Map<Integer, ArrayList<String[]>> MTM,
       Map<Integer, ArrayList<Integer>> MTMapped,
-      Map<Integer,Integer>tipo) {
+      Map<Integer, Integer> tipo) {
 
     int c = 0;
     String agg;
     String[] arraymtm = new String[6];
 
-
     for (String i : tablas) {
       Scanner s = new Scanner(System.in);
 
-      if (!mtm.get(c)||tipo.get(c)==4) {
+      if (!mtm.get(c) || tipo.get(c) == 4) {
 
         agg = i;
 
         aggs.add(metodos.Capital(agg));
       } else {
-        
-        
+
         int op = 0;
         while (op != 1 && op != 2) {
           System.out.println("\n\n  " + c + "Que agregado es la padre de " + i);
 
           System.out.println(
               "1   Agregado   "
-                  + tablas.get(Integer.valueOf(Mtm.get(c)[1]) )
+                  + tablas.get(Integer.valueOf(Mtm.get(c)[1]))
                   + "  con  "
                   + Mtm.get(c)[2]);
           System.out.println(
               "2   Agregado   "
-                  + tablas.get(Integer.valueOf(Mtm.get(c)[3]) )
+                  + tablas.get(Integer.valueOf(Mtm.get(c)[3]))
                   + "  con  "
                   + Mtm.get(c)[0]);
 
           try {
             op = 1;
-//            op = s.nextInt();
+            // op = s.nextInt();
           } catch (InputMismatchException e) {
             s.nextLine();
             System.out.println("Fallo tecnico Tuyo");
@@ -148,7 +154,7 @@ a += "\n  @ManyToOne(fetch = FetchType.LAZY)\n" +
           arraymtm[5] = agghijo;
           auxmapped = Integer.valueOf(Mtm.get(c)[3]);
         } else {
-          //   aux=Integer.valueOf(Mtm.get(c)[3]);
+          // aux=Integer.valueOf(Mtm.get(c)[3]);
 
           aux = Mtm.get(c)[3];
           aggpadre = tablas.get(Integer.valueOf(aux) - 0);
@@ -201,7 +207,7 @@ a += "\n  @ManyToOne(fetch = FetchType.LAZY)\n" +
     while (fieldsType.size() > c) {
 
       var = fieldsVar.get(c);
-       var=metodos.mayusq(var);
+      var = metodos.mayusq(var);
       String Field = "FIELD_" + var.toUpperCase();
       fieldsFinal.add(Field);
       a += Agregadospeques.finalFields(Field, var);
@@ -220,25 +226,25 @@ a += "\n  @ManyToOne(fetch = FetchType.LAZY)\n" +
       ArrayList<String> mapedByFinal) {
     String a = "", MappedBy, mappedByV;
     int nf;
-    //    System.out.println("Numero de ones to manies");
+    // System.out.println("Numero de ones to manies");
     int c = 0;
     nf = otm.size();
     while (nf > c) {
 
-      //      System.out.println("mapped by");
+      // System.out.println("mapped by");
 
       MappedBy = metodos.despital(agg);
-      
+
       mapedBy.add(MappedBy);
 
       if (!MappedBy.isEmpty()) {
         String MappedByFinal = "MAPPED_BY_" + metodos.mayusq(MappedBy).toUpperCase();
         mapedByFinal.add(MappedByFinal);
-        //System.out.println(MappedByFinal + "   mapeddd    " + MappedBy);
+        // System.out.println(MappedByFinal + " mapeddd " + MappedBy);
         if (c == 0) {
           a += Agregadospeques.MappedBy(MappedByFinal, MappedBy);
         }
-        //System.out.println("Escribe la variable");
+        // System.out.println("Escribe la variable");
 
         mappedByV = metodos.despital(aggs.get(otm.get(c) - 0));
 
@@ -252,9 +258,9 @@ a += "\n  @ManyToOne(fetch = FetchType.LAZY)\n" +
 
   public static String ManyToMany(String agg, ArrayList<String> mtmVar, ArrayList<String[]> MTM) {
     String a = "";
-    //    System.out.println("Numero de manys to manys sin mapped by");
+    // System.out.println("Numero de manys to manys sin mapped by");
     int nf;
-    int cc=2;
+    int cc = 2;
     int c = 0;
 
     nf = MTM.size();
@@ -262,23 +268,24 @@ a += "\n  @ManyToOne(fetch = FetchType.LAZY)\n" +
     while (nf > c) {
       String clase, id, tabla;
 
-      //    TIPO");
+      // TIPO");
       clase = metodos.despital(MTM.get(c)[5]);
       mtmVar.add(clase);
-      //   ID
+      // ID
       id = MTM.get(c)[4];
 
-      //      System.out.println("tabla ");
+      // System.out.println("tabla ");
       tabla = MTM.get(c)[2];
       if (a.contains(clase.toUpperCase())) {
-        clase+=cc;cc++;
+        clase += cc;
+        cc++;
         a += Agregadospeques.finalManytoMany(agg, clase, id, tabla);
       } else {
-        
+
         a += Agregadospeques.finalManytoMany(agg, clase, id, tabla);
         a += Agregadospeques.finalManytoManyId(agg, clase, id, tabla);
       }
-      
+
       c++;
     }
     return a;
@@ -288,8 +295,8 @@ a += "\n  @ManyToOne(fetch = FetchType.LAZY)\n" +
       String agg, ArrayList<String> mtmVar, ArrayList<Integer> mapped, ArrayList<String> aggs) {
     String a = "";
     int nf;
-    //    System.out.println("Numero de manys to manys con mapped by");
-    int c = 0, cc=2;
+    // System.out.println("Numero de manys to manys con mapped by");
+    int c = 0, cc = 2;
 
     agg = metodos.despital(agg);
     nf = mapped.size();
@@ -299,16 +306,22 @@ a += "\n  @ManyToOne(fetch = FetchType.LAZY)\n" +
 
       clase = agg + "s";
 
-      //      System.out.println("mappedby ");
+      // System.out.println("mappedby ");
       map = metodos.despital(aggs.get(mapped.get(c) - 0));
-      if(a.contains(map.toUpperCase())) {mtmVar.add(map);a += Agregadospeques.finalManytoManyMapped((clase+cc), (map+cc));clase+=cc;cc++;}else {
-      mtmVar.add(map);
+      if (a.contains(map.toUpperCase())) {
+        mtmVar.add(map);
+        a += Agregadospeques.finalManytoManyMapped((clase + cc), (map + cc));
+        clase += cc;
+        cc++;
+      } else {
+        mtmVar.add(map);
 
-      //      System.out.println(clase + "  clase   " + map);
-//      if (c == 0) {
-      
-        a += Agregadospeques.finalManytoManyMapped(clase, map);}
-//      }
+        // System.out.println(clase + " clase " + map);
+        // if (c == 0) {
+
+        a += Agregadospeques.finalManytoManyMapped(clase, map);
+      }
+      // }
 
       c++;
     }
@@ -320,19 +333,19 @@ a += "\n  @ManyToOne(fetch = FetchType.LAZY)\n" +
       ArrayList<String> fks,
       ArrayList<String> fkmoVarFinal,
       ArrayList<Integer> mto) {
-    //System.out.println("aggs   " + aggs);
+    // System.out.println("aggs " + aggs);
     String a = "";
     int nf;
     int c = 0;
-    //  System.out.println("Numero de manys to one");
+    // System.out.println("Numero de manys to one");
     nf = fks.size();
     while (c < nf) {
       String fk;
-      //  System.out.println("Nombre");
+      // System.out.println("Nombre");
 
       fk = metodos.despital(aggs.get(mto.get(c) - 0));
 
-      //      System.out.println("\n\nfk  " + fks.get(c));
+      // System.out.println("\n\nfk " + fks.get(c));
       a += Agregadospeques.finalFk(fks.get(c));
       fkmoVarFinal.add(fk);
 

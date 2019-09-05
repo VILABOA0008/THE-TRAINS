@@ -34,6 +34,8 @@ public class AgregadosGrandes {
   public static String manyToOne(String fk, String FIELD_FK, String var, int tipo) {
 
     String a;
+    
+    
 
     a = "\n  @ManyToOne(fetch = FetchType.LAZY)\n" +
         "  @JoinColumn(name = " + FIELD_FK
@@ -99,7 +101,6 @@ public class AgregadosGrandes {
     int c = -1;
     for (String i : fkmoVarFinal) {
       c++;
-      String descap = i;
       String cap = metodos.Capital(i);
       String fkdecap = metodos.despital(fk.get(c));
       String fkcap = fk.get(c);

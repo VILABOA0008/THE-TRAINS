@@ -95,9 +95,9 @@ public class Leer {
         String formatedColumn = columns.getString("COLUMN_NAME");
         String datatype = columns.getString("TYPE_NAME");
 
-        if (formatedColumn.contains("FK")) {
-          formatedColumn = formatedColumn.replace("FK_", "");
-        }
+//        if (formatedColumn.contains("FK")) {
+//          formatedColumn = formatedColumn.replace("FK_", "");
+//        }
         if (!mtm.get(c)
             && (fks.get(c) == null || (fks.get(c) != null && !fks.get(c).contains(formatedColumn)))) {
         formatedColumn = metodos.despital(formatedColumn);
@@ -192,9 +192,9 @@ public class Leer {
         while (fkFind.next()) {
           String fk=fkFind.getString("FKCOLUMN_NAME");
           
-          if (fk.contains("FK")) {
-            fk = fk.replace("FK_", "");
-          }
+//          if (fk.contains("FK")) {
+//            fk = fk.replace("FK_", "");
+//          }
           if(tableType.get(c)!=3&&(fk.substring(0,2).contains("id")||fk.substring(0,2).contains("Id"))) {
             System.err.println("error  "+actualTable+"  empieza con id en vez de fk  "+fk);//error
           }
@@ -230,8 +230,8 @@ public class Leer {
   public Connection connect() throws SQLException {
 
     Connection con = null;
-    // String url = "jdbc:mysql://localhost:3306/totem";
-    String url = "jdbc:mysql://localhost:3306/IEC_IND";
+     String url = "jdbc:mysql://localhost:3306/totem";
+//    String url = "jdbc:mysql://localhost:3306/IEC_IND";
     String user = "root";
     String password = "";
 
