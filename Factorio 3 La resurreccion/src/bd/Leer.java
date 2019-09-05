@@ -134,7 +134,7 @@ public class Leer {
       ResultSet pfkcolumns = databaseMetaData.getColumns(null, null, actualTable, null);
       pfkcolumns.last();
       pkFind.last();
-      if(actualTable.equalsIgnoreCase("")) {
+      if(actualTable.equalsIgnoreCase("PartVersionFile")) {
         System.err.println();
         pfkcolumns.last();
         pkFind.last();
@@ -201,6 +201,8 @@ public class Leer {
         ArrayList<Integer> oneToMany = new ArrayList<>();
         ArrayList<Integer> manyToOne;
         int i = -3;
+        if(actualTable.equalsIgnoreCase("PartVersionFile")) {
+          System.err.println();}
         while (fkFind.next()) {
           String fk=fkFind.getString("FKCOLUMN_NAME");
           

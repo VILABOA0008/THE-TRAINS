@@ -1,8 +1,12 @@
   package ctag.dtos.assembler.line;
 
-import javax.inject.Inject; 
+import javax.inject.Inject;
+
 import org.seedstack.business.assembler.Assembler;
 import org.seedstack.business.assembler.BaseAssembler;
+
+import ctag.dtos.dto.line.LineCreateDto;
+import ctag.dtos.dto.line.LineDto;
 
 public class LineAssembler extends BaseAssembler<Line, LineDto> {
 

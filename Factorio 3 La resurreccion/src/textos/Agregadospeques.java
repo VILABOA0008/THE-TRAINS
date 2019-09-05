@@ -122,12 +122,22 @@ public class Agregadospeques {
     return a;
   }
 
-  public static String importsMto(String agg,ArrayList<Integer>mto,ArrayList<String>tablas) {
+  public static String importsMto(ArrayList<Integer>mto,ArrayList<Integer>otm,ArrayList<String>tablas) {
     String a="";
+if(mto!=null) {
+    for(Integer i:mto){
+    String mtoAgg=tablas.get(i);
+    a += "import ctag.domain.model." + mtoAgg.toLowerCase() + "."+mtoAgg+"Id;\n"+
+            "import ctag.domain.model." + mtoAgg.toLowerCase() + "."+mtoAgg+";\n";
+    }}
+if(otm!=null) {
+    for(Integer i:otm){
+      String otmAgg=tablas.get(i);
+      System.err.println("otm  "+otmAgg);
+      a += "import ctag.domain.model." + otmAgg.toLowerCase() + "."+otmAgg+"Id;\n"+
+          "import ctag.domain.model." + otmAgg.toLowerCase() + "."+otmAgg+";\n";
+    }}
     
-    
-    a += "\nimport ctag.domain.model." + agg.toLowerCase() + "."+agg+"Id;\n"+
-        "\nimport ctag.domain.model." + agg.toLowerCase() + "."+agg+";\n";
   return a;
   
   }
@@ -225,13 +235,13 @@ public class Agregadospeques {
     return a;
   }
 
-  public static String getIdBaseEntity(String Agg,ArrayList<String>fks) {
+  public static String getIdBaseEntity(String Agg,ArrayList<String>primaryKeys) {
     String a;
     String b="";
-    for (int i = 0; i < fks.size(); i++) {
+    for (int i = 0; i < primaryKeys.size(); i++) {
       
-      b+="get"+fks.get(i)+"Id().getId()";
-      if(i!=fks.size()-1) {b+=",";}
+      b+="get"+primaryKeys.get(i)+"Id().getId()";
+      if(i!=primaryKeys.size()-1) {b+=",";}
       
     }
     

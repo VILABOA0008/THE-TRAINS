@@ -69,7 +69,7 @@ public class AgregadoPLUSPLUS {
         ag += Agregadospeques.paqueteAgg(agg);
         
         ag += Agregadospeques.imports();
-//        ag += Agregadospeques.importsMto(agg);
+        ag += Agregadospeques.importsMto(mto.get(c),otm.get(c),tablas);
         ag += AgregadosGrandes.clas(agg);
 
         ag += Agregadospeques.finalTable(tabla);
@@ -81,6 +81,9 @@ public class AgregadoPLUSPLUS {
         finalId=metodos.mayusq(primaryKeys.get(c).get(0)).toUpperCase();
         ag += Agregadospeques.finalId(finalId,primaryKeys.get(c).get(0));}
 
+        if(tabla.equalsIgnoreCase("PartVersionFile")) {
+          System.err.println();}
+        
         // Crear variable con los fields de la tabla actual
         ArrayList<String> varss = vars.get(c);
         ArrayList<String> tiposs = tipos.get(c);
@@ -133,7 +136,20 @@ public class AgregadoPLUSPLUS {
         if (tipo.get(c) != 3) {
           ag += Agregadospeques.getId(agg);
         } else {
-          ag += Agregadospeques.getIdBaseEntity(agg, fks.get(c));
+          String withoutFK;
+          for (int q = 0; q < primaryKeys.get(c).size(); q++) {
+            if (primaryKeys.get(c).get(q).contains("FK")) {
+              withoutFK = primaryKeys.get(c).get(q).replace("FK_", "");
+            } else {
+              withoutFK = primaryKeys.get(c).get(q);
+            }
+            if (withoutFK.contains("id")||withoutFK.contains("Id")) {
+              withoutFK = withoutFK.replace("id", "");
+              withoutFK = withoutFK.replace("Id", "");}
+            primaryKeys.get(c).set(q, withoutFK);
+          }
+          
+          ag += Agregadospeques.getIdBaseEntity(agg, primaryKeys.get(c));
         }
 
         ag += Agregadospeques.getBasics(tipos.get(c), vars.get(c));
@@ -159,11 +175,13 @@ public class AgregadoPLUSPLUS {
                   + "Id.java",
               AgregadoId.id(agg));
         } else {
+
+          
           Escribir.escribir(
               url + "domain\\model\\" + agg + "\\"
                   + agg
                   + "Id.java",
-              AgregadoId.BaseEntityId(agg, mto.get(c),tablas));
+              AgregadoId.BaseEntityId(agg, mto.get(c),tablas,primaryKeys.get(c)));
 
         }
 

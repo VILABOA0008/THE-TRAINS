@@ -2,8 +2,11 @@ package ctag.dtos.dto.line;
 
 
 import org.seedstack.business.assembler.AggregateId;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+
+import ctag.domain.model.line.LineId;
 import io.swagger.annotations.ApiModel;
 
 @ApiModel(value = " Line  ")public class LineDto extends LineCreateDto {

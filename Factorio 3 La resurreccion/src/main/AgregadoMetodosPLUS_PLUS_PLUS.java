@@ -213,7 +213,6 @@ public class AgregadoMetodosPLUS_PLUS_PLUS {
     String tipo, var;
     // System.out.println("Cuantos fields sin relaciones");
     while (fieldsType.size() > c) {
-      System.err.println(fieldsVar+"   "+c);
       var = fieldsVar.get(c);
         Field= metodos.mayusq(var);
        Field = "FIELD_" + Field.toUpperCase();
