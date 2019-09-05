@@ -3,22 +3,24 @@ package ctag.domain.model.line;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
-
+import javax.persistence.AttributeOverride;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
-
 import org.seedstack.business.domain.BaseAggregateRoot;
-
-import ctag.domain.model.tot_page.TOT_Page;
 
 @Entity
 @Table(name = Line.TABLE_NAME)
