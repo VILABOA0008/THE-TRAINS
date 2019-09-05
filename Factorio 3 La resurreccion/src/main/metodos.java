@@ -43,12 +43,10 @@ public class metodos {
     for (int i = 0; i < a.length(); i++) {
       String aux = a.substring(i, i + 1);
       
-      if (aux.equals(aux.toUpperCase())) {
-        if(i==0) {
-        b += "_";}else {
+      if (i>0&&aux.equals(aux.toUpperCase())) {
           String preaux=a.substring(i-1, i);
-          if(!preaux.equals(preaux.toUpperCase())) {b+="_";}
-      }}
+          if(preaux.equals(preaux.toLowerCase())) {b+="_";}
+      }
 
       b += aux;
     }

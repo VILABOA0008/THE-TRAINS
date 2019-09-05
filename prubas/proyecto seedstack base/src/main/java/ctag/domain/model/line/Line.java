@@ -32,10 +32,10 @@ private static final String ID = "id";
 private static final String KEY_VAL = "KeyVal";
 private static final String SEQUENCE = "SEQUENCE";
 private static final String VALUE = "Value";
-private static final String ID_LINE = " idLine ";
+private static final String ID_LINE = " IdLine ";
 private static final String FIELD_NAME = "Name";
-private static final String FIELD_F_K_PLANT = "FK_Plant";
-private static final String FIELD_F_K_GROUP = "FK_Group";   
+private static final String FIELD_F_K__PLANT = "FK_Plant";
+private static final String FIELD_F_K__GROUP = "FK_Group";   
 public static final String FK_LINETYPE = "FK_LineType";   
 private static final String MAPPED_BY_LINE = "line";   
 private static final String GENERATOR = "LineGen";
@@ -49,10 +49,10 @@ private static final String GENERATOR = "LineGen";
   @Column(name = FIELD_NAME,unique = false,  nullable = false)
   private String name;
 
-  @Column(name = FIELD_F_K_PLANT,unique = false,  nullable = false)
+  @Column(name = FIELD_F_K__PLANT,unique = false,  nullable = false)
   private Integer fK_Plant;
 
-  @Column(name = FIELD_F_K_GROUP,unique = false,  nullable = false)
+  @Column(name = FIELD_F_K__GROUP,unique = false,  nullable = false)
   private Integer fK_Group;
 
   Line() {
@@ -112,10 +112,10 @@ private static final String GENERATOR = "LineGen";
    public LineType getLineType() {
     return lineType;
   }
-  public LineTypeId getIdLineType() {
+  public LineTypeId getLineTypeId() {
     return lineTypeId;
   }
-  public void setIdLineType(LineTypeId lineTypeId) {
+  public void setLineTypeId(LineTypeId lineTypeId) {
     this.lineTypeId = lineTypeId;
   }
 

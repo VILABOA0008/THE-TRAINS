@@ -43,13 +43,15 @@ public class Main {
     Map<Integer, Boolean> mtmTest = new HashMap<>();
  // NOMBRE DE TODAS LAS FKS
     Map<Integer, ArrayList<String>> fksTest = new HashMap<>();
+    // NOMBRE DE TODAS LAS PRIMARY KEYS
+    Map<Integer, ArrayList<String>> primaryKeys = new HashMap<>();
  // NOMBRE D ELAS TABLAS
     ArrayList<String> tablasTest = new ArrayList<>();
  // Tipos de tabla mtm base entity...
     Map<Integer, Integer> tableType = new HashMap<>();
-    Leer leer = new Leer(tablasTest, fksTest, mtmTest, varsTest, tiposTest,otmTest,mtoTest,MtmTest,tableType);
+    Leer leer = new Leer(tablasTest, fksTest, mtmTest, varsTest, tiposTest,otmTest,mtoTest,MtmTest,tableType,primaryKeys);
     leer.start();
-    AgregadoPLUSPLUS.test(varsTest, tiposTest, tablasTest, fksTest, mtmTest, mtoTest, otmTest, MtmTest, tableType);
+    AgregadoPLUSPLUS.test(varsTest, tiposTest, tablasTest, fksTest, mtmTest, mtoTest, otmTest, MtmTest, tableType,primaryKeys);
 
     
     

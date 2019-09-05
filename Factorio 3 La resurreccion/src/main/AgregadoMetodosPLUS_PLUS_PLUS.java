@@ -74,7 +74,9 @@ public class AgregadoMetodosPLUS_PLUS_PLUS {
   public static String ManyToOne(ArrayList<String> fks, ArrayList<String> fkmoVarFinal, int tipo) {
 
     String a = "";
-
+//  if(tableType.get(c)==3&&(fk.contains("id")||fk.contains("Id"))) {
+//  fk = fk.replace("id", "");fk = fk.replace("Id", "");
+//}
     for (int i = 0; i < fks.size(); i++) {
       String withoutFK;
       if (fks.get(i).contains("FK")) {
@@ -82,11 +84,13 @@ public class AgregadoMetodosPLUS_PLUS_PLUS {
       } else {
         withoutFK = fks.get(i);
       }
-      a += AgregadosGrandes.manyToOne(withoutFK, fks.get(i).toUpperCase(), fkmoVarFinal.get(i),
+      if (withoutFK.contains("id")||withoutFK.contains("Id")) {
+        withoutFK = withoutFK.replace("id", "");
+        withoutFK = withoutFK.replace("Id", "");}
+
+        a += AgregadosGrandes.manyToOne(withoutFK, fks.get(i).toUpperCase(), fkmoVarFinal.get(i),
           tipo);
-      if (fks.get(i).contains("FK")) {
         fks.set(i, withoutFK);
-      }
     }
     return a;
   }
@@ -209,10 +213,9 @@ public class AgregadoMetodosPLUS_PLUS_PLUS {
     String tipo, var;
     // System.out.println("Cuantos fields sin relaciones");
     while (fieldsType.size() > c) {
-      
+      System.err.println(fieldsVar+"   "+c);
       var = fieldsVar.get(c);
-      if(!var.equals(var.toUpperCase())) {
-        Field= metodos.mayusq(var);}else {Field=var;}
+        Field= metodos.mayusq(var);
        Field = "FIELD_" + Field.toUpperCase();
       
       fieldsFinal.add(Field);

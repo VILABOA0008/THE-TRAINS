@@ -117,11 +117,22 @@ public class Agregadospeques {
 
   public static String importAgg(String agg) {
 
-    String a = "\nimport ctag.domain.model." + metodos.despital(agg) + ".*;\n";
+    String a =   "import ctag.domain.model." + agg.toLowerCase() + "."+agg+";\n"+
+                     "import ctag.domain.model." + agg.toLowerCase() + "."+agg+"Factory;\n";
     return a;
   }
 
-  public static String imports() {
+  public static String importsMto(String agg,ArrayList<Integer>mto,ArrayList<String>tablas) {
+    String a="";
+    
+    
+    a += "\nimport ctag.domain.model." + agg.toLowerCase() + "."+agg+"Id;\n"+
+        "\nimport ctag.domain.model." + agg.toLowerCase() + "."+agg+";\n";
+  return a;
+  
+  }
+        
+        public static String imports() {
     String a;
     a = "import java.util.Collections;\n"
         + "import java.util.HashSet;\n"

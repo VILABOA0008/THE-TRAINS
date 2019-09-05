@@ -22,13 +22,14 @@ public class Leer {
   Map<Integer, ArrayList<Integer>> otm;
   Map<Integer, String[]> Mtm;
   Map<Integer, Integer> tableType;
+  Map<Integer, ArrayList<String>> primaryKeys;
 
   // CONSTRUCTOR
   public Leer(ArrayList<String> tablas, Map<Integer, ArrayList<String>> fks,
       Map<Integer, Boolean> mtm, Map<Integer, ArrayList<String>> vars,
       Map<Integer, ArrayList<String>> types, Map<Integer, ArrayList<Integer>> otm,
       Map<Integer, ArrayList<Integer>> mto, Map<Integer, String[]> Mtm,
-      Map<Integer, Integer> tableType) {
+      Map<Integer, Integer> tableType,Map<Integer, ArrayList<String>> primaryKeys) {
     this.tablas = tablas;
     this.fks = fks;
     this.mtm = mtm;
@@ -38,6 +39,7 @@ public class Leer {
     this.mto = mto;
     this.Mtm = Mtm;
     this.tableType = tableType;
+    this.primaryKeys = primaryKeys;
 
   }
 
@@ -90,19 +92,32 @@ public class Leer {
       c++;
       ArrayList<String> dataVars = new ArrayList<>();
       ArrayList<String> dataTypes = new ArrayList<>();
+      ArrayList<String> primaryKey = new ArrayList<>();
+      ArrayList<String> auxFks = new ArrayList<>();
+      
+      ResultSet pkFind = databaseMetaData.getPrimaryKeys(null, null, actualTable);
+      while (pkFind.next()) {
+        primaryKey.add(pkFind.getString("COLUMN_NAME"));
+      }
+
+      ResultSet fkFind = databaseMetaData.getImportedKeys(null, null, actualTable);
+      while (fkFind.next()) {
+        auxFks.add(fkFind.getString("FKCOLUMN_NAME"));
+      }
+      
       ResultSet columns = databaseMetaData.getColumns(null, null, actualTable, null);
       while (columns.next()) {
         String column = columns.getString("COLUMN_NAME");
         String dataType = columns.getString("TYPE_NAME");
 
-        if (!mtm.get(c)
-            && (fks.get(c) == null || (fks.get(c) != null && !fks.get(c).contains(column)))) {
+        if (!mtm.get(c)&& !auxFks.contains(column)&&!primaryKey.contains(column)) {
         column = metodos.despital(column);
-          dataVars.add(column);
           dataTypes.add(dataType);
+          dataVars.add(column);
 
         }
       }
+      primaryKeys.put(c, primaryKey);
       vars.put(c, dataVars);
       types.put(c, dataTypes);
     }
@@ -197,9 +212,9 @@ public class Leer {
             System.err.println("error entitie  "+actualTable+"  empieza con fk en vez de id  "+fk);//error
           }
           
-          if(tableType.get(c)==3&&(fk.contains("id")||fk.contains("Id"))) {
-              fk = fk.replace("id", "");fk = fk.replace("Id", "");
-          }
+//          if(tableType.get(c)==3&&(fk.contains("id")||fk.contains("Id"))) {
+//              fk = fk.replace("id", "");fk = fk.replace("Id", "");
+//          }
           
           var.add(fk);
           

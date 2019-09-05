@@ -22,7 +22,8 @@ public class AgregadoPLUSPLUS {
       Map<Integer, ArrayList<Integer>> otm,
       Map<Integer, ArrayList<Integer>> mto,
       Map<Integer, String[]> Mtm,
-      Map<Integer, Integer> tipo)
+      Map<Integer, Integer> tipo,
+      Map<Integer, ArrayList<String>> primaryKeys)
       throws IOException {
     Scanner s = new Scanner(System.in);
 
@@ -37,6 +38,7 @@ public class AgregadoPLUSPLUS {
     // NOMBRE DE LA TABLA Y EL AGREGADO D
     String agg;
     String tabla;
+    Integer tableType;
     int c;
 
     AgregadoMetodosPLUS_PLUS_PLUS.NombreAggregado(aggs, tablas, mtm, Mtm, MTM, MTMapped,
@@ -60,43 +62,30 @@ public class AgregadoPLUSPLUS {
         String finalId;
         ag = "";
         c = i;
+        tableType=tipo.get(c);
         tabla = tablas.get(c);
         agg = metodos.Capital(tablas.get(c));
         importagg = Agregadospeques.importAgg(agg);
         ag += Agregadospeques.paqueteAgg(agg);
-
+        
         ag += Agregadospeques.imports();
-
+//        ag += Agregadospeques.importsMto(agg);
         ag += AgregadosGrandes.clas(agg);
 
         ag += Agregadospeques.finalTable(tabla);
 
         ag += Agregadospeques.ID();
         ag += Agregadospeques.tableStatic();// TODO SE PUEDE ELIMINAR
-        finalId=metodos.mayusq(vars.get(c).get(0)).toUpperCase();
-        ag += Agregadospeques.finalId(finalId,vars.get(c).get(0));
+        finalId="algo";
+        if(tableType==0) {
+        finalId=metodos.mayusq(primaryKeys.get(c).get(0)).toUpperCase();
+        ag += Agregadospeques.finalId(finalId,primaryKeys.get(c).get(0));}
 
-        // eliminar id field
+        // Crear variable con los fields de la tabla actual
         ArrayList<String> varss = vars.get(c);
         ArrayList<String> tiposs = tipos.get(c);
-        System.err.println(tabla+"   yipo "+tipo.get(c));
-        if (tipo.get(c) == 3 && !tabla.equalsIgnoreCase("LineBOMS")
-            && !tabla.equalsIgnoreCase("ShiftReview")
-            && !tabla.equalsIgnoreCase("PartVersionFile")) {
-          // Si no empieza por Id, esta mal
-
-          for (int x = 0; x < fks.get(c).size(); x++) {
-            varss.remove(0);
-            tiposs.remove(0);
-          }
-
-        } else {
-          varss.remove(0);
-          tiposs.remove(0);
-        }
         vars.put(c, varss);
         tipos.put(c, tiposs);
-
         ag += AgregadoMetodosPLUS_PLUS_PLUS.Fields(tipos.get(c), fieldsFinal, vars.get(c));
         if (fks.get(c) != null) {
           ag += AgregadoMetodosPLUS_PLUS_PLUS.ManysToOnes(aggs, fks.get(c), fkmoVarFinal,
@@ -209,7 +198,7 @@ public class AgregadoPLUSPLUS {
           //OLDDDDDDDDDD
           //OLDDDDDDDDDD
           //OLDDDDDDDDDD
-          new File(url + "rest").mkdir();
+          new File(url + "rest").mkdir(); 
           new File(url + "rest\\"+agg.toLowerCase()).mkdir();
 //          Escribir.escribir(
 //              url + "rest\\" + agg + "\\"
