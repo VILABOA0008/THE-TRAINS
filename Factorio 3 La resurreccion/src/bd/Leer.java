@@ -92,17 +92,14 @@ public class Leer {
       ArrayList<String> dataTypes = new ArrayList<>();
       ResultSet columns = databaseMetaData.getColumns(null, null, actualTable, null);
       while (columns.next()) {
-        String formatedColumn = columns.getString("COLUMN_NAME");
-        String datatype = columns.getString("TYPE_NAME");
+        String column = columns.getString("COLUMN_NAME");
+        String dataType = columns.getString("TYPE_NAME");
 
-//        if (formatedColumn.contains("FK")) {
-//          formatedColumn = formatedColumn.replace("FK_", "");
-//        }
         if (!mtm.get(c)
-            && (fks.get(c) == null || (fks.get(c) != null && !fks.get(c).contains(formatedColumn)))) {
-        formatedColumn = metodos.despital(formatedColumn);
-          dataVars.add(formatedColumn);
-          dataTypes.add(datatype);
+            && (fks.get(c) == null || (fks.get(c) != null && !fks.get(c).contains(column)))) {
+        column = metodos.despital(column);
+          dataVars.add(column);
+          dataTypes.add(dataType);
 
         }
       }
@@ -192,11 +189,12 @@ public class Leer {
         while (fkFind.next()) {
           String fk=fkFind.getString("FKCOLUMN_NAME");
           
-//          if (fk.contains("FK")) {
-//            fk = fk.replace("FK_", "");
-//          }
           if(tableType.get(c)!=3&&(fk.substring(0,2).contains("id")||fk.substring(0,2).contains("Id"))) {
             System.err.println("error  "+actualTable+"  empieza con id en vez de fk  "+fk);//error
+          }
+          
+          if(tableType.get(c)==3&&((!fk.substring(0,2).contains("id")&&!fk.substring(0,2).contains("Id")))) {
+            System.err.println("error entitie  "+actualTable+"  empieza con fk en vez de id  "+fk);//error
           }
           
           if(tableType.get(c)==3&&(fk.contains("id")||fk.contains("Id"))) {
@@ -230,8 +228,8 @@ public class Leer {
   public Connection connect() throws SQLException {
 
     Connection con = null;
-     String url = "jdbc:mysql://localhost:3306/totem";
-//    String url = "jdbc:mysql://localhost:3306/IEC_IND";
+//     String url = "jdbc:mysql://localhost:3306/totem";
+    String url = "jdbc:mysql://localhost:3306/IEC_IND";
     String user = "root";
     String password = "";
 

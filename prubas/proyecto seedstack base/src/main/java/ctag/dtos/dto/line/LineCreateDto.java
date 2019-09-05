@@ -13,7 +13,9 @@ import io.swagger.annotations.ApiModelProperty;
 public class LineCreateDto {
 
 private String name;
-private boolean active;
+private Integer fK_Plant;
+private Integer fK_Group;
+private Integer idLineType;
 
 
   @JsonProperty(value = "name")
@@ -22,17 +24,35 @@ private boolean active;
   public String getName() {
     return name;  }
 
-  @JsonProperty(value = "active")
-  @ApiModelProperty(value = "active")
+  @JsonProperty(value = "fK_Plant")
+  @ApiModelProperty(value = "fK_Plant")
   @FactoryArgument(index = 1)
-  public boolean getActive() {
-    return active;  }
+  public Integer getFK_Plant() {
+    return fK_Plant;  }
+
+  @JsonProperty(value = "fK_Group")
+  @ApiModelProperty(value = "fK_Group")
+  @FactoryArgument(index = 2)
+  public Integer getFK_Group() {
+    return fK_Group;  }
+
+  @JsonProperty(value = "idLineType")
+  @ApiModelProperty(value = "idLineType") 
+  @FactoryArgument(index = 3)
+  public Integer getIdLineType() {
+    return idLineType;  }
 
   public void setName(String  name) {
     this.name = name;  }
 
-  public void setActive(boolean  active) {
-    this.active = active;  }
+  public void setFK_Plant(Integer  fK_Plant) {
+    this.fK_Plant = fK_Plant;  }
+
+  public void setFK_Group(Integer  fK_Group) {
+    this.fK_Group = fK_Group;  }
+
+  public void setIdLineType(Integer  idLineType) {
+    this.idLineType = idLineType;  }
 
 
 }

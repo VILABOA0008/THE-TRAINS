@@ -79,6 +79,7 @@ public class AgregadoPLUSPLUS {
         // eliminar id field
         ArrayList<String> varss = vars.get(c);
         ArrayList<String> tiposs = tipos.get(c);
+        System.err.println(tabla+"   yipo "+tipo.get(c));
         if (tipo.get(c) == 3 && !tabla.equalsIgnoreCase("LineBOMS")
             && !tabla.equalsIgnoreCase("ShiftReview")
             && !tabla.equalsIgnoreCase("PartVersionFile")) {
