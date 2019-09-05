@@ -82,12 +82,12 @@ public class Agregadospeques {
     return a;
   }
 
-  public static String finalId(String agg) {
+  public static String finalId(String ID,String id) {
     String a;
-    a = "\nprivate static final String ID_"
-        + agg.toUpperCase()
-        + " = \" id"
-        + metodos.Capital(agg)
+    a = "\nprivate static final String "
+        + ID
+        + " = \" "
+        +id
         + " \";";
 
     return a;

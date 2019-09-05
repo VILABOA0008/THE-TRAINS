@@ -57,6 +57,7 @@ public class AgregadoPLUSPLUS {
         ArrayList<String> mapedByFinal = new ArrayList<>();
         // FIELDS
         ArrayList<String> fieldsFinal = new ArrayList<>();
+        String finalId;
         ag = "";
         c = i;
         tabla = tablas.get(c);
@@ -72,7 +73,8 @@ public class AgregadoPLUSPLUS {
 
         ag += Agregadospeques.ID();
         ag += Agregadospeques.tableStatic();// TODO SE PUEDE ELIMINAR
-        ag += Agregadospeques.finalId(agg);
+        finalId=metodos.mayusq(vars.get(c).get(0)).toUpperCase();
+        ag += Agregadospeques.finalId(finalId,vars.get(c).get(0));
 
         // eliminar id field
         ArrayList<String> varss = vars.get(c);
@@ -116,7 +118,7 @@ public class AgregadoPLUSPLUS {
         }
         if (tipo.get(c) != 3) {
           ag += Agregadospeques.finalGenerator(agg);
-          ag += AgregadosGrandes.tableGenerator(agg);
+          ag += AgregadosGrandes.tableGenerator(finalId);
         }
         String url="C:\\Users\\pabcos\\Documents\\trains\\prubas\\proyecto seedstack base\\src\\main\\java\\ctag";
         new File(url).mkdir();
@@ -132,7 +134,7 @@ public class AgregadoPLUSPLUS {
           ag += AgregadosGrandes.oneToMany(mapedByFinal, mapedByV);
         }
 
-        ag += AgregadosGrandes.ManysToManys(agg, mtmVar);
+        ag += AgregadosGrandes.ManysToManys(finalId,agg, mtmVar);
 
         ag += Agregadospeques.manyToManyMappedBy(agg, mtmappedVar);
 

@@ -71,19 +71,22 @@ public class AgregadoMetodosPLUS_PLUS_PLUS {
 
   }
 
-  public static String ManyToOne(ArrayList<String> fks, ArrayList<String> fkmoVarFinal,int tipo) {
+  public static String ManyToOne(ArrayList<String> fks, ArrayList<String> fkmoVarFinal, int tipo) {
 
     String a = "";
 
     for (int i = 0; i < fks.size(); i++) {
       String withoutFK;
       if (fks.get(i).contains("FK")) {
-        withoutFK=fks.get(i).replace("FK_", "");}else {
-          withoutFK=fks.get(i);
-        }
-      a += AgregadosGrandes.manyToOne(withoutFK,fks.get(i).toUpperCase(), fkmoVarFinal.get(i),tipo);
-    if (fks.get(i).contains("FK")) {
-      fks.set(i, withoutFK);}
+        withoutFK = fks.get(i).replace("FK_", "");
+      } else {
+        withoutFK = fks.get(i);
+      }
+      a += AgregadosGrandes.manyToOne(withoutFK, fks.get(i).toUpperCase(), fkmoVarFinal.get(i),
+          tipo);
+      if (fks.get(i).contains("FK")) {
+        fks.set(i, withoutFK);
+      }
     }
     return a;
   }
@@ -201,14 +204,17 @@ public class AgregadoMetodosPLUS_PLUS_PLUS {
   public static String Fields(
       ArrayList<String> fieldsType, ArrayList<String> fieldsFinal, ArrayList<String> fieldsVar) {
     String a = "";
+    String Field;
     int nf, c = 0;
     String tipo, var;
     // System.out.println("Cuantos fields sin relaciones");
     while (fieldsType.size() > c) {
-
+      
       var = fieldsVar.get(c);
-      var = metodos.mayusq(var);
-      String Field = "FIELD_" + var.toUpperCase();
+      if(!var.equals(var.toUpperCase())) {
+        Field= metodos.mayusq(var);}else {Field=var;}
+       Field = "FIELD_" + Field.toUpperCase();
+      
       fieldsFinal.add(Field);
       a += Agregadospeques.finalFields(Field, var);
       c++;

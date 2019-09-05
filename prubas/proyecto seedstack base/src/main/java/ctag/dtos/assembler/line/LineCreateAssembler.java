@@ -1,6 +1,8 @@
   package ctag.dtos.assembler.line;
 
 import org.seedstack.business.assembler.BaseAssembler;
+
+import ctag.dtos.dto.line.LineCreateDto;
 public class LineCreateAssembler extends BaseAssembler<Line, LineCreateDto> {
 
   @Override

@@ -18,14 +18,14 @@ public class AgregadosGrandes {
     return a;
   }
 
-  public static String tableGenerator(String agg) {
+  public static String tableGenerator(String ID) {
     String a;
 
     a = "  @TableGenerator(name = GENERATOR, table = SEQUENCE, pkColumnName = KEY_VAL, valueColumnName = VALUE, pkColumnValue = TABLE_NAME, allocationSize = 1)\n"
         +
         "  @Id\n" +
         "  @GeneratedValue(strategy = GenerationType.TABLE, generator = GENERATOR)\n" +
-        "  @Column(name = ID_" + agg.toUpperCase() + ", nullable = false, unique = true)\n" +
+        "  @Column(name = " + ID + ", nullable = false, unique = true)\n" +
         "  private Integer id;\n";
 
     return a;
@@ -129,7 +129,7 @@ public class AgregadosGrandes {
     return a;
   }
 
-  public static String ManysToManys(String agg, ArrayList<String> mtmVar) {
+  public static String ManysToManys(String ID,String agg, ArrayList<String> mtmVar) {
     String a = "", c = "";
     int b = 1;
     for (String i : mtmVar) {
@@ -142,7 +142,7 @@ public class AgregadosGrandes {
       a += " \n @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)\n" +
           "  @JoinTable(\n" +
           "      name = TABLE_" + agg.toUpperCase() + "_" + i.toUpperCase() + c + ",\n" +
-          "      joinColumns = {@JoinColumn(name = ID_" + agg.toUpperCase()
+          "      joinColumns = {@JoinColumn(name = " + ID
           + ", nullable = false, updatable = false)},\n" +
           "      inverseJoinColumns = {@JoinColumn(name = ID_" + i.toUpperCase()
           + ", nullable = false, updatable = false)})\n" +
