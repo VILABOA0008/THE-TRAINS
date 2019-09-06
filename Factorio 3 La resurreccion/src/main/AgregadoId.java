@@ -18,13 +18,13 @@ public class AgregadoId {
      
       String capTabla =primaryKeys.get(q);
       String desTabla = metodos.despital(capTabla);
-      String clases=tablas.get(mto.get(q));
+//      String clases=tablas.get(mto.get(q));
       b += "  private Integer " + desTabla + "Id;\n";
       c += "Integer id" + capTabla + ",";
       d += "    this." + desTabla + "Id = id" + capTabla + ";\n";
 
-      e += "  public " + clases + "Id get" + capTabla + "Id() {\n" +
-          "    return new " + clases + "Id(" + desTabla + "Id);\n" +
+      e += "  public " + capTabla + "Id get" + capTabla + "Id() {\n" +
+          "    return new " + capTabla + "Id(" + desTabla + "Id);\n" +
           "  }\n" +
           "\n";
 

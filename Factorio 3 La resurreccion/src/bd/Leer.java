@@ -179,6 +179,26 @@ public class Leer {
         } else {
           // TODO BASE ENTITIEES (2Pk, 2Fk +Fields  )
           //Factory
+          
+          
+          
+          fkFind.beforeFirst();
+          pkFind.beforeFirst();
+          ArrayList<String>auxPks =new ArrayList<>();
+          ArrayList<String>auxFks =new ArrayList<>();
+          while (pkFind.next()) {
+            auxPks.add(pkFind.getString("COLUMN_NAME"));     
+//            System.err.println("auxxx  pk    "+pkFind.getString("COLUMN_NAME"));
+          }
+          while (fkFind.next()) {
+            auxFks.add(fkFind.getString("FKCOLUMN_NAME"));            
+//            System.err.println("auxxx  fk    "+fkFind.getString("FKCOLUMN_NAME"));
+
+          }
+          System.err.println("\n\n"+actualTable);
+          System.err.println(auxFks);
+          System.err.println(auxPks);
+          
           tableType.put(c, 3);
           mtm.put(c, false);
         }
