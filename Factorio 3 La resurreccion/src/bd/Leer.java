@@ -93,6 +93,7 @@ public class Leer {
       ArrayList<String> dataVars = new ArrayList<>();
       ArrayList<String> dataTypes = new ArrayList<>();
       ArrayList<String> primaryKey = new ArrayList<>();
+      ArrayList<String> primaryKeyTable = new ArrayList<>();
       ArrayList<String> auxFks = new ArrayList<>();
       
       ResultSet pkFind = databaseMetaData.getPrimaryKeys(null, null, actualTable);

@@ -7,12 +7,12 @@ import textos.Agregadospeques;
 public class Dto {
 
   public static String createDto(String agg, ArrayList<String> fieldsType,
-      ArrayList<String> fieldsVar, ArrayList<String> fks) {
+      ArrayList<String> fieldsVar, ArrayList<String> fks,String importagg) {
     String a = "";
     agg = metodos.Capital(agg);
 
     a += Agregadospeques.DtoPackage(agg);
-    a += Agregadospeques.CreateDtoImport(agg);
+    a += Agregadospeques.CreateDtoImport(importagg);
 
     a += "\n@DtoOf(" + agg + ".class)\n" +
         "@ApiModel(value = \" " + agg + " \")\n" +
@@ -44,7 +44,7 @@ public class Dto {
       a += "  @JsonProperty(value = \"id" + cap + "\")\n" +
           "  @ApiModelProperty(value = \"id" + cap + "\") \n"
           + "  @FactoryArgument(index = " + (fieldsType.size() + i) + ")\n" +
-          "  public Integer getId" + cap + "() {\n" +
+          "  public Integer get" + cap + "Id() {\n" +
           "    return id" + cap + ";" +
           "  }\n\n";
     }}
@@ -59,7 +59,7 @@ public class Dto {
     if (fks != null) {
     for (int i = 0; i < fks.size(); i++) {
       String cap = metodos.Capital(fks.get(i));
-      a += "  public void setId" + metodos.Capital(cap) + "(Integer  id" + cap + ") {\n" +
+      a += "  public void set" + metodos.Capital(cap) + "Id(Integer  id" + cap + ") {\n" +
           "    this.id" + cap + " = id" + cap + ";" +
           "  }\n\n";
     }}
@@ -87,11 +87,11 @@ public class Dto {
         "  }\n" +
         "\n" +
         "  @JsonProperty(\"id" + agg + "\")\n" +
-        "  public Integer getId" + agg + "() {\n" +
+        "  public Integer get" + agg + "Id() {\n" +
         "    return id" + agg + ";\n" +
         "  }\n" +
         "\n" +
-        "  public void setId" + agg + "(Integer id" + agg + ") {\n" +
+        "  public void set" + agg + "Id(Integer id" + agg + ") {\n" +
         "    this.id" + agg + " = id" + agg + ";\n" +
         "  }";
 

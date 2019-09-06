@@ -5,6 +5,7 @@ import javax.inject.Inject;
 import org.seedstack.business.assembler.Assembler;
 import org.seedstack.business.assembler.BaseAssembler;
 
+import ctag.domain.model.line.Line;
 import ctag.dtos.dto.line.LineCreateDto;
 import ctag.dtos.dto.line.LineDto;
 
@@ -21,7 +22,7 @@ public class LineAssembler extends BaseAssembler<Line, LineDto> {
   @Override
   public void mergeAggregateIntoDto(Line sourceAggregate, LineDto targetDto) {
     assembler.mergeAggregateIntoDto(sourceAggregate, targetDto);
-    targetDto.setIdLine(sourceAggregate.getId().getId());
+    targetDto.setLineId(sourceAggregate.getId().getId());
   }
 
   @Override

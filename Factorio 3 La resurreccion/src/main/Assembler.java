@@ -10,13 +10,14 @@ public class Assembler {
       String agg,
       ArrayList<String> fieldsType,
       ArrayList<String> fieldsVar,
-      ArrayList<String> fks,ArrayList<String> fkmo) {
+      ArrayList<String> fks,ArrayList<String> fkmo,
+      String importAgg) {
     String a = "";
     String b = "", c = "";
     agg = metodos.Capital(agg);
 
     a += Agregadospeques.AssemblerPackage(agg);
-    a += Agregadospeques.CreateAssemblerImport();
+    a += Agregadospeques.CreateAssemblerImport(importAgg);
 
     for (int i = 0; i < fieldsType.size(); i++) {
       String f = metodos.Capital(fieldsVar.get(i));
@@ -26,7 +27,7 @@ public class Assembler {
     if(fks!=null) {
     for (int i = 0; i < fks.size(); i++) {
       String f = metodos.Capital(fks.get(i));
-      b += "targetDto.setId" + f + "(sourceAggregate.getId" + f + "().getId());\n";
+      b += "targetDto.set" + f + "Id(sourceAggregate.get" + f + "Id().getId());\n";
     }}
 
     for (int i = 0; i < fieldsType.size(); i++) {
@@ -39,7 +40,7 @@ public class Assembler {
     for (int i = 0; i < fks.size(); i++) {
       String f = metodos.Capital(fks.get(i));
       String fkmovar=metodos.Capital(fkmo.get(i));
-      c += "targetAggregate.setId" + f + "(new " + fkmovar + "Id(sourceDto.getId" + f + "()));\n";
+      c += "targetAggregate.set" + f + "Id(new " + fkmovar + "Id(sourceDto.get" + f + "Id()));\n";
     }}
 
     a +=
@@ -76,12 +77,12 @@ public class Assembler {
   }
 
   public static String Assembler(
-      String agg) {
+      String agg,String importAgg) {
     String a = "";
     agg = metodos.Capital(agg);
 
     a += Agregadospeques.AssemblerPackage(agg);
-    a += Agregadospeques.AssemblerImport();
+    a += Agregadospeques.AssemblerImport(importAgg);
 
     a +=
         "\npublic class "
@@ -117,9 +118,9 @@ public class Assembler {
             + agg
             + "Dto targetDto) {\n"
             + "    assembler.mergeAggregateIntoDto(sourceAggregate, targetDto);\n"
-            + "    targetDto.setId"
+            + "    targetDto.set"
             + agg
-            + "(sourceAggregate.getId().getId());\n"
+            + "Id(sourceAggregate.getId().getId());\n"
             + "  }\n"
             + "\n"
             + "  @Override\n"

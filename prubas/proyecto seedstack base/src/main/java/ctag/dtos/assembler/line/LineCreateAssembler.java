@@ -2,6 +2,7 @@
 
 import org.seedstack.business.assembler.BaseAssembler;
 
+import ctag.domain.model.line.Line;
 import ctag.domain.model.linetype.LineTypeId;
 import ctag.dtos.dto.line.LineCreateDto;
 public class LineCreateAssembler extends BaseAssembler<Line, LineCreateDto> {
@@ -11,7 +12,7 @@ public class LineCreateAssembler extends BaseAssembler<Line, LineCreateDto> {
 targetDto.setName(sourceAggregate.getName());
 targetDto.setFK_Plant(sourceAggregate.getFK_Plant());
 targetDto.setFK_Group(sourceAggregate.getFK_Group());
-targetDto.setIdLineType(sourceAggregate.getIdLineType().getId());
+targetDto.setLineTypeId(sourceAggregate.getLineTypeId().getId());
   }
 
   @Override
@@ -19,7 +20,7 @@ targetDto.setIdLineType(sourceAggregate.getIdLineType().getId());
 targetAggregate.setName(sourceDto.getName());
 targetAggregate.setFK_Plant(sourceDto.getFK_Plant());
 targetAggregate.setFK_Group(sourceDto.getFK_Group());
-targetAggregate.setIdLineType(new LineTypeId(sourceDto.getIdLineType()));
+targetAggregate.setLineTypeId(new LineTypeId(sourceDto.getLineTypeId()));
 
   }
 

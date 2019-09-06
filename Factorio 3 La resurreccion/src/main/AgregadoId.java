@@ -6,19 +6,18 @@ import textos.Agregadospeques;
 
 public class AgregadoId {
 
-  public static String BaseEntityId(String agg, ArrayList<Integer> mto, ArrayList<String> tablas,ArrayList<String> primaryKeys) {
-
+  public static String BaseEntityId(String agg, ArrayList<Integer> mto, ArrayList<String> tablas,
+      ArrayList<String> primaryKeys) {
 
     String id = metodos.Capital(agg) + "Id";
 
     String a = Agregadospeques.paqueteAgg(agg);
     String b = "", c = "", d = "", e = "";
-    
-    for (int q = 0; q < primaryKeys.size(); q++) {
-     
-      String capTabla =primaryKeys.get(q);
+
+    a += Agregadospeques.importsId();
+    for (Integer i : mto) {
+      String capTabla = tablas.get(i);
       String desTabla = metodos.despital(capTabla);
-//      String clases=tablas.get(mto.get(q));
       b += "  private Integer " + desTabla + "Id;\n";
       c += "Integer id" + capTabla + ",";
       d += "    this." + desTabla + "Id = id" + capTabla + ";\n";

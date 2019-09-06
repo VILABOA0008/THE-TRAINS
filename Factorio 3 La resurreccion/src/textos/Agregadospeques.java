@@ -82,12 +82,12 @@ public class Agregadospeques {
     return a;
   }
 
-  public static String finalId(String ID,String id) {
+  public static String finalId(String ID, String id) {
     String a;
     a = "\nprivate static final String "
         + ID
         + " = \" "
-        +id
+        + id
         + " \";";
 
     return a;
@@ -115,34 +115,36 @@ public class Agregadospeques {
     return a;
   }
 
-  public static String importAgg(String agg) {
+  public static String importAgg(String agg, String url) {
 
-    String a =   "import ctag.domain.model." + agg.toLowerCase() + "."+agg+";\n"+
-                     "import ctag.domain.model." + agg.toLowerCase() + "."+agg+"Factory;\n";
+    String a = url + "domain.model." + agg.toLowerCase() + "." + agg;
+
     return a;
   }
 
-  public static String importsMto(ArrayList<Integer>mto,ArrayList<Integer>otm,ArrayList<String>tablas) {
-    String a="";
-if(mto!=null) {
-    for(Integer i:mto){
-    String mtoAgg=tablas.get(i);
-    a += "import ctag.domain.model." + mtoAgg.toLowerCase() + "."+mtoAgg+"Id;\n"+
-            "import ctag.domain.model." + mtoAgg.toLowerCase() + "."+mtoAgg+";\n";
-    }}
-if(otm!=null) {
-    for(Integer i:otm){
-      String otmAgg=tablas.get(i);
-      System.err.println("otm  "+otmAgg);
-      a += "import ctag.domain.model." + otmAgg.toLowerCase() + "."+otmAgg+"Id;\n"+
-          "import ctag.domain.model." + otmAgg.toLowerCase() + "."+otmAgg+";\n";
-    }}
-    
-  return a;
-  
+  public static String importsMto(ArrayList<Integer> mto, ArrayList<Integer> otm,
+      ArrayList<String> tablas, String url) {
+    String a = "";
+    if (mto != null) {
+      for (Integer i : mto) {
+        String mtoAgg = tablas.get(i);
+        a += url + "domain.model." + mtoAgg.toLowerCase() + "." + mtoAgg + "Id;\n" +
+            url + "domain.model." + mtoAgg.toLowerCase() + "." + mtoAgg + ";\n";
+      }
+    }
+    if (otm != null) {
+      for (Integer i : otm) {
+        String otmAgg = tablas.get(i);
+        a += "import ctag.domain.model." + otmAgg.toLowerCase() + "." + otmAgg + "Id;\n" +
+            "import ctag.domain.model." + otmAgg.toLowerCase() + "." + otmAgg + ";\n";
+      }
+    }
+
+    return a;
+
   }
-        
-        public static String imports() {
+
+  public static String imports() {
     String a;
     a = "import java.util.Collections;\n"
         + "import java.util.HashSet;\n"
@@ -235,21 +237,22 @@ if(otm!=null) {
     return a;
   }
 
-  public static String getIdBaseEntity(String Agg,ArrayList<String>primaryKeys) {
+  public static String getIdBaseEntity(String Agg, ArrayList<String> primaryKeys) {
     String a;
-    String b="";
+    String b = "";
     for (int i = 0; i < primaryKeys.size(); i++) {
-      
-      b+="get"+primaryKeys.get(i)+"Id().getId()";
-      if(i!=primaryKeys.size()-1) {b+=",";}
-      
+
+      b += "get" + primaryKeys.get(i) + "Id().getId()";
+      if (i != primaryKeys.size() - 1) {
+        b += ",";
+      }
+
     }
-    
-    a =
-        "    @Override\n" + 
-        "  public "+Agg+"Id getId() {\n" + 
-        "    return new "+Agg+"Id("+b+");\n" + 
-        "\n" + 
+
+    a = "    @Override\n" +
+        "  public " + Agg + "Id getId() {\n" +
+        "    return new " + Agg + "Id(" + b + ");\n" +
+        "\n" +
         "  }";
 
     return a;
@@ -311,9 +314,9 @@ if(otm!=null) {
     return a;
   }
 
-  public static String CreateDtoImport(String agg) {
+  public static String CreateDtoImport(String importAgg) {
     String a;
-    a = "\nimport ctag.domain.model.aggregate.modelospruebas." + agg + ";\n" +
+    a = "\n" + importAgg + ";\n" +
         "import org.seedstack.business.assembler.DtoOf; \n" +
         "import org.seedstack.business.assembler.FactoryArgument;\n" +
         "import com.fasterxml.jackson.annotation.JsonProperty;\n" +
@@ -341,16 +344,18 @@ if(otm!=null) {
     return a;
   }
 
-  public static String CreateAssemblerImport() {
+  public static String CreateAssemblerImport(String importAgg) {
     String a;
-    a = "import org.seedstack.business.assembler.BaseAssembler;\n";
+    a = importAgg + ";\n" +
+        "import org.seedstack.business.assembler.BaseAssembler;\n";
 
     return a;
   }
 
-  public static String AssemblerImport() {
+  public static String AssemblerImport(String importAgg) {
     String a;
-    a = "import javax.inject.Inject; \n" +
+    a = importAgg + ";\n" +
+        "import javax.inject.Inject; \n" +
         "import org.seedstack.business.assembler.Assembler;\n" +
         "import org.seedstack.business.assembler.BaseAssembler;\n";
 

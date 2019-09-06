@@ -6,6 +6,7 @@ import org.seedstack.business.assembler.FactoryArgument;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import ctag.domain.model.line.Line;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
@@ -40,7 +41,7 @@ private Integer idLineType;
   @JsonProperty(value = "idLineType")
   @ApiModelProperty(value = "idLineType") 
   @FactoryArgument(index = 3)
-  public Integer getIdLineType() {
+  public Integer getLineTypeId() {
     return idLineType;  }
 
   public void setName(String  name) {
@@ -52,7 +53,7 @@ private Integer idLineType;
   public void setFK_Group(Integer  fK_Group) {
     this.fK_Group = fK_Group;  }
 
-  public void setIdLineType(Integer  idLineType) {
+  public void setLineTypeId(Integer  idLineType) {
     this.idLineType = idLineType;  }
 
 

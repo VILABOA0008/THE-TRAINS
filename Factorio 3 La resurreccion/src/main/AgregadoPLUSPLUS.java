@@ -38,6 +38,7 @@ public class AgregadoPLUSPLUS {
     // NOMBRE DE LA TABLA Y EL AGREGADO D
     String agg;
     String tabla;
+    String importUrl="import ctag.";
     Integer tableType;
     int c;
 
@@ -65,11 +66,11 @@ public class AgregadoPLUSPLUS {
         tableType=tipo.get(c);
         tabla = tablas.get(c);
         agg = metodos.Capital(tablas.get(c));
-        importagg = Agregadospeques.importAgg(agg);
+        importagg = Agregadospeques.importAgg(agg,importUrl);
         ag += Agregadospeques.paqueteAgg(agg);
         
         ag += Agregadospeques.imports();
-        ag += Agregadospeques.importsMto(mto.get(c),otm.get(c),tablas);
+        ag += Agregadospeques.importsMto(mto.get(c),otm.get(c),tablas,importUrl);
         ag += AgregadosGrandes.clas(agg);
 
         ag += Agregadospeques.finalTable(tabla);
@@ -193,7 +194,7 @@ public class AgregadoPLUSPLUS {
               url + "dtos\\dto\\" + agg + "\\"
                   + agg
                   + "CreateDto.java",
-              Dto.createDto(agg, tipos.get(c), vars.get(c), fks.get(c)));
+              Dto.createDto(agg, tipos.get(c), vars.get(c), fks.get(c),importagg));
           Escribir.escribir(
               url + "dtos\\dto\\" + agg + "\\"
                   + agg
@@ -205,17 +206,19 @@ public class AgregadoPLUSPLUS {
               url + "dtos\\assembler\\" + agg + "\\"
                   + agg
                   + "CreateAssembler.java",
-              Assembler.createAssembler(agg, tipos.get(c), vars.get(c), fks.get(c), fkmoVarFinal));
+              Assembler.createAssembler(agg, tipos.get(c), vars.get(c), fks.get(c), fkmoVarFinal,importagg));
           Escribir.escribir(
               url + "dtos\\assembler\\" + agg + "\\"
                   + agg
                   + "Assembler.java",
-              Assembler.Assembler(agg));
+              Assembler.Assembler(agg,importagg));
           
           
           //OLDDDDDDDDDD
           //OLDDDDDDDDDD
           //OLDDDDDDDDDD
+          boolean old=false;
+          if(old) {
           new File(url + "rest").mkdir(); 
           new File(url + "rest\\"+agg.toLowerCase()).mkdir();
 //          Escribir.escribir(
@@ -243,7 +246,7 @@ public class AgregadoPLUSPLUS {
           //OLDDDDDDDDDD
           //OLDDDDDDDDDD
           //OLDDDDDDDDDD
-          
+          }
         }
         // FACTORY
         // System.out

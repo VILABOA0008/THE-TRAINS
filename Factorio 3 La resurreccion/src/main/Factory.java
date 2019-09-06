@@ -45,8 +45,8 @@ public class Factory {
     agg = metodos.Capital(agg);
     String a="";
     a+=Agregadospeques.FactoryImplPackage(agg);
-    a+=importagg;
-    
+    a+= importagg+";\n";
+    a+= importagg+"Factory;\n";
     String b = "", c = "";
     for (int i = 0; i < fieldsType.size(); i++) {
       if (i != 0) {
@@ -68,7 +68,7 @@ public class Factory {
     if(fks!=null) {
     for (int i = 0; i < fks.size(); i++) {
 
-      c += "\n  tmp" + agg + ".setId"+ metodos.Capital(fks.get(i)) +"(new "
+      c += "\n  tmp" + agg + ".set"+ metodos.Capital(fks.get(i)) +"Id(new "
           + metodos.Capital(fksmo.get(i)) + "Id(id"
           + metodos.Capital(fks.get(i)) + "));";
     }}

@@ -20,11 +20,11 @@ import io.swagger.annotations.ApiModel;
   }
 
   @JsonProperty("idLine")
-  public Integer getIdLine() {
+  public Integer getLineId() {
     return idLine;
   }
 
-  public void setIdLine(Integer idLine) {
+  public void setLineId(Integer idLine) {
     this.idLine = idLine;
   }
 }
