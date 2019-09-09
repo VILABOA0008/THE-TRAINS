@@ -265,13 +265,35 @@ public class AgregadoPLUSPLUS {
         //COSILLAS
         //COSILLAS
 
-        if(tabla.equalsIgnoreCase("DeclarationType")) {
+        if(tabla.equalsIgnoreCase("Parameter")) {
         Cosillas cosilla=new Cosillas(agg);
         
+        
+        //RESOURCE
+        System.err.println("\n\n\nRESOURCE");
         cosilla.constructor();
-        cosilla.getAll();
+        String params="Boolean HasPoints,LineType idLineType";
+        if(!params.isEmpty()) {
+        cosilla.getAllWithFiltersResource(params);}
+        else {
+        cosilla.getAll();}
         cosilla.create();
         cosilla.update();
+        
+        s.nextLine();
+        
+        
+        //FINDER
+        System.err.println("\n\n\nFINDER");
+        cosilla.Finder(params);
+        s.nextLine();
+        
+        //JPAFINDER
+        System.err.println("\n\n\nJPAFINDER");
+        if(!params.isEmpty()) {
+        cosilla.getAllFinderWithParams(params);}
+        else{
+        cosilla.getAllFinder();}
         
         
         }
@@ -286,6 +308,7 @@ public class AgregadoPLUSPLUS {
     //////////////////////////////////////////////////////
     //////////////////////////////////////////////////////
   }
+
   public static void mkdirs(String url) {
     new File(url + "application").mkdir();
     new File(url + "application\\factoryimpl").mkdir();
