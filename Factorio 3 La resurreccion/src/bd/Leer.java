@@ -235,15 +235,13 @@ public class Leer {
             System.err.println("error entitie  "+actualTable+"  empieza con fk en vez de id  "+fk);//error
           }
           
-//          if(tableType.get(c)==3&&(fk.contains("id")||fk.contains("Id"))) {
-//              fk = fk.replace("id", "");fk = fk.replace("Id", "");
-//          }
           
           var.add(fk);
           
           // oneToMany.add(e)
           for (i = 0; i < tablas.size(); i++) {
             if (tablas.get(i).equalsIgnoreCase(fkFind.getString("PKTABLE_NAME"))) {
+              System.err.println(fkFind.getString("PKTABLE_NAME")+" s   "+fkFind.getString("FKCOLUMN_NAME"));
               oneToMany.add(i);
               break;
             }

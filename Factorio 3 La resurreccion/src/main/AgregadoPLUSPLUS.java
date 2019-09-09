@@ -261,6 +261,23 @@ public class AgregadoPLUSPLUS {
                 + agg
                 + "FactoryImpl.java",
             Factory.factoryImpl(agg, tipos.get(c), vars.get(c), fks.get(c),fkmoVarFinal, importagg));
+        
+        //COSILLAS
+        //COSILLAS
+
+        if(tabla.equalsIgnoreCase("DeclarationType")) {
+        Cosillas cosilla=new Cosillas(agg);
+        
+        cosilla.constructor();
+        cosilla.getAll();
+        cosilla.create();
+        cosilla.update();
+        
+        
+        }
+        //COSILLAS
+        //COSILLAS
+        
       }
 
     }
