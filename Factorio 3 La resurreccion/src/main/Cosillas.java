@@ -48,6 +48,8 @@ public class Cosillas {
 
     System.out.println(a);
   }
+  
+  public void getAllWithFiltersResource(String params) {
 
   public void getAllWithFiltersResource(String params) {
 
