@@ -265,14 +265,14 @@ public class AgregadoPLUSPLUS {
         //COSILLAS
         //COSILLAS
 
-        if(tabla.equalsIgnoreCase("Parameter")) {
+        if(tabla.equalsIgnoreCase("processlaunch")) {
         Cosillas cosilla=new Cosillas(agg);
         
         
         //RESOURCE
         System.err.println("\n\n\nRESOURCE");
-        cosilla.constructor();
-        String params="Boolean HasPoints,LineType idLineType";
+        cosilla.constructor(); 
+        String params="Integer idAccount,Integer idProcessVigilanceVersion,Integer idPsaShift";
         if(!params.isEmpty()) {
         cosilla.getAllWithFiltersResource(params);}
         else {

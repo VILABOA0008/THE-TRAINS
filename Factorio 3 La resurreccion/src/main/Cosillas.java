@@ -48,23 +48,30 @@ public class Cosillas {
 
     System.out.println(a);
   }
-  
+
   public void getAllWithFiltersResource(String params) {
 
-      String[]parameters=params.split(",");
-      String b="";
-      for(int i=0;i<parameters.length;i++) {
-        b+=parameters[i].split(" ")[1];
-        if(i!=parameters.length-1) {b+=",";}
+    String[] parameters = params.split(",");
+    String b = "";
+    String query="";
+    for (int i = 0; i < parameters.length; i++) {
+      String var=parameters[i].split(" ")[1];
+      String type=parameters[i].split(" ")[0];
+      query +="@QueryParam(\""+var+"\") "+ type+" "+var;
+      b += var;
+      if (i != parameters.length - 1) {
+        b += ",";query+=",";
       }
-    
+    }
+
     String a = "  \r\n" +
         "  @GET\r\n" +
         "  @Transactional\r\n" +
         "  @JpaUnit(Config.JPA_UNIT)\r\n" +
         "  @Produces(MediaType.APPLICATION_JSON)\r\n" +
-        "  public List<" + Agg + "Representation> findAll" + Agg + "WithFilters("+params+") {\r\n" +
-        "    return finder.findAll" + Agg + "WithFilters("+b+");\r\n" +
+        "  public List<" + Agg + "Representation> findAll" + Agg + "WithFilters(" + query
+        + ") {\r\n" +
+        "    return finder.findAll" + Agg + "WithFilters(" + b + ");\r\n" +
         "  }\r\n" +
         "";
 
@@ -90,18 +97,36 @@ public class Cosillas {
 
     System.out.println(a);
   }
-  
+
   public void getAllFinderWithParams(String params) {
 
+    String[] parameters = params.split(",");
+    String b = "";
+    for (int i = 0; i < parameters.length; i++) {
+      String var = parameters[i].split(" ")[1];
+      String type = parameters[i].split(" ")[0];
+
+      b += "    if (" + var + " != null) {\r\n" +
+          "      predicates.add(cb.equal(root" + Agg + ".get(" + Agg + "_." + var + "), " + var
+          + "));\r\n" +
+          "    }\n";
+    }
+
     String a = "  @Override\r\n" +
-        "  public List<" + Agg + "Representation> findAll" + Agg + "("+params+") {\r\n" +
+        "  public List<" + Agg + "Representation> findAll" + Agg + "WithFilters(" + params + ") {\r\n" +
         "\r\n" +
         "    final CriteriaBuilder cb = entityManager.getCriteriaBuilder();\r\n" +
         "    final CriteriaQuery<" + Agg + "> q = cb.createQuery(" + Agg + ".class);\r\n" +
         "\r\n" +
-        "    q.select(q.from(" + Agg + ".class));\r\n" +
+        "    final List<Predicate> predicates = new ArrayList<>();" +
+        "    Root<" + Agg + "> root" + Agg + "= q.from(" + Agg + ".class);\r\n" +
+        "    q.select(root" + Agg + ");\r\n\n" +
+        "" + b +
         "\r\n" +
-        "    final List<" + Agg + "> " + agg + "= entityManager.createQuery(q).getResultList();\r\n"
+        "    if (!predicates.isEmpty()) {\r\n" +
+        "      q.where(predicates.toArray(new Predicate[] {}));\r\n" +
+        "    }\n\n"+
+        "final List<" + Agg + "> " + agg + "= entityManager.createQuery(q).getResultList();\r\n"
         +
         "\r\n" +
         "    return fluentAssembler.assemble(" + agg + ").to(" + Agg + "Representation.class);\r\n"
@@ -133,13 +158,14 @@ public class Cosillas {
 
   public void Finder(String params) {
 
-    String a="";
+    String a = "";
 
-    if(!params.isEmpty()) {
-    a+= " List<" + Agg + "Representation> findAll" + Agg + "WithFilters();";
-    }else {
-    a = " List<" + Agg + "Representation> findAll" + Agg + "("+params+");";}
-    
+    if (!params.isEmpty()) {
+      a += " List<" + Agg + "Representation> findAll" + Agg + "WithFilters(" + params + ");";
+    } else {
+      a = " List<" + Agg + "Representation> findAll" + Agg + "();";
+    }
+
     System.out.println(a);
   }
 
