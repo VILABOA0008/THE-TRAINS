@@ -19,8 +19,10 @@ public class AgregadoId {
      
       String capTabla =primaryKeys.get(q);
       String desTabla = metodos.despital(capTabla);
-      if(!agg.equalsIgnoreCase("file")&&!agg.equalsIgnoreCase("PartVersionFile")&&!agg.equalsIgnoreCase("shiftday")) {
-       clases=tablas.get(mto.get(q));}
+//      if(!agg.equalsIgnoreCase("file")&&!agg.equalsIgnoreCase("PartVersionFile")&&!agg.equalsIgnoreCase("shiftday")) {
+        if(q==mto.size()) {System.err.println("error por id en "+agg);break;}
+       clases=tablas.get(mto.get(q));
+//       }
       b += "  private Integer " + desTabla + "Id;\n";
       c += "Integer id" + capTabla + ",";
       d += "    this." + clases + "Id = id" + capTabla + ";\n";

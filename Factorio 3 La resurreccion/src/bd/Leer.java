@@ -194,6 +194,8 @@ public class Leer {
             // System.err.println("auxxx fk "+fkFind.getString("FKCOLUMN_NAME"));
 
           }
+          auxFks.sort((p1, p2) -> p1.compareTo(p2));
+          auxPks.sort((p1, p2) -> p1.compareTo(p2));
           System.err.println("\n\n" + actualTable);
           System.err.println(auxFks);
           System.err.println(auxPks);
@@ -242,8 +244,8 @@ public class Leer {
           // oneToMany.add(e)
           for (i = 0; i < tablas.size(); i++) {
             if (tablas.get(i).equalsIgnoreCase(fkFind.getString("PKTABLE_NAME"))) {
-              System.err.println(
-                  fkFind.getString("PKTABLE_NAME") + " s   " + fkFind.getString("FKCOLUMN_NAME"));
+              // System.err.println(fkFind.getString("PKTABLE_NAME") + " s " +
+              // fkFind.getString("FKCOLUMN_NAME"));
               oneToMany.add(i);
 
               // one to many

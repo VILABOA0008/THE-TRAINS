@@ -53,7 +53,7 @@ public class Main {
     leer.start();
     AgregadoPLUSPLUS.test(varsTest, tiposTest, tablasTest, fksTest, mtmTest, mtoTest, otmTest, MtmTest, tableType,primaryKeys);
 
-    
+    System.err.println("ACABOSE");
     
     
     
