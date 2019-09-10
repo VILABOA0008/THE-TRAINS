@@ -26,6 +26,10 @@ import ctag.domain.model.linetype.LineTypeId;
 import ctag.domain.model.linetype.LineType;
 import ctag.domain.model.lineboms.LineBOMSId;
 import ctag.domain.model.lineboms.LineBOMS;
+import ctag.domain.model.processvigilance.ProcessVigilanceId;
+import ctag.domain.model.processvigilance.ProcessVigilance;
+import ctag.domain.model.reworkbatch.ReworkBatchId;
+import ctag.domain.model.reworkbatch.ReworkBatch;
 @Entity
 @Table(name = Line.TABLE_NAME)
 @IdClass(LineId.class)
@@ -76,6 +80,12 @@ private static final String GENERATOR = "LineGen";
 
   @OneToMany(mappedBy = MAPPED_BY_LINE, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
   private Set<LineBOMS> lineBOMSs;
+
+  @OneToMany(mappedBy = MAPPED_BY_LINE, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+  private Set<ProcessVigilance> processVigilances;
+
+  @OneToMany(mappedBy = MAPPED_BY_LINE, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+  private Set<ReworkBatch> reworkBatchs;
  
  @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
   @JoinTable(
@@ -121,6 +131,32 @@ private static final String GENERATOR = "LineGen";
       this.lineBOMSs = new HashSet<>();
     }
     this.lineBOMSs.add(lineBOMS);
+  }
+  public Set<ProcessVigilance> getProcessVigilances() {
+    if (processVigilances == null) {
+      return Collections.<ProcessVigilance>emptySet();
+    }
+    return Collections.unmodifiableSet(processVigilances);
+  }
+
+  public void addProcessVigilance(ProcessVigilance processVigilance) {
+    if (processVigilances == null) {
+      this.processVigilances = new HashSet<>();
+    }
+    this.processVigilances.add(processVigilance);
+  }
+  public Set<ReworkBatch> getReworkBatchs() {
+    if (reworkBatchs == null) {
+      return Collections.<ReworkBatch>emptySet();
+    }
+    return Collections.unmodifiableSet(reworkBatchs);
+  }
+
+  public void addReworkBatch(ReworkBatch reworkBatch) {
+    if (reworkBatchs == null) {
+      this.reworkBatchs = new HashSet<>();
+    }
+    this.reworkBatchs.add(reworkBatch);
   }
    public LineType getLineType() {
     return lineType;

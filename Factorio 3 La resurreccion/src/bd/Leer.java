@@ -249,18 +249,21 @@ public class Leer {
               oneToMany.add(i);
 
               // one to many
+              
+              
               ResultSet PK = databaseMetaData.getPrimaryKeys(null, null, actualTable);
-              while (PK.next()) {
-                if (PK.getString("COLUMN_NAME")
-                    .equalsIgnoreCase(fkFind.getString("FKCOLUMN_NAME"))) {
+//              while (PK.next()) {
+//                if (PK.getString("COLUMN_NAME")
+//                    .equalsIgnoreCase(fkFind.getString("FKCOLUMN_NAME"))) {
                   manyToOne = mto.get(i);
                   if (manyToOne == null) {
                     manyToOne = new ArrayList<>();
                   }
+                  if(manyToOne.contains(c)) {}else {
                   manyToOne.add(c);
-                  mto.put(i, manyToOne);
-                }
-              }
+                  mto.put(i, manyToOne);}
+//                }}
+              
               // one to many
               break;
             }
