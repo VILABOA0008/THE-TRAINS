@@ -29,7 +29,7 @@ public class Leer {
       Map<Integer, Boolean> mtm, Map<Integer, ArrayList<String>> vars,
       Map<Integer, ArrayList<String>> types, Map<Integer, ArrayList<Integer>> otm,
       Map<Integer, ArrayList<Integer>> mto, Map<Integer, String[]> Mtm,
-      Map<Integer, Integer> tableType,Map<Integer, ArrayList<String>> primaryKeys) {
+      Map<Integer, Integer> tableType, Map<Integer, ArrayList<String>> primaryKeys) {
     this.tablas = tablas;
     this.fks = fks;
     this.mtm = mtm;
@@ -95,7 +95,7 @@ public class Leer {
       ArrayList<String> primaryKey = new ArrayList<>();
       ArrayList<String> primaryKeyTable = new ArrayList<>();
       ArrayList<String> auxFks = new ArrayList<>();
-      
+
       ResultSet pkFind = databaseMetaData.getPrimaryKeys(null, null, actualTable);
       while (pkFind.next()) {
         primaryKey.add(pkFind.getString("COLUMN_NAME"));
@@ -105,14 +105,14 @@ public class Leer {
       while (fkFind.next()) {
         auxFks.add(fkFind.getString("FKCOLUMN_NAME"));
       }
-      
+
       ResultSet columns = databaseMetaData.getColumns(null, null, actualTable, null);
       while (columns.next()) {
         String column = columns.getString("COLUMN_NAME");
         String dataType = columns.getString("TYPE_NAME");
 
-        if (!mtm.get(c)&& !auxFks.contains(column)&&!primaryKey.contains(column)) {
-        column = metodos.despital(column);
+        if (!mtm.get(c) && !auxFks.contains(column) && !primaryKey.contains(column)) {
+          column = metodos.despital(column);
           dataTypes.add(dataType);
           dataVars.add(column);
 
@@ -135,7 +135,7 @@ public class Leer {
       ResultSet pfkcolumns = databaseMetaData.getColumns(null, null, actualTable, null);
       pfkcolumns.last();
       pkFind.last();
-      if(actualTable.equalsIgnoreCase("PartVersionFile")) {
+      if (actualTable.equalsIgnoreCase("PartVersionFile")) {
         System.err.println();
         pfkcolumns.last();
         pkFind.last();
@@ -178,28 +178,26 @@ public class Leer {
           mtm.put(c, true);
           Mtm.put(c, manyToMany);
         } else {
-          // TODO BASE ENTITIEES (2Pk, 2Fk +Fields  )
-          //Factory
-          
-          
-          
+          // TODO BASE ENTITIEES (2Pk, 2Fk +Fields )
+          // Factory
+
           fkFind.beforeFirst();
           pkFind.beforeFirst();
-          ArrayList<String>auxPks =new ArrayList<>();
-          ArrayList<String>auxFks =new ArrayList<>();
+          ArrayList<String> auxPks = new ArrayList<>();
+          ArrayList<String> auxFks = new ArrayList<>();
           while (pkFind.next()) {
-            auxPks.add(pkFind.getString("COLUMN_NAME"));     
-//            System.err.println("auxxx  pk    "+pkFind.getString("COLUMN_NAME"));
+            auxPks.add(pkFind.getString("COLUMN_NAME"));
+            // System.err.println("auxxx pk "+pkFind.getString("COLUMN_NAME"));
           }
           while (fkFind.next()) {
-            auxFks.add(fkFind.getString("FKCOLUMN_NAME"));            
-//            System.err.println("auxxx  fk    "+fkFind.getString("FKCOLUMN_NAME"));
+            auxFks.add(fkFind.getString("FKCOLUMN_NAME"));
+            // System.err.println("auxxx fk "+fkFind.getString("FKCOLUMN_NAME"));
 
           }
-          System.err.println("\n\n"+actualTable);
+          System.err.println("\n\n" + actualTable);
           System.err.println(auxFks);
           System.err.println(auxPks);
-          
+
           tableType.put(c, 3);
           mtm.put(c, false);
         }
@@ -222,27 +220,46 @@ public class Leer {
         ArrayList<Integer> oneToMany = new ArrayList<>();
         ArrayList<Integer> manyToOne;
         int i = -3;
-        if(actualTable.equalsIgnoreCase("PartVersionFile")) {
-          System.err.println();}
+        if (actualTable.equalsIgnoreCase("PartVersionFile")) {
+          System.err.println();
+        }
         while (fkFind.next()) {
-          String fk=fkFind.getString("FKCOLUMN_NAME");
-          
-          if(tableType.get(c)!=3&&(fk.substring(0,2).contains("id")||fk.substring(0,2).contains("Id"))) {
-            System.err.println("error  "+actualTable+"  empieza con id en vez de fk  "+fk);//error
+          String fk = fkFind.getString("FKCOLUMN_NAME");
+
+          if (tableType.get(c) != 3
+              && (fk.substring(0, 2).contains("id") || fk.substring(0, 2).contains("Id"))) {
+            System.err.println("error  " + actualTable + "  empieza con id en vez de fk  " + fk);// error
           }
-          
-          if(tableType.get(c)==3&&((!fk.substring(0,2).contains("id")&&!fk.substring(0,2).contains("Id")))) {
-            System.err.println("error entitie  "+actualTable+"  empieza con fk en vez de id  "+fk);//error
+
+          if (tableType.get(c) == 3
+              && ((!fk.substring(0, 2).contains("id") && !fk.substring(0, 2).contains("Id")))) {
+            System.err
+                .println("error entitie  " + actualTable + "  empieza con fk en vez de id  " + fk);// error
           }
-          
-          
+
           var.add(fk);
-          
+
           // oneToMany.add(e)
           for (i = 0; i < tablas.size(); i++) {
             if (tablas.get(i).equalsIgnoreCase(fkFind.getString("PKTABLE_NAME"))) {
-              System.err.println(fkFind.getString("PKTABLE_NAME")+" s   "+fkFind.getString("FKCOLUMN_NAME"));
+              System.err.println(
+                  fkFind.getString("PKTABLE_NAME") + " s   " + fkFind.getString("FKCOLUMN_NAME"));
               oneToMany.add(i);
+
+              // one to many
+              ResultSet PK = databaseMetaData.getPrimaryKeys(null, null, actualTable);
+              while (PK.next()) {
+                if (PK.getString("COLUMN_NAME")
+                    .equalsIgnoreCase(fkFind.getString("FKCOLUMN_NAME"))) {
+                  manyToOne = mto.get(i);
+                  if (manyToOne == null) {
+                    manyToOne = new ArrayList<>();
+                  }
+                  manyToOne.add(c);
+                  mto.put(i, manyToOne);
+                }
+              }
+              // one to many
               break;
             }
           }
@@ -250,12 +267,7 @@ public class Leer {
         if (!var.isEmpty()) {
           fks.put(c, var);
           otm.put(c, oneToMany);
-          manyToOne = mto.get(i);
-          if (manyToOne == null) {
-            manyToOne = new ArrayList<>();
-          }
-          manyToOne.add(c);
-          mto.put(i, manyToOne);
+
         }
       }
     }
@@ -264,7 +276,7 @@ public class Leer {
   public Connection connect() throws SQLException {
 
     Connection con = null;
-//     String url = "jdbc:mysql://localhost:3306/totem";
+    // String url = "jdbc:mysql://localhost:3306/totem";
     String url = "jdbc:mysql://localhost:3306/IEC_IND";
     String user = "root";
     String password = "";

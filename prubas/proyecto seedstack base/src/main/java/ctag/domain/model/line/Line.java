@@ -42,6 +42,8 @@ private static final String FIELD_F_K__PLANT = "FK_Plant";
 private static final String FIELD_F_K__GROUP = "FK_Group";   
 public static final String FK_LINETYPE = "FK_LineType";   
 private static final String MAPPED_BY_LINE = "line";   
+private static final String TABLE_LINE_DESIGN = "LineDesign";   
+private static final String ID_DESIGN = "IdDesign";   
 private static final String GENERATOR = "LineGen";
 
   @TableGenerator(name = GENERATOR, table = SEQUENCE, pkColumnName = KEY_VAL, valueColumnName = VALUE, pkColumnValue = TABLE_NAME, allocationSize = 1)
@@ -74,6 +76,13 @@ private static final String GENERATOR = "LineGen";
 
   @OneToMany(mappedBy = MAPPED_BY_LINE, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
   private Set<LineBOMS> lineBOMSs;
+ 
+ @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+  @JoinTable(
+      name = TABLE_LINE_DESIGN,
+      joinColumns = {@JoinColumn(name = ID_LINE, nullable = false, updatable = false)},
+      inverseJoinColumns = {@JoinColumn(name = ID_DESIGN, nullable = false, updatable = false)})
+  private Set<Design> designs;
 
 
 

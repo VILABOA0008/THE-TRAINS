@@ -221,27 +221,27 @@ public class AgregadoPLUSPLUS {
           if(old) {
           new File(url + "rest").mkdir(); 
           new File(url + "rest\\"+agg.toLowerCase()).mkdir();
-//          Escribir.escribir(
-//              url + "rest\\" + agg + "\\"
-//                  + agg
-//                  + "Finder.java",
-//              Old.finder(agg));
-////          new File(url + "rest\\"+agg.toLowerCase()).mkdir();
+          Escribir.escribir(
+              url + "rest\\" + agg + "\\"
+                  + agg
+                  + "Finder.java",
+              Old.finder(agg));
+//          new File(url + "rest\\"+agg.toLowerCase()).mkdir();
           Escribir.escribir(
               url + "rest\\" + agg + "\\"
                   + agg
                   + "Resource.java",
                   Old.Resource(agg));
           
-//          
-//          
-//          new File(url + "application\\infrastructure").mkdir();
-//          new File(url + "application\\infrastructure\\"+agg.toLowerCase()).mkdir();
-//          Escribir.escribir(
-//              url + "application\\infrastructure\\" + agg + "\\"
-//                  + agg
-//                  + "JpaFinder.java",
-//              Old.jpaFinder(agg));
+          
+          
+          new File(url + "application\\infrastructure").mkdir();
+          new File(url + "application\\infrastructure\\"+agg.toLowerCase()).mkdir();
+          Escribir.escribir(
+              url + "application\\infrastructure\\" + agg + "\\"
+                  + agg
+                  + "JpaFinder.java",
+              Old.jpaFinder(agg));
           
           //OLDDDDDDDDDD
           //OLDDDDDDDDDD
@@ -265,11 +265,11 @@ public class AgregadoPLUSPLUS {
         //COSILLAS
         //COSILLAS
 
-        if(tabla.equalsIgnoreCase("processlaunch")) {
+        if(tabla.equalsIgnoreCase("coilslaunch")) {
         Cosillas cosilla=new Cosillas(agg);
         
-        
-        //RESOURCE
+         
+        //RESOURCE 
         System.err.println("\n\n\nRESOURCE");
         cosilla.constructor(); 
         String params="Integer idAccount,Integer idProcessVigilanceVersion,Integer idPsaShift";
