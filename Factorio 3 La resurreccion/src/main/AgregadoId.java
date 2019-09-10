@@ -25,10 +25,10 @@ public class AgregadoId {
 //       }
       b += "  private Integer " + desTabla + "Id;\n";
       c += "Integer id" + capTabla + ",";
-      d += "    this." + clases + "Id = id" + capTabla + ";\n";
+      d += "    this." + desTabla + "Id = id" + capTabla + ";\n";
 
-      e += "  public " + capTabla + "Id get" + capTabla + "Id() {\n" +
-          "    return new " + capTabla + "Id(" + desTabla + "Id);\n" +
+      e += "  public " + clases + "Id get" + capTabla + "Id() {\n" +
+          "    return new " + clases + "Id(" + desTabla + "Id);\n" +
           "  }\n" +
           "\n";
 

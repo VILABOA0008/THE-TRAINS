@@ -194,8 +194,6 @@ public class Leer {
             // System.err.println("auxxx fk "+fkFind.getString("FKCOLUMN_NAME"));
 
           }
-          auxFks.sort((p1, p2) -> p1.compareTo(p2));
-          auxPks.sort((p1, p2) -> p1.compareTo(p2));
           System.err.println("\n\n" + actualTable);
           System.err.println(auxFks);
           System.err.println(auxPks);
