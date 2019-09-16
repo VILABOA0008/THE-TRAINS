@@ -115,6 +115,11 @@ public class Agregadospeques {
     return a;
   }
 
+  public static String importBlob() {
+
+    return "import com.mysql.cj.jdbc.Blob;";
+  }
+
   public static String importAgg(String agg, String url) {
 
     String a = url + "domain.model." + agg.toLowerCase() + "." + agg;

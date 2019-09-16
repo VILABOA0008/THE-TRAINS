@@ -59,6 +59,7 @@ public class Leer {
 
     Map<String, String> toVars = new HashMap<>();
     toVars.put("INT", "Integer");
+    toVars.put("INT UNSIGNED", "Integer");
     toVars.put("TINYINT", "Byte");
     toVars.put("VARCHAR", "String");
     toVars.put("BIT", "boolean");
@@ -78,6 +79,7 @@ public class Leer {
       ArrayList<String> vars = new ArrayList<>();
       for (int j = 0; j < types.get(i).size(); j++) {
         vars.add(toVars.get(types.get(i).get(j)));
+        System.err.println(types.get(i).get(j)+"     "+tablas.get(i));
 
       }
       types.put(i, vars);
@@ -135,7 +137,7 @@ public class Leer {
       ResultSet pfkcolumns = databaseMetaData.getColumns(null, null, actualTable, null);
       pfkcolumns.last();
       pkFind.last();
-      if (actualTable.equalsIgnoreCase("PartVersionFile")) {
+      if (actualTable.equalsIgnoreCase("linedesign")) {
         System.err.println();
         pfkcolumns.last();
         pkFind.last();
@@ -279,7 +281,7 @@ public class Leer {
   public Connection connect() throws SQLException {
 
     Connection con = null;
-    // String url = "jdbc:mysql://localhost:3306/totem";
+//     String url = "jdbc:mysql://localhost:3306/totem";
     String url = "jdbc:mysql://localhost:3306/IEC_IND";
     String user = "root";
     String password = "";

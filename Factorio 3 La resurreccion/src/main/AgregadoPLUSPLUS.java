@@ -265,7 +265,7 @@ public class AgregadoPLUSPLUS {
         //COSILLAS
         //COSILLAS
 
-        if(tabla.equalsIgnoreCase("coilslaunch")) {
+        if(tabla.equalsIgnoreCase("nada")) {
         Cosillas cosilla=new Cosillas(agg);
         
          
